@@ -117,19 +117,21 @@ Draugar is a personal project to build a privacy-first family safety and locatio
 **Goal:** Make it genuinely useful and maintainable
 
 **Feature Additions:**
-- Second platform (iOS or Android)
-- Encrypted messaging
-- Advanced geofencing
-- Place management
-- Data export/import
-- Self-hosting documentation
+- Encrypted messaging within family
+- Advanced geofencing (multiple zones, smart notifications)
+- Place management (home, work, school with custom icons)
+- Data export/import (JSON, KML formats)
+- Self-hosting documentation for advanced users
+- Battery optimization improvements
+- Offline mode support
 
 **Polish:**
-- Better onboarding
-- Improved privacy controls
-- Performance optimization
-- Comprehensive testing
-- Documentation
+- Better onboarding flow with interactive tutorial
+- Improved privacy controls dashboard
+- Performance optimization (faster map rendering, reduced data usage)
+- Comprehensive testing (unit, integration, E2E)
+- User documentation and FAQ
+- Accessibility improvements (screen readers, larger text)
 
 ### 3.4 Phase 4 - Community (Months 18+)
 **Goal:** Open source release and community building
@@ -147,78 +149,122 @@ Draugar is a personal project to build a privacy-first family safety and locatio
 
 ### 4.1 Technology Stack (Solo Development Focused)
 
-**Mobile Applications - Cross-Platform Approach**
+**Mobile Applications - React Native + Expo**
 
-⚠️ **CRITICAL DECISION: Native vs Cross-Platform**
+✅ **DECISION: React Native with Expo**
 
-**Option A: React Native (RECOMMENDED for solo dev)**
-- Single codebase for iOS + Android
-- JavaScript/TypeScript (easier with AI coding)
-- Expo for faster development and deployment
-- Good battery life with proper optimization
-- Mature ecosystem for location tracking
-- AI tools are excellent with React/TypeScript
-- **Time savings: 60-70% vs dual native**
+**Technology Stack:**
+- **Framework**: React Native with Expo (managed workflow)
+- **Language**: TypeScript for type safety
+- **Navigation**: React Navigation
+- **State Management**: React Context API (or Zustand for Phase 2+)
+- **Maps**: react-native-maps with OpenStreetMap tiles (Leaflet/react-native-webview for rendering)
+- **Location**: expo-location for foreground/background tracking
+- **Storage**: expo-secure-store for sensitive data (encryption keys)
 
-**Option B: Flutter**
-- Single codebase for iOS + Android
-- Dart language (less common, harder AI assistance)
-- Excellent performance
-- Good for complex UIs
-- Strong location plugin support
-- **Time savings: 60-70% vs dual native**
+**Why React Native:**
+- Single codebase deploys to both iOS and Android simultaneously
+- JavaScript/TypeScript ecosystem - excellent AI coding assistance
+- Expo simplifies deployment, OTA updates, and native features
+- Mature location tracking libraries with good battery optimization
+- Large community and extensive documentation
+- Can add native modules later if needed via custom dev clients
 
-**Option C: Native Apps (Most Work)**
-- **iOS**: Swift/SwiftUI
-- **Android**: Kotlin, Jetpack Compose
-- Best performance and platform integration
-- 2x development time, but AI can help
-- Better battery optimization potential
-- **Approach**: Build iOS first, port to Android in Phase 3
-
-**RECOMMENDATION: Start with React Native + Expo**
-- Fastest path to both platforms
-- AI coding assistance is excellent for React
-- Can always build native features later via bridges
-- Test with real users sooner
+**Deployment:**
+- **iOS**: TestFlight for beta → App Store for production
+- **Android**: Internal Testing → Google Play Store for production
+- **OTA Updates**: Expo allows instant bug fixes without app store review (for JS changes)
 
 **Open Source**: Published on GitHub under GPL-3.0
 
 **Backend Services - Simplified Stack**
 
+✅ **DECISION: Node.js + TypeScript with Express**
+
 **Phase 1 - MVP (Simple & Fast)**
-- **Language**: Rust with Axum (or start with Node.js/Express if more comfortable)
+- **Language**: Node.js with TypeScript
+- **Framework**: Express.js (or Fastify for better performance)
 - **Database**: PostgreSQL with PostGIS extension (managed service: Neon, Supabase)
-- **Auth**: JWT tokens, simple email/password
-- **Deployment**: Single container on Fly.io, Render, or Railway
-- **Maps**: Mapbox or Google Maps API (free tier, switch later)
+- **ORM**: Prisma (type-safe queries, auto-generated types, clean migrations)
+- **Auth**: JWT tokens with jsonwebtoken library, bcrypt for password hashing
+- **Validation**: Zod for request/response validation
+- **Deployment**: Render (web service with Docker)
+- **Maps**: OpenStreetMap tiles (no API key, privacy-first)
 - **NO CACHE**: Direct database queries are fine for MVP
 - **NO QUEUE**: Synchronous processing initially
 - **NO MICROSERVICES**: Monolith is perfect for solo dev
+
+**Prisma Benefits:**
+- Fully type-safe database access with TypeScript
+- Auto-generated types from your schema
+- Clean migration system (`prisma migrate dev`)
+- Excellent IDE autocomplete and AI code generation
+- Can use raw SQL for complex PostGIS spatial queries when needed
+
+**Why Node.js/TypeScript:**
+- Same language as mobile frontend (unified stack)
+- Excellent AI coding assistance (ChatGPT, Copilot excel at TypeScript)
+- Faster development than Rust for MVP
+- Massive ecosystem and library support
+- Easy debugging and rapid iteration
+- Can optimize or rewrite critical parts later if needed
 
 **Phase 2 - Scale (Add as needed)**
 - **Cache**: Redis (when you have 100+ active users)
 - **Real-time**: WebSocket support in same server
 - **Queue**: Optional - PostgreSQL can queue jobs via pg_cron
-- **Maps**: Migrate to OpenStreetMap + Leaflet
+- **Maps**: Self-host OSM tile server on Finland VPS (Docker container)
 
-**Phase 3 - Production (If it grows)**
-- **Monitoring**: Grafana Cloud (free tier) or self-hosted
-- **Queue**: Add RabbitMQ or use PostgreSQL LISTEN/NOTIFY
-- **CDN**: Cloudflare (privacy mode)
+**Phase 3 - Production (Self-Hosted on Finland VPS)**
+- **Hosting**: Migrate from Render to your Finland Docker VPS
+  - Docker Compose setup with backend + PostgreSQL + Redis + OSM tile server
+  - Caddy or Nginx as reverse proxy with automatic HTTPS
+  - Complete control and privacy
+- **Monitoring**: Self-hosted Grafana + Prometheus stack
+- **Queue**: PostgreSQL LISTEN/NOTIFY or Redis pub/sub
+- **Backups**: Automated PostgreSQL backups to external storage
 
 **Infrastructure - Cloud First, Self-Host Later**
-- **Hosting**: Fly.io, Render, Railway, or DigitalOcean App Platform
-  - Start in US/EU regions (Iceland VPS can come later)
-  - Cost: $5-20/month initially
-- **Database**: Managed PostgreSQL (Neon.tech, Supabase, or provider's managed DB)
-- **Storage**: S3-compatible storage (Cloudflare R2, Backblaze B2)
-- **Maps**:
-  - MVP: Mapbox GL JS (free tier: 50k loads/month)
-  - Production: Self-hosted OpenStreetMap tiles (when needed)
+
+✅ **DECISION: Render + Neon for Phase 1**
+
+- **Hosting**: Render Web Service
+  - Free tier for initial development (spins down after 15 min inactivity)
+  - Upgrade to $7/month for always-on when ready
+  - Auto-deploy from GitHub (push to main → automatic deployment)
+  - Simple web UI for configuration
+  - Built-in HTTPS with custom domain support
+  - Start in US region (Iceland VPS can come later in Phase 3)
+
+- **Database**: Neon.tech PostgreSQL
+  - Free tier: 0.5 GB storage, 10 GB data transfer/month
+  - Serverless PostgreSQL with PostGIS support
+  - Auto-scaling and branching for dev/prod
+  - Upgrade to $19/month when you outgrow free tier
+
+- **Storage**: S3-compatible storage (add later when needed)
+  - Cloudflare R2 or Backblaze B2 for profile pictures, exports
+
+- **Maps**: OpenStreetMap
+  - Phase 1 MVP: Use free public OSM tile servers (tile.openstreetmap.org)
+  - Phase 2: Self-hosted tile server on your Finland VPS (Docker)
+  - Libraries: react-native-maps or react-native-webview with Leaflet.js
+  - No API keys, no usage limits, complete privacy
+  - Eventually host your own tiles using osm-tile-server Docker container
+
 - **Monitoring**:
-  - MVP: Provider's built-in monitoring
-  - Later: Grafana Cloud free tier or Better Stack
+  - Phase 1: Render's built-in monitoring dashboard
+  - Phase 2: Add Sentry for error tracking (free: 5k errors/month)
+  - Phase 3: Grafana Cloud free tier or Better Stack
+
+**Migration Path to Finland VPS:**
+- Phase 1-2: Render + Neon (fast iteration, free/cheap)
+- Phase 3: Self-host on Finland Docker VPS (complete control)
+- Docker container makes migration straightforward
+- Plan to migrate when:
+  - You have 50+ active users
+  - Monthly costs exceed VPS cost (~€10-20/month)
+  - You want complete data sovereignty in Finland/EU
 
 **Security - Pragmatic Approach**
 - **Encryption**:
@@ -406,55 +452,66 @@ CREATE INDEX idx_locations_user ON locations(user_id, recorded_at DESC);
 **Goal**: Get a working API deployed
 
 - [ ] **Week 1-2: Setup & Learning**
-  - Choose: Rust (Axum) or Node.js (Express) - be honest about your comfort level
-  - Set up project structure with AI coding assistant
-  - Create git repo, README, basic docs
-  - Sign up for Fly.io or Render (free tier initially)
-  - Set up managed PostgreSQL (Neon.tech free tier: 0.5GB)
+  - Initialize Node.js + TypeScript project with Express
+  - Set up Prisma ORM with PostgreSQL
+  - Install dependencies: express, prisma, @prisma/client, zod, jsonwebtoken, bcrypt
+  - Create git repo on GitHub, README, basic docs
+  - Sign up for Render account (free tier)
+  - Sign up for Neon.tech and create PostgreSQL database (free tier: 0.5GB)
+  - Configure TypeScript (tsconfig.json with strict mode)
+  - Initialize Prisma and create initial schema
+  - Test database connection locally
 
 - [ ] **Week 3-4: Core API**
   - User registration & login (email/password, JWT)
-  - Password hashing (bcrypt)
+  - Password hashing (bcrypt with 10 rounds)
+  - JWT middleware for protected routes
   - Family creation and invite codes
-  - Location POST endpoint (store lat/lng)
+  - Location POST endpoint (store lat/lng with validation)
   - Location GET endpoint (retrieve family locations)
-  - Basic error handling and validation
+  - Request validation with Zod schemas
+  - Basic error handling middleware
 
 - [ ] **Week 5-6: Polish & Deploy**
-  - Write API tests (basic integration tests)
-  - Add request rate limiting
-  - Deploy to Fly.io/Render
-  - Set up CI/CD (GitHub Actions)
-  - Test with Postman/cURL
+  - Write API tests with Jest or Vitest
+  - Add request rate limiting (express-rate-limit)
+  - Create Dockerfile for deployment
+  - Deploy to Render (connect GitHub repo, auto-deploy on push)
+  - Configure environment variables in Render dashboard
+  - Set up CI/CD (GitHub Actions for tests, Render auto-deploys)
+  - Test deployed API with Postman/cURL/Thunder Client
 
 **Success**: Working REST API deployed to cloud that you can hit with cURL
 
 ### Month 3-4: Mobile App MVP
-**Goal**: One working mobile app (iOS OR Android)
+**Goal**: Working mobile app for both iOS and Android
 
 - [ ] **Week 7-8: React Native Setup**
   - Initialize Expo project
   - Set up navigation (React Navigation)
   - Design basic screens: Login, Map, Profile
-  - Install dependencies: react-native-maps, expo-location
-  - Test on emulator/physical device
+  - Install dependencies: react-native-maps (with OSM tiles), expo-location
+  - OR: Use react-native-webview with Leaflet.js for OSM rendering
+  - Configure OSM tile server URL (use public tiles initially)
+  - Test on emulator/physical device (Expo Go or custom dev client)
 
 - [ ] **Week 9-10: Core Features**
   - Login/Register screens (connect to API)
   - Request location permission
   - Manual "Update Location" button
   - Send location to API
-  - Display family members on map (using Mapbox/Google Maps)
+  - Display family members on map (using OpenStreetMap tiles)
+  - Basic map controls (zoom, pan, markers)
   - Basic error handling
 
 - [ ] **Week 11-12: Testing & Beta**
-  - Test on real devices (iOS or Android)
+  - Test on real devices (both iOS and Android)
   - Add loading states and error messages
   - Simple onboarding flow
-  - TestFlight (iOS) or Internal Testing (Android)
-  - Get 2-3 family members to test
+  - Deploy to TestFlight (iOS) AND Internal Testing (Android)
+  - Get 2-3 family members to test on both platforms
 
-**Success**: You and 2-3 people can share locations using the app
+**Success**: You and 2-3 people can share locations using the app on iOS and Android
 
 ### Month 5-6: Polish & Stability
 **Goal**: Make it reliable enough for daily use
@@ -516,28 +573,31 @@ CREATE INDEX idx_locations_user ON locations(user_id, recorded_at DESC);
 **Success**: E2E encrypted, background tracking works, battery drain acceptable
 
 ### Month 13-18: Enhancement (Phase 3)
-**Goal**: Second platform + polish
+**Goal**: Advanced features and polish
 
-- [ ] **Second Platform (8-10 weeks)**
-  - If React Native: Already done!
-  - If native: Build iOS or Android version
-  - Feature parity with first platform
-  - Cross-platform testing
+- [ ] **Advanced Features (8-10 weeks)**
+  - Encrypted in-app messaging (text only, simple)
+  - Advanced geofencing (multiple zones, custom notifications)
+  - Place management (favorite locations, custom names/icons)
+  - Offline mode (queue location updates, sync when online)
+  - Battery optimization pass (profiling, improvements)
 
-- [ ] **Additional Features**
-  - Geofencing & place management
-  - Simple in-app messaging
-  - Ghost mode (pause sharing)
-  - Data export/delete
+- [ ] **User Experience (4-5 weeks)**
+  - Interactive onboarding tutorial
+  - Privacy dashboard (view/control all privacy settings)
+  - Data export (JSON, KML, GPX formats)
+  - Account deletion flow
+  - Accessibility improvements
 
-- [ ] **Open Source Prep**
-  - Clean up code
+- [ ] **Open Source Prep (2-3 weeks)**
+  - Code cleanup and refactoring
   - Write comprehensive README
   - Add LICENSE (GPL-3.0)
-  - Deployment guides
+  - Self-hosting deployment guides
   - Security documentation
+  - Contribution guidelines
 
-**Success**: Both platforms working, ready for open source release
+**Success**: Polished app with advanced features, ready for open source release
 
 ---
 
@@ -571,22 +631,35 @@ CREATE INDEX idx_locations_user ON locations(user_id, recorded_at DESC);
 
 ### 6.2 Project Structure
 
-**Backend (Rust + Axum):**
+**Backend (Node.js + TypeScript + Express):**
 ```
 backend/
 ├── src/
-│   ├── main.rs              # Server entry point
+│   ├── index.ts             # Server entry point
 │   ├── routes/
-│   │   ├── auth.rs          # Login, register
-│   │   ├── locations.rs     # Location CRUD
-│   │   └── families.rs      # Family management
-│   ├── models/              # Database models
-│   ├── middleware/          # Auth, rate limiting
-│   ├── db.rs                # Database connection
-│   └── crypto.rs            # Encryption (Phase 2)
-├── migrations/              # SQL migrations
+│   │   ├── auth.ts          # Login, register
+│   │   ├── locations.ts     # Location CRUD
+│   │   └── families.ts      # Family management
+│   ├── middleware/
+│   │   ├── auth.ts          # JWT authentication
+│   │   ├── rateLimit.ts     # Rate limiting
+│   │   └── errorHandler.ts  # Error handling
+│   ├── models/              # TypeScript types/interfaces
+│   ├── services/            # Business logic
+│   ├── db/
+│   │   └── client.ts        # Database connection (Prisma/pg)
+│   ├── utils/
+│   │   ├── crypto.ts        # Encryption (Phase 2)
+│   │   └── validation.ts    # Zod schemas
+│   └── config/
+│       └── env.ts           # Environment config
+├── prisma/
+│   ├── schema.prisma        # Database schema
+│   └── migrations/          # SQL migrations
 ├── tests/                   # Integration tests
-└── Cargo.toml
+├── package.json
+├── tsconfig.json
+└── Dockerfile
 ```
 
 **Frontend (React Native + Expo):**
@@ -619,15 +692,22 @@ mobile/
 - **Expo CLI**: Mobile development
 - **Android Studio/Xcode**: Mobile testing (optional, use Expo Go initially)
 
-**Rust Backend:**
+**Node.js Backend:**
 ```bash
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Install Node.js LTS (v20+) from nodejs.org first
 
 # Create project
-cargo new draugar-backend
-cd draugar-backend
-cargo add axum tokio sqlx bcrypt jsonwebtoken
+mkdir draugar-backend && cd draugar-backend
+npm init -y
+npm install express typescript @types/node @types/express
+npm install prisma @prisma/client zod jsonwebtoken bcrypt
+npm install -D tsx nodemon @types/jsonwebtoken @types/bcrypt
+
+# Initialize TypeScript
+npx tsc --init
+
+# Initialize Prisma
+npx prisma init
 ```
 
 **React Native Mobile:**
@@ -635,19 +715,25 @@ cargo add axum tokio sqlx bcrypt jsonwebtoken
 # Install Node.js & npm first
 npx create-expo-app draugar-mobile
 cd draugar-mobile
-npx expo install expo-location react-native-maps
+npx expo install expo-location react-native-maps react-native-webview
 npm install @react-navigation/native @react-navigation/stack
+# For Leaflet.js in webview (alternative approach)
+npm install leaflet @types/leaflet
 ```
 
 ### 6.4 Deployment Checklist
 
-**Backend Deployment (Fly.io Example):**
-- [ ] Create Dockerfile
-- [ ] Set environment variables (DATABASE_URL, JWT_SECRET)
-- [ ] Deploy: `flyctl launch`
-- [ ] Set up PostgreSQL: `flyctl postgres create`
-- [ ] Run migrations
-- [ ] Test API endpoints
+**Backend Deployment (Render):**
+- [ ] Create Dockerfile in backend repo
+- [ ] Push code to GitHub
+- [ ] Create new Web Service on Render dashboard
+- [ ] Connect GitHub repository
+- [ ] Set environment variables (DATABASE_URL from Neon, JWT_SECRET)
+- [ ] Configure build command: `npm install && npx prisma generate && npm run build`
+- [ ] Configure start command: `npm start`
+- [ ] Deploy (automatic on git push to main)
+- [ ] Run migrations: `npx prisma migrate deploy` (via Render shell or build script)
+- [ ] Test API endpoints with deployed URL
 
 **Mobile Deployment:**
 - [ ] iOS: TestFlight for beta testing
@@ -980,22 +1066,30 @@ wss://api.draugar.is/v1/realtime
 
 - [ ] **Sign Up for Services**:
   - GitHub account (free)
-  - Fly.io or Render account (free tier)
-  - Neon.tech or Supabase (free PostgreSQL)
-  - Mapbox account (free tier)
+  - Render account (free tier, requires credit card but won't charge for free tier)
+  - Neon.tech account (free PostgreSQL - 0.5 GB, no credit card required)
+  - No map API account needed (using OpenStreetMap - completely free!)
 
 ### Day 3-4: Backend Hello World
 
 - [ ] **Create Simple API**:
-  - Set up basic Rust/Axum or Node/Express server
+  - Set up basic Node.js + TypeScript + Express server
   - Add one endpoint: `GET /health` → `{"status": "ok"}`
-  - Deploy to Fly.io or Render
-  - Verify it works with curl
+  - Add TypeScript compilation script to package.json
+  - Test locally with `npm run dev`
+  - Create Dockerfile
+  - Push to GitHub
+  - Deploy to Render (create Web Service, connect repo)
+  - Verify it works with curl to your Render URL
 
 - [ ] **Database Setup**:
-  - Create Neon/Supabase PostgreSQL database
-  - Run first migration (users table)
-  - Test connection from backend
+  - Create Neon.tech PostgreSQL database (free tier)
+  - Copy connection string from Neon dashboard
+  - Add DATABASE_URL to .env file locally
+  - Configure Prisma schema with users table
+  - Run first migration: `npx prisma migrate dev`
+  - Test connection from backend with simple query
+  - Add DATABASE_URL to Render environment variables
 
 ### Day 5-7: Mobile Hello World
 

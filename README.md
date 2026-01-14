@@ -1,140 +1,218 @@
 # Draugar
 
-**Privacy-Respecting Family Safety Platform**
+**Privacy-First Family Safety Platform (Solo Development)**
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
-[![Built in Iceland](https://img.shields.io/badge/Built%20in-Iceland-blue.svg)](https://www.iceland.is/)
 [![Privacy First](https://img.shields.io/badge/Privacy-First-green.svg)](PRIVACY_PRINCIPLES.md)
+[![Open Source](https://img.shields.io/badge/Open-Source-orange.svg)](https://github.com/draugar)
 
 ---
 
 ## Overview
 
-Draugar (Old Norse for "ghosts") is a privacy-first family safety and location tracking platform built in Iceland. We provide families with the peace of mind that comes from staying connected, without the surveillance and data exploitation common in mainstream alternatives.
+Draugar (Old Norse for "ghosts") is a privacy-first family safety and location tracking platform built as a solo development project. It's an ethical alternative to surveillance-based family tracking apps like Life360, designed from the ground up with privacy by design principles.
 
-**Our Mission:** Family safety without surveillance capitalism.
+**Mission:** Family safety without surveillance capitalism.
 
-**Our Promise:** Your family's safety. Your data's privacy. No compromises.
+**Promise:** Your family's safety. Your data's privacy. No compromises.
+
+**Status:** Personal learning project → Open source release → Community-driven platform
 
 ---
 
 ## Why Draugar?
 
-### Privacy by Design
+### The Problem
+Popular family tracking apps like Life360 have serious privacy issues:
+- Sell location data to data brokers
+- Track users for advertising
+- Server can see all unencrypted location data
+- Complex privacy policies hiding data sharing
+- Closed source - no way to verify claims
+
+### The Solution: Draugar
 - **End-to-End Encryption**: Location data encrypted on your device before transmission
-- **Zero-Knowledge Architecture**: Our servers cannot read your location data
-- **No Data Selling**: We will never sell, rent, or trade your data
-- **Iceland-Based**: Strong privacy laws and GDPR compliance
-- **Open Source**: Mobile apps published on GitHub for community audits
-
-### User Control
-- **Ghost Mode**: Temporarily pause location sharing
-- **Granular Permissions**: Control exactly what each family member can see
-- **Automatic Deletion**: Location history auto-deleted after your chosen period
-- **Easy Export**: Download all your data in standard formats anytime
-- **One-Click Deletion**: Complete account and data erasure
-
-### Family Safety
-- **Real-Time Location Sharing**: Know where family members are
-- **Emergency SOS**: One-touch emergency alerts to all family members
-- **Geofencing**: Notifications when family arrives/leaves important places
-- **Battery Monitoring**: Low battery alerts for family members
-- **Encrypted Messaging**: Communicate securely within your family circle
+- **Zero-Knowledge Architecture**: Server cannot read your location data
+- **No Data Selling**: Never. Ever. Legally binding commitment.
+- **Open Source**: Mobile apps published on GitHub for full transparency
+- **Self-Hostable**: Run your own instance if desired
+- **Privacy-Respecting Maps**: OpenStreetMap instead of Google Maps
 
 ---
 
 ## Key Features
 
-### Core Features (Free)
-- Family circles up to 5 members
-- Real-time location sharing (end-to-end encrypted)
-- 30-day location history
-- Emergency SOS alerts
-- Safe zones and geofencing (up to 10 places)
-- Battery level monitoring
-- Encrypted in-app messaging
-- Ghost mode (privacy breaks)
+### Phase 1 - MVP (Months 1-6)
+- [x] User authentication (email/password)
+- [x] Create family circles (invite via link)
+- [x] Manual location sharing (button press)
+- [x] View family on map (OpenStreetMap)
+- [x] Basic web dashboard
+- [ ] HTTPS encryption (TLS 1.3)
 
-### Premium Features
-- Unlimited family members
-- Unlimited location history (still encrypted)
-- Unlimited places
-- Multiple family circles
-- Advanced safety features
-- Priority customer support
+### Phase 2 - Privacy & Polish (Months 7-12)
+- [ ] End-to-end encryption (AES-256-GCM)
+- [ ] Background location tracking (battery optimized)
+- [ ] Real-time updates (WebSocket)
+- [ ] Ghost mode (pause sharing)
+- [ ] Location history with auto-delete
+- [ ] Battery level sharing
+- [ ] Basic geofencing (2-3 places)
+- [ ] SOS button
+
+### Phase 3 - Enhancement (Months 13-18)
+- [ ] Encrypted messaging within family
+- [ ] Advanced geofencing
+- [ ] Place management (home, work, school)
+- [ ] Data export/import (JSON, KML)
+- [ ] Self-hosting documentation
+- [ ] Battery optimization
+- [ ] Offline mode support
+
+### Phase 4 - Community (Months 18+)
+- [ ] Open source all code
+- [ ] Comprehensive documentation
+- [ ] Community contributions
+- [ ] Feature requests from users
 
 ---
 
 ## Technology Stack
 
 ### Mobile Apps
-- **iOS**: Swift/SwiftUI, native development
-- **Android**: Kotlin, Jetpack Compose
-- **License**: GPL-3.0 (open source)
+✅ **React Native + Expo**
+- Single codebase for iOS and Android
+- TypeScript for type safety
+- OpenStreetMap tiles (react-native-maps)
+- expo-location for tracking
+- Deploys to both platforms simultaneously
+
+**Why React Native:**
+- Fastest path to both iOS and Android
+- Excellent AI coding assistance (TypeScript)
+- Mature ecosystem for location tracking
+- Can add native features later if needed
 
 ### Backend
-- **Language**: Rust (for performance and security)
-- **Framework**: Axum (async web framework)
-- **Database**: PostgreSQL with PostGIS
-- **Cache**: Redis (real-time updates)
-- **Queue**: RabbitMQ (background jobs)
+✅ **Node.js + TypeScript + Express**
+- Unified language with frontend (TypeScript)
+- Prisma ORM (type-safe database access)
+- PostgreSQL with PostGIS (location data)
+- JWT authentication with bcrypt
+- Zod for validation
+
+**Why Node.js:**
+- Same language as mobile (easy context switching)
+- Excellent AI coding tools (Copilot, Claude)
+- Fast development for solo developer
+- Easy to debug and iterate
 
 ### Infrastructure
-- **Hosting**: Iceland data centers
-- **Maps**: OpenStreetMap (privacy-respecting)
-- **Encryption**: AES-256, Signal Protocol adaptation
-- **Compliance**: GDPR, COPPA, Iceland Data Protection Act
+
+**Phase 1-2: Render + Neon**
+- Render Web Service (free tier → $7/month)
+- Neon.tech PostgreSQL (free tier → $19/month)
+- Quick deployment and iteration
+- Low cost for MVP
+
+**Phase 3: Self-Hosted in Finland**
+- Docker VPS in Finland (€10-20/month)
+- Complete control and data sovereignty
+- Self-hosted OSM tile server
+- Caddy/Nginx reverse proxy with HTTPS
+
+### Maps
+✅ **OpenStreetMap**
+- Phase 1: Free public OSM tile servers
+- Phase 2+: Self-hosted tile server on Finland VPS
+- No API keys, no usage limits
+- Complete privacy from day 1
+- Perfect alignment with privacy-first values
 
 ---
 
 ## Architecture
 
+### Phase 1 - MVP (Monolithic)
 ```
 ┌─────────────────────────────────────┐
-│      Mobile Clients (E2E Crypto)    │
-│         iOS & Android Apps          │
-└────────────┬────────────────────────┘
-             │ TLS 1.3 + E2E Encryption
-             ▼
+│    Mobile Clients (React Native)    │
+│         iOS & Android               │
+│   - OpenStreetMap display           │
+│   - Manual location updates         │
+└──────────────┬──────────────────────┘
+               │ HTTPS/TLS 1.3
+               ▼
 ┌─────────────────────────────────────┐
-│        API Gateway (Iceland)        │
-│   Auth, Rate Limiting, Routing      │
-└────────────┬────────────────────────┘
-             │
-     ┌───────┼───────┐
-     ▼       ▼       ▼
-┌─────────┐ ┌─────────┐ ┌─────────┐
-│Location │ │ Family  │ │ Places  │
-│Service  │ │ Service │ │ Service │
-│ (Rust)  │ │ (Rust)  │ │ (Rust)  │
-└────┬────┘ └────┬────┘ └────┬────┘
-     │           │           │
-     └───────────┼───────────┘
-                 ▼
-     ┌───────────────────────┐
-     │ PostgreSQL + PostGIS  │
-     │  (Encrypted at Rest)  │
-     └───────────────────────┘
+│   Node.js Backend (Express)         │
+│   - REST API                        │
+│   - JWT Authentication              │
+│   - Location storage                │
+│   - Family management               │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  PostgreSQL + PostGIS (Neon)        │
+│  - Users, families, locations       │
+└─────────────────────────────────────┘
 ```
 
-**Key Security Feature:** Server stores only encrypted blobs and cannot read location data.
+### Phase 2 - E2E Encrypted
+```
+┌─────────────────────────────────────┐
+│    Mobile Clients                   │
+│   - Client-side encryption          │
+│   - WebSocket real-time             │
+│   - Background tracking             │
+└──────────────┬──────────────────────┘
+               │ HTTPS + WebSocket + E2E
+               ▼
+┌─────────────────────────────────────┐
+│   Backend Server                    │
+│   - Stores encrypted blobs only     │
+│   - Cannot read location data       │
+└──────────────┬──────────────────────┘
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+┌──────────────┐  ┌──────────────┐
+│  PostgreSQL  │  │  Redis       │
+│  (Primary)   │  │  (Cache)     │
+└──────────────┘  └──────────────┘
+```
+
+### Phase 3 - Self-Hosted
+```
+┌─────────────────────────────────────┐
+│         Finland Docker VPS          │
+│  ┌──────────────────────────────┐   │
+│  │  Caddy (HTTPS Proxy)         │   │
+│  └────────┬─────────────────────┘   │
+│           │                          │
+│  ┌────────┴─────────────────────┐   │
+│  │  Backend + PostgreSQL +       │   │
+│  │  Redis + OSM Tile Server      │   │
+│  │  (Docker Compose)             │   │
+│  └──────────────────────────────┘   │
+└─────────────────────────────────────┘
+```
+
+**Key Privacy Feature:** Server stores only encrypted location data and cannot read it.
 
 ---
 
 ## Privacy Principles
 
-Draugar is built on ten core privacy principles:
+Draugar is built on privacy-first principles:
 
 1. **Zero-Knowledge Architecture** - Server cannot read your data
-2. **Data Minimization** - Collect only what's necessary
+2. **Data Minimization** - Collect only what's essential
 3. **User Sovereignty** - You own and control your data
-4. **Transparency** - Open source, public audits
-5. **Consent and Control** - Explicit, granular permissions
-6. **Security by Design** - Encryption at every layer
-7. **No Surveillance Capitalism** - No data selling, ever
-8. **Privacy by Default** - Most private settings enabled
-9. **Accountability** - Regular audits, DPO, public reports
-10. **Ethical Data Use** - Data only used for stated purposes
+4. **Transparency** - Open source mobile apps
+5. **No Surveillance Capitalism** - Never sell data
+6. **Privacy by Default** - Most protective settings enabled
+7. **OpenStreetMap** - Privacy-respecting maps from day 1
 
 Read our full [Privacy Principles](PRIVACY_PRINCIPLES.md) for details.
 
@@ -142,174 +220,265 @@ Read our full [Privacy Principles](PRIVACY_PRINCIPLES.md) for details.
 
 ## Project Status
 
-**Current Phase:** Planning & Architecture
-**Target Launch:** Q2 2026 (4 months)
+**Current Phase:** Solo Development + Planning
+**Developer:** One person with AI coding assistance
+**Target:** MVP in 6 months, privacy features in 12 months
+**Timeline:** 6-18 months for full feature set
+
+### Development Approach
+
+This is a **personal learning project** that will become open source:
+
+**Solo Development Strategy:**
+- Using AI coding assistants (Claude, Copilot)
+- Iterative development (ship early, iterate often)
+- Start simple, add complexity gradually
+- Focus on learning modern development practices
+- Build something genuinely useful
+
+**Why Solo?**
+- Complete control over privacy decisions
+- Learning opportunity (Rust alternative considered, chose TypeScript)
+- Sustainable scope for one developer
+- Can maintain long-term
 
 ### Roadmap
 
-**Phase 1: Foundation (Months 1-4)**
-- Backend infrastructure setup in Iceland
-- iOS and Android app development
+**Phase 1: MVP (Months 1-6)**
+- Backend API with authentication
+- React Native mobile app (iOS + Android)
+- Manual location sharing
+- Basic map display with OpenStreetMap
+- Family circle management
+- Deploy to Render + Neon
+
+**Phase 2: Privacy Features (Months 7-12)**
 - End-to-end encryption implementation
-- Security audit and beta testing
-- Public launch
+- Background location tracking
+- Real-time updates (WebSocket)
+- Ghost mode and privacy controls
+- Battery optimization
 
-**Phase 2: Growth (Months 5-8)**
-- Enhanced communication features
-- Advanced place management
-- Multi-language support (Icelandic, English, Nordic languages)
-- Marketing to privacy-conscious users
-- Community building
+**Phase 3: Enhancement (Months 13-18)**
+- Advanced features (messaging, geofencing)
+- Self-hosting documentation
+- Migrate to Finland VPS
+- Polish and accessibility
+- Open source preparation
 
-**Phase 3: Scale (Months 9-12)**
-- Premium subscription launch
-- Enterprise/school edition
-- Market expansion (Nordic countries, Germany, EU)
-- Security certifications (ISO 27001)
-- Strategic partnerships
+**Phase 4: Community (Months 18+)**
+- Full open source release
+- Community contributions
+- Self-hosting guides
+- Documentation
 
-See [PROJECT_PLAN.md](PROJECT_PLAN.md) for detailed roadmap.
+See [PROJECT_PLAN.md](PROJECT_PLAN.md) for detailed technical roadmap.
+
+---
+
+## Development Setup
+
+### Prerequisites
+- Node.js 20+ LTS
+- Git
+- Docker (optional, for local PostgreSQL)
+- Expo CLI for mobile development
+
+### Backend Setup
+```bash
+# Clone repo
+git clone https://github.com/yourusername/draugar-backend
+cd draugar-backend
+
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.example .env
+# Edit .env with your DATABASE_URL, JWT_SECRET
+
+# Initialize Prisma
+npx prisma migrate dev
+
+# Run development server
+npm run dev
+```
+
+### Mobile App Setup
+```bash
+# Clone repo
+git clone https://github.com/yourusername/draugar-mobile
+cd draugar-mobile
+
+# Install dependencies
+npm install
+
+# Run on iOS
+npm run ios
+
+# Run on Android
+npm run android
+
+# Or use Expo Go
+npm start
+```
 
 ---
 
 ## Documentation
 
-- [Project Plan](PROJECT_PLAN.md) - Comprehensive project planning and roadmap
-- [Privacy Principles](PRIVACY_PRINCIPLES.md) - Our commitment to privacy by design
-- [Contributing Guide](CONTRIBUTING.md) - How to contribute (coming soon)
-- [Security Policy](SECURITY.md) - Responsible disclosure (coming soon)
+- [Project Plan](PROJECT_PLAN.md) - Comprehensive technical and business plan
+- [Privacy Principles](PRIVACY_PRINCIPLES.md) - Privacy commitments and design
+- Contributing Guide - Coming soon after open source release
+- Security Policy - Coming soon
 
 ---
 
-## Why Iceland?
+## Technology Choices Explained
 
-### Legal Framework
-- Strong privacy laws and GDPR compliance
-- No mass surveillance or mandatory data retention
-- Protection from foreign government overreach
-- Stable democracy with strong rule of law
+### Why React Native over Native?
+- Single codebase = 60-70% time savings
+- Both iOS and Android from day 1
+- Excellent AI coding assistance for TypeScript
+- Can add native modules later if needed
+- Expo simplifies deployment and OTA updates
 
-### Infrastructure
-- 100% renewable energy (geothermal + hydro)
-- Natural cooling for data centers
-- Modern, reliable infrastructure
-- Strategic location between Europe and North America
+### Why Node.js over Rust?
+- Same language as frontend (TypeScript)
+- Faster development for solo developer
+- Excellent AI tool support
+- Easy debugging and iteration
+- Can optimize later if needed
 
-### Business Environment
-- Growing tech ecosystem
-- Government support for startups
-- EU/EEA market access
-- English proficiency for international team
+### Why OpenStreetMap over Google/Mapbox?
+- Complete privacy - no API keys or tracking
+- No usage limits or costs
+- Can self-host tiles on Finland VPS
+- Aligns with privacy-first mission
+- Community-driven and ethical
 
----
-
-## Getting Started
-
-### For Users
-Draugar is currently in development. Sign up for early access:
-- Website: [https://draugar.is](https://draugar.is) (coming soon)
-- Email: hello@draugar.is
-
-### For Developers
-We'll be open-sourcing our mobile apps. Stay tuned for:
-- iOS app repository
-- Android app repository
-- Contributing guidelines
-- Development setup instructions
-
-### For Investors
-Interested in supporting privacy-respecting technology?
-- Email: invest@draugar.is
-- See our [Project Plan](PROJECT_PLAN.md) for business details
+### Why Self-Host Eventually?
+- Complete data sovereignty
+- EU/Finland data protection laws
+- Lower long-term costs
+- Full control over infrastructure
+- Privacy and ethical values
 
 ---
 
-## Team
+## Why This Matters
 
-We're building a team of privacy-focused engineers, designers, and advocates. Interested in joining?
-- Email: careers@draugar.is
-- Location: Remote-friendly, Iceland-based
+Family tracking apps are useful, but mainstream options have serious privacy issues:
+- Life360 has been caught selling precise location data
+- Most apps use surveillance business models
+- Closed source means no way to verify privacy claims
+- Users have no control over their data
 
----
-
-## Community
-
-- **GitHub**: [github.com/draugar](https://github.com/draugar) (coming soon)
-- **Discord**: Community server (coming soon)
-- **Twitter**: [@draugar](https://twitter.com/draugar) (coming soon)
-- **Email**: hello@draugar.is
-
----
-
-## Legal
-
-- **Company**: Draugar EHF (Iceland)
-- **Data Protection Officer**: privacy@draugar.is
-- **Security Issues**: security@draugar.is
-- **License**: GPL-3.0 (mobile apps)
+**Draugar is different:**
+- Built for privacy from day 1
+- Open source for transparency
+- No business model based on data exploitation
+- Self-hostable for maximum control
+- Learning project that respects users
 
 ---
 
-## FAQ
+## Contributing
 
-**Q: How is Draugar different from other family tracking apps?**
-A: End-to-end encryption means we cannot read your location data. We're based in Iceland under strong privacy laws. We never sell data. Our apps will be open source.
+This project will be open sourced in Phase 4 (Month 18+). At that point:
+- Mobile apps: GPL-3.0
+- Backend: Open for self-hosting
+- Contribution guidelines will be published
+- Community features and bug fixes welcome
 
-**Q: What does "zero-knowledge" mean?**
-A: Our servers store encrypted location data but don't have the keys to decrypt it. Only your family members can see your location.
-
-**Q: Can governments request my data?**
-A: Due to our zero-knowledge architecture, we cannot provide unencrypted location data—we don't have it. We're under Iceland's jurisdiction and will fight overreach.
-
-**Q: Why Iceland?**
-A: Strong privacy laws, no mass surveillance, GDPR compliance, 100% renewable energy, and a stable legal environment.
-
-**Q: Is Draugar open source?**
-A: Our mobile apps will be open source (GPL-3.0) for security audits. Backend will be source-available for enterprise customers.
-
-**Q: How do you make money?**
-A: Premium subscriptions ($5-7/month) and enterprise licenses. We never sell user data.
-
-**Q: When will Draugar launch?**
-A: We're targeting Q2 2026 for public launch. Sign up for early access at hello@draugar.is.
+For now, you can:
+- Star this repo to show support
+- Share with privacy-conscious friends
+- Provide feedback on privacy principles
+- Wait for open source release
 
 ---
 
 ## Support This Project
 
-Interested in privacy-respecting technology? Here's how you can help:
+**As a User:**
+- Sign up for early testing when MVP is ready
+- Provide feedback on features and UX
+- Tell privacy-conscious friends and family
 
-- **Star this repo** to show support
-- **Share** with privacy-conscious friends and family
-- **Contribute** code, designs, or documentation (coming soon)
-- **Provide feedback** on our privacy principles
-- **Invest** in building ethical alternatives
+**As a Developer:**
+- Wait for open source release (Month 18+)
+- Security researchers welcome after Phase 2
+- Documentation contributions appreciated
+
+**As a Supporter:**
+- Star the repo
+- Share on social media
+- Spread the word about privacy alternatives
 
 ---
 
-## Acknowledgments
+## Learning Goals
 
-Inspired by the privacy advocates, security researchers, and ethical technologists who fight for user rights.
+This project is also a personal learning journey:
+- Modern full-stack TypeScript development
+- React Native + Expo mobile development
+- End-to-end encryption implementation
+- Database design with PostGIS
+- DevOps and deployment
+- Privacy engineering
+- Solo development with AI assistance
 
-Built with respect for:
-- The Signal Protocol (for encryption inspiration)
-- OpenStreetMap community (privacy-respecting maps)
-- Rust community (secure systems programming)
-- GDPR architects (strong privacy framework)
-- Iceland's commitment to privacy and democracy
+---
+
+## Comparison with Alternatives
+
+| Feature | Draugar | Life360 | Find My Friends |
+|---------|---------|---------|-----------------|
+| Open Source | ✅ Yes | ❌ No | ❌ No |
+| End-to-End Encryption | ✅ Yes | ❌ No | ⚠️ Partial |
+| Data Selling | ❌ Never | ⚠️ History of it | ❌ No (but Apple) |
+| Self-Hostable | ✅ Yes | ❌ No | ❌ No |
+| Privacy-First Maps | ✅ OSM | ❌ Google | ❌ Apple |
+| Cross-Platform | ✅ Yes | ✅ Yes | ❌ iOS only |
+| Cost | Free/Low | Freemium | Free (iOS) |
 
 ---
 
 ## Contact
 
-- **General**: hello@draugar.is
-- **Privacy**: privacy@draugar.is
-- **Security**: security@draugar.is
-- **Press**: press@draugar.is
-- **Careers**: careers@draugar.is
+- **Developer**: [Your email or GitHub]
+- **Issues**: GitHub Issues (when public)
+- **Security**: security@draugar.is (when live)
+- **General**: hello@draugar.is (when live)
 
 ---
 
-**Built in Iceland 🇮🇸 | Privacy by Design | Family Safety Without Surveillance**
+## License
 
-*"Your family's safety, your data's privacy."*
+Mobile Apps: GPL-3.0 (open source)
+Backend: To be determined (will support self-hosting)
+
+---
+
+## Acknowledgments
+
+Inspired by:
+- Privacy advocates fighting surveillance capitalism
+- Signal Protocol (encryption design)
+- OpenStreetMap community (privacy-respecting maps)
+- Self-hosting movement (data sovereignty)
+- Ethical technology builders
+
+Built with:
+- React Native + Expo
+- Node.js + TypeScript + Express
+- PostgreSQL + PostGIS + Prisma
+- OpenStreetMap
+- AI coding assistants (Claude, GitHub Copilot)
+
+---
+
+**"Your family's safety, your data's privacy. Built by one developer who cares."**
+
+*Currently in active development. MVP target: 6 months. Open source release: 18 months.*
