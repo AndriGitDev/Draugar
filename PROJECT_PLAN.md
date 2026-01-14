@@ -1,10 +1,10 @@
 # Draugar - Project Plan
 ## Privacy-Respecting Family Safety Platform
 
-**Codename:** BigB Service
 **Project Name:** Draugar
 **Location:** Iceland
 **Mission:** Provide family safety and location services with uncompromising privacy protection
+**Primary Competitor:** BigB (Life360) - mainstream family tracking service
 
 ---
 
