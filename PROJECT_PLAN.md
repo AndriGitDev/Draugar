@@ -1,24 +1,25 @@
-# Draugar - Project Plan
-## Privacy-Respecting Family Safety Platform
+# Draugar - Technical Project Plan
+## Privacy-Respecting Family Safety Platform (Solo Development)
 
 **Project Name:** Draugar
-**Location:** Iceland
-**Mission:** Provide family safety and location services with uncompromising privacy protection
-**Primary Competitor:** BigB (Life360) - mainstream family tracking service
+**Project Type:** Personal/Open Source
+**Developer:** Solo developer with AI coding assistance
+**Mission:** Build a privacy-first family safety platform as a learning project and ethical alternative
+**Primary Inspiration:** Life360 alternative without surveillance
 
 ---
 
-## 1. Executive Summary
+## 1. Project Overview
 
-Draugar is a privacy-first family safety and location tracking platform designed to compete with mainstream family tracking services while prioritizing user privacy, data sovereignty, and GDPR compliance. Built and hosted in Iceland, Draugar leverages Iceland's strong privacy laws and GDPR framework to offer families a trustworthy alternative.
+Draugar is a personal project to build a privacy-first family safety and location tracking platform. This is a solo development effort using AI coding tools, focused on learning modern development practices while building something genuinely useful.
 
-### Key Differentiators
+### Core Goals
+- **Learn Modern Tech Stack**: Rust backend, native mobile development, encryption
 - **Privacy by Design**: End-to-end encryption for location data
-- **Data Sovereignty**: All data stored in Iceland under strict privacy laws
-- **Minimal Data Collection**: Only essential data, automatically deleted
-- **Transparent Operations**: Open source client apps, auditable security
-- **User Control**: Complete control over data sharing and retention
-- **No Surveillance Capitalism**: No selling of user data, ever
+- **Open Source**: Fully transparent, community-auditable code
+- **Self-Hostable**: Users can run their own instance if desired
+- **Iterative Development**: Ship early, iterate based on real usage
+- **Sustainable Scope**: Build what one person can actually maintain
 
 ---
 
@@ -56,634 +57,855 @@ Draugar is a privacy-first family safety and location tracking platform designed
 
 ---
 
-## 3. Core Features
+## 3. Feature Roadmap (Solo Development)
 
-### 3.1 Phase 1 - MVP (Months 1-4)
+### 3.1 Phase 1 - Core MVP (Months 1-6)
+**Goal:** Prove the concept works, use with your own family
 
-**Family Circle Management**
-- Create and manage family circles (up to 10 members)
-- Invite members via secure token links
-- Role-based permissions (admin, adult, child)
-- Leave/remove members from circles
+**Essential Features Only:**
+- User authentication (email/password)
+- Create ONE family circle
+- Invite members via link
+- Share location within family (basic encryption)
+- View family members on map
+- Manual location updates (button press)
+- Basic web dashboard
 
-**Location Sharing**
-- Real-time location sharing within family circle
-- End-to-end encrypted location transmission
-- Configurable location update frequency (power saving modes)
-- Location history (encrypted, auto-deleted after retention period)
-- "Ghost mode" - temporarily pause location sharing
+**Technical Focus:**
+- Get backend working (Rust + PostgreSQL)
+- Basic iOS OR Android app (pick one)
+- Simple REST API
+- Basic authentication/authorization
+- Deploy to cloud (Render/Fly.io/Railway)
 
-**Safety Features**
-- Emergency SOS button (alerts all family members)
-- Arrival/departure notifications for places
-- Battery level monitoring and alerts
-- Custom safe zones (geofencing)
+**Scope Cuts:**
+- ✗ No real-time updates yet (polling is fine)
+- ✗ No background location (manual only)
+- ✗ No E2E encryption yet (HTTPS only)
+- ✗ No geofencing
+- ✗ No messaging
+- ✗ No role-based permissions
 
-**Privacy Controls**
-- Granular sharing controls (who sees what)
-- Temporary location sharing (time-limited)
-- Location blur (reduce precision for privacy)
-- Scheduled sharing (e.g., only during school hours)
+**Success Criteria:**
+- You and 2-3 family members can use it daily
+- Works reliably for basic location sharing
+- Code is clean enough to build on
 
-### 3.2 Phase 2 - Enhanced Features (Months 5-8)
+### 3.2 Phase 2 - Privacy & Polish (Months 7-12)
+**Goal:** Add the privacy features that make this worthwhile
 
-**Communication**
-- Encrypted in-app messaging within family circle
-- Quick check-in messages ("I'm safe", "Running late")
-- Voice messages (encrypted)
+**Core Privacy Features:**
+- End-to-end encryption (Signal Protocol)
+- Background location tracking (battery optimized)
+- Location history with auto-delete
+- Ghost mode (pause sharing)
+- Better UI/UX
 
-**Places**
-- Save important places (home, school, work)
-- Custom place names and icons
-- Place-based automations (auto-notify on arrival)
-- Shared family places
+**Technical Focus:**
+- Implement E2E encryption properly
+- Background location services
+- WebSocket for real-time updates
+- Battery optimization research
+- Security audit (if budget allows)
 
-**Travel Features**
-- Route sharing (for trips)
-- ETA calculations and sharing
-- Driving safety features (speed alerts - optional)
-- International roaming support
+**Nice to Have:**
+- Basic geofencing (2-3 places)
+- SOS button
+- Battery level sharing
 
-**Advanced Safety**
-- Crash detection (if device supports)
-- Fall detection for elderly members
-- Medical information sharing (opt-in)
-- Emergency contact integration
+### 3.3 Phase 3 - Enhancement (Months 13-18)
+**Goal:** Make it genuinely useful and maintainable
 
-### 3.3 Phase 3 - Premium Features (Months 9-12)
+**Feature Additions:**
+- Second platform (iOS or Android)
+- Encrypted messaging
+- Advanced geofencing
+- Place management
+- Data export/import
+- Self-hosting documentation
 
-**Extended Features**
-- Unlimited location history (still encrypted)
-- Multiple family circles per user
-- Advanced place management (unlimited places)
-- Priority customer support
-- Family activity reports (privacy-preserving summaries)
+**Polish:**
+- Better onboarding
+- Improved privacy controls
+- Performance optimization
+- Comprehensive testing
+- Documentation
 
-**Enterprise/School Edition**
-- Organization management tools
-- Field trip coordination
-- Student safety for schools
-- Compliance reporting tools
+### 3.4 Phase 4 - Community (Months 18+)
+**Goal:** Open source release and community building
+
+**Activities:**
+- Open source all code
+- Write comprehensive docs
+- Create deployment guides
+- Accept community contributions
+- Maybe add features people request
 
 ---
 
 ## 4. Technical Architecture
 
-### 4.1 Technology Stack
+### 4.1 Technology Stack (Solo Development Focused)
 
-**Mobile Applications**
-- **iOS**: Swift/SwiftUI, native development
+**Mobile Applications - Cross-Platform Approach**
+
+⚠️ **CRITICAL DECISION: Native vs Cross-Platform**
+
+**Option A: React Native (RECOMMENDED for solo dev)**
+- Single codebase for iOS + Android
+- JavaScript/TypeScript (easier with AI coding)
+- Expo for faster development and deployment
+- Good battery life with proper optimization
+- Mature ecosystem for location tracking
+- AI tools are excellent with React/TypeScript
+- **Time savings: 60-70% vs dual native**
+
+**Option B: Flutter**
+- Single codebase for iOS + Android
+- Dart language (less common, harder AI assistance)
+- Excellent performance
+- Good for complex UIs
+- Strong location plugin support
+- **Time savings: 60-70% vs dual native**
+
+**Option C: Native Apps (Most Work)**
+- **iOS**: Swift/SwiftUI
 - **Android**: Kotlin, Jetpack Compose
-- **Approach**: Native apps for best performance and battery life
-- **Open Source**: Published on GitHub under GPL-3.0
+- Best performance and platform integration
+- 2x development time, but AI can help
+- Better battery optimization potential
+- **Approach**: Build iOS first, port to Android in Phase 3
 
-**Backend Services**
-- **Language**: Rust (performance, safety, reliability)
-- **Framework**: Axum (async web framework)
-- **Database**: PostgreSQL (with PostGIS for location data)
-- **Cache**: Redis (for real-time location updates)
-- **Search**: Typesense (privacy-respecting search)
-- **Queue**: RabbitMQ (for async processing)
+**RECOMMENDATION: Start with React Native + Expo**
+- Fastest path to both platforms
+- AI coding assistance is excellent for React
+- Can always build native features later via bridges
+- Test with real users sooner
 
-**Infrastructure**
-- **Hosting**: Iceland data centers (e.g., Advania, Verne Global)
-- **CDN**: Self-hosted or privacy-respecting CDN
-- **Maps**: OpenStreetMap + self-hosted tile server
-- **Monitoring**: Self-hosted (Prometheus + Grafana)
+**Open Source**: Published on GitHub under GPL-3.0
 
-**Security**
+**Backend Services - Simplified Stack**
+
+**Phase 1 - MVP (Simple & Fast)**
+- **Language**: Rust with Axum (or start with Node.js/Express if more comfortable)
+- **Database**: PostgreSQL with PostGIS extension (managed service: Neon, Supabase)
+- **Auth**: JWT tokens, simple email/password
+- **Deployment**: Single container on Fly.io, Render, or Railway
+- **Maps**: Mapbox or Google Maps API (free tier, switch later)
+- **NO CACHE**: Direct database queries are fine for MVP
+- **NO QUEUE**: Synchronous processing initially
+- **NO MICROSERVICES**: Monolith is perfect for solo dev
+
+**Phase 2 - Scale (Add as needed)**
+- **Cache**: Redis (when you have 100+ active users)
+- **Real-time**: WebSocket support in same server
+- **Queue**: Optional - PostgreSQL can queue jobs via pg_cron
+- **Maps**: Migrate to OpenStreetMap + Leaflet
+
+**Phase 3 - Production (If it grows)**
+- **Monitoring**: Grafana Cloud (free tier) or self-hosted
+- **Queue**: Add RabbitMQ or use PostgreSQL LISTEN/NOTIFY
+- **CDN**: Cloudflare (privacy mode)
+
+**Infrastructure - Cloud First, Self-Host Later**
+- **Hosting**: Fly.io, Render, Railway, or DigitalOcean App Platform
+  - Start in US/EU regions (Iceland VPS can come later)
+  - Cost: $5-20/month initially
+- **Database**: Managed PostgreSQL (Neon.tech, Supabase, or provider's managed DB)
+- **Storage**: S3-compatible storage (Cloudflare R2, Backblaze B2)
+- **Maps**:
+  - MVP: Mapbox GL JS (free tier: 50k loads/month)
+  - Production: Self-hosted OpenStreetMap tiles (when needed)
+- **Monitoring**:
+  - MVP: Provider's built-in monitoring
+  - Later: Grafana Cloud free tier or Better Stack
+
+**Security - Pragmatic Approach**
 - **Encryption**:
-  - Data in transit: TLS 1.3
-  - Data at rest: AES-256
-  - End-to-end: Signal Protocol adaptation for location data
-- **Authentication**: OAuth2 + WebAuthn support
-- **Key Management**: Per-family encryption keys, hardware security modules (HSM)
+  - Phase 1: HTTPS only (TLS 1.3) - server sees location data
+  - Phase 2: End-to-end encryption (Signal Protocol or simpler AES-256-GCM)
+  - Data at rest: Database-level encryption (managed by hosting provider)
+- **Authentication**:
+  - Phase 1: JWT tokens with bcrypt password hashing
+  - Phase 2: Add 2FA (TOTP)
+  - Phase 3: WebAuthn/passkeys if needed
+- **Key Management**:
+  - Phase 1: Server-side encryption keys (not zero-knowledge yet)
+  - Phase 2: Client-side key generation, server stores encrypted blobs
+  - No HSM initially (use environment variables, later Vault)
 
-### 4.2 System Architecture
+### 4.2 System Architecture (Solo Dev - Simplified)
 
+**Phase 1 - MVP (Monolithic):**
 ```
-┌─────────────────────────────────────────────────────────┐
-│                     Mobile Clients                       │
-│              (iOS, Android - Open Source)                │
-│                                                           │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │  Location    │  │  Encryption  │  │  Local DB    │  │
-│  │  Services    │  │  Engine      │  │  (Encrypted) │  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  │
-└─────────────────────┬───────────────────────────────────┘
-                      │ HTTPS/TLS 1.3 + E2EE
-                      ▼
-┌─────────────────────────────────────────────────────────┐
-│              API Gateway (Iceland)                       │
-│         Rate Limiting, Auth, Request Routing             │
-└─────────────────────┬───────────────────────────────────┘
-                      │
-        ┌─────────────┼─────────────┐
-        ▼             ▼             ▼
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│  Location   │ │   Family    │ │   Places    │
-│  Service    │ │   Service   │ │   Service   │
-│  (Rust)     │ │   (Rust)    │ │   (Rust)    │
-└──────┬──────┘ └──────┬──────┘ └──────┬──────┘
-       │               │               │
-       └───────────────┼───────────────┘
-                       ▼
-         ┌─────────────────────────┐
-         │   PostgreSQL + PostGIS  │
-         │   (Encrypted at Rest)   │
-         └─────────────────────────┘
-                       │
-         ┌─────────────┴─────────────┐
-         ▼                           ▼
-┌─────────────────┐         ┌─────────────────┐
-│  Redis Cache    │         │  RabbitMQ       │
-│  (Real-time     │         │  (Background    │
-│   Location)     │         │   Jobs)         │
-└─────────────────┘         └─────────────────┘
+┌─────────────────────────────────────┐
+│    Mobile Clients (React Native)    │
+│         iOS & Android               │
+│   - Location tracking               │
+│   - Map display (Mapbox)            │
+│   - Local storage                   │
+└──────────────┬──────────────────────┘
+               │ HTTPS/TLS 1.3
+               ▼
+┌─────────────────────────────────────┐
+│   Single Backend Server (Rust/Node) │
+│   - REST API                        │
+│   - JWT Authentication              │
+│   - Location storage                │
+│   - Family management               │
+│   - All logic in one app            │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│  PostgreSQL + PostGIS (Managed)     │
+│  - Users, families, locations       │
+│  - One database, simple queries     │
+└─────────────────────────────────────┘
 ```
 
-### 4.3 Data Flow
+**Phase 2 - Real-time Updates:**
+```
+┌─────────────────────────────────────┐
+│    Mobile Clients (React Native)    │
+│   - WebSocket connection            │
+│   - Background location tracking    │
+└──────────────┬──────────────────────┘
+               │ HTTPS + WebSocket
+               ▼
+┌─────────────────────────────────────┐
+│   Backend Server                    │
+│   - REST API                        │
+│   - WebSocket server (same process) │
+│   - E2E encryption handling         │
+└──────────────┬──────────────────────┘
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+┌──────────────┐  ┌──────────────┐
+│  PostgreSQL  │  │  Redis       │
+│  (Primary)   │  │  (WS state)  │
+└──────────────┘  └──────────────┘
+```
 
-1. **Location Update Flow**
-   ```
-   Device → Encrypt with Family Key → API Gateway → Location Service
-   → Redis (real-time) → PostgreSQL (history) → Distribute to Family Members
-   ```
+**Phase 3 - Scale (If needed):**
+```
+┌─────────────────────────────────────┐
+│           Mobile Clients            │
+└──────────────┬──────────────────────┘
+               │ HTTPS + WSS
+               ▼
+┌─────────────────────────────────────┐
+│   Load Balancer (Fly.io/Cloudflare) │
+└──────────────┬──────────────────────┘
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+┌──────────────┐  ┌──────────────┐
+│  Backend #1  │  │  Backend #2  │
+│  (Stateless) │  │  (Stateless) │
+└──────┬───────┘  └───────┬───────┘
+       └──────────┬────────┘
+                  ▼
+         ┌────────────────┐
+         │  PostgreSQL    │
+         │  (with Redis)  │
+         └────────────────┘
+```
 
-2. **Privacy Guarantees**
-   - Server receives encrypted location blobs
-   - Family members decrypt with shared family key
-   - Server cannot read location data
-   - Automatic deletion after retention period
+**Key Principles:**
+- Start simple, scale only when needed
+- Monolith is perfectly fine for 1000s of users
+- Avoid premature optimization
+- Cloud-managed services reduce ops burden
 
-### 4.4 Scalability Considerations
+### 4.3 Data Flow (Simplified)
 
-- **Horizontal Scaling**: Stateless services, load balancing
-- **Database**: Read replicas, partitioning by family_id
-- **Caching**: Redis cluster for high-frequency location updates
-- **CDN**: Static assets and map tiles
-- **Auto-scaling**: Kubernetes for orchestration
+**Phase 1 - MVP (Server can see locations):**
+```
+1. User opens app
+2. App requests location permission
+3. User presses "Update Location" button
+4. App sends {lat, lng, timestamp} via HTTPS POST
+5. Server validates JWT, stores in PostgreSQL
+6. Family members poll API for updates (every 30s)
+7. Display on map
+```
 
----
+**Phase 2 - E2E Encrypted:**
+```
+1. App encrypts location with family key: AES-256-GCM
+2. Sends encrypted blob to server
+3. Server stores encrypted blob (can't read it)
+4. Family members fetch encrypted blobs
+5. Decrypt client-side with shared family key
+6. Display on map
+```
 
-## 5. Iceland Advantages
+**Phase 3 - Real-time:**
+```
+1. App maintains WebSocket connection
+2. Location update → encrypt → send via WebSocket
+3. Server pushes to family members' WebSockets immediately
+4. Instant updates, no polling
+```
 
-### 5.1 Legal and Privacy Framework
+### 4.4 Database Schema (Simplified for MVP)
 
-- **Strong Privacy Laws**: Iceland has robust data protection laws
-- **GDPR Compliance**: EU-level privacy protection
-- **No Mass Surveillance**: No mandatory data retention laws
-- **Data Sovereignty**: Protection from foreign government overreach
-- **Stable Democracy**: Strong rule of law
+```sql
+-- Users
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
 
-### 5.2 Infrastructure Benefits
+-- Families
+CREATE TABLE families (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    invite_code TEXT UNIQUE, -- Simple invite via code
+    created_at TIMESTAMP DEFAULT NOW()
+);
 
-- **Renewable Energy**: 100% renewable electricity (geothermal + hydro)
-- **Cool Climate**: Natural cooling for data centers (cost savings)
-- **Strategic Location**: Good connectivity to Europe and North America
-- **Reliable Infrastructure**: Modern telecom and internet infrastructure
+-- Family members
+CREATE TABLE family_members (
+    family_id UUID REFERENCES families(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    is_admin BOOLEAN DEFAULT false,
+    joined_at TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (family_id, user_id)
+);
 
-### 5.3 Business Environment
+-- Locations (encrypted in Phase 2)
+CREATE TABLE locations (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    -- Phase 1: Store plain
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    -- Phase 2: Encrypted blob instead
+    -- encrypted_data BYTEA,
+    accuracy FLOAT,
+    recorded_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
 
-- **Tech-Friendly**: Growing tech ecosystem in Reykjavik
-- **English Proficiency**: Easy to recruit international talent
-- **EU/EEA Access**: Access to European markets
-- **Startup Support**: Government incentives for tech startups
+CREATE INDEX idx_locations_user ON locations(user_id, recorded_at DESC);
 
----
-
-## 6. Implementation Roadmap
-
-### Phase 1: Foundation (Months 1-4)
-**Objective**: Launch MVP with core features
-
-**Month 1-2: Backend Development**
-- [ ] Set up Iceland infrastructure (servers, databases)
-- [ ] Implement authentication system
-- [ ] Build core API services (Location, Family, Places)
-- [ ] Implement end-to-end encryption system
-- [ ] Set up monitoring and logging
-
-**Month 2-3: Mobile Apps**
-- [ ] iOS app development (location tracking, family management)
-- [ ] Android app development (parallel with iOS)
-- [ ] Implement E2E encryption in mobile apps
-- [ ] Background location tracking optimization
-- [ ] UI/UX design and implementation
-
-**Month 3-4: Testing & Launch**
-- [ ] Security audit (external firm)
-- [ ] Beta testing with select families
-- [ ] Performance optimization
-- [ ] App store submissions
-- [ ] Public launch
-
-**Deliverables:**
-- Functional iOS and Android apps
-- Backend services deployed in Iceland
-- Privacy policy and terms of service
-- Basic documentation
-
-### Phase 2: Growth (Months 5-8)
-**Objective**: Add communication features and grow user base
-
-**Key Activities:**
-- [ ] Implement encrypted messaging
-- [ ] Add advanced place features
-- [ ] Improve battery optimization
-- [ ] Add support for more languages (Icelandic, English, Nordic languages)
-- [ ] Marketing campaign targeting privacy-conscious users
-- [ ] Community building (forum, support)
-
-**Deliverables:**
-- Enhanced feature set
-- 10,000+ active users
-- Strong user reviews (4.5+ stars)
-- Community engagement
-
-### Phase 3: Scale (Months 9-12)
-**Objective**: Premium features and market expansion
-
-**Key Activities:**
-- [ ] Launch premium subscription tier
-- [ ] Develop enterprise/school edition
-- [ ] Expand to more markets (Nordic countries, Germany, EU)
-- [ ] Additional security certifications (ISO 27001)
-- [ ] Partnerships (privacy organizations, schools)
-
-**Deliverables:**
-- Profitable business model
-- 50,000+ active users
-- Enterprise customers
-- Market recognition
-
----
-
-## 7. Compliance and Legal
-
-### 7.1 GDPR Compliance
-
-- [ ] Data Protection Impact Assessment (DPIA)
-- [ ] Appoint Data Protection Officer (DPO)
-- [ ] Implement GDPR-required features:
-  - Right to access
-  - Right to erasure ("right to be forgotten")
-  - Right to data portability
-  - Right to rectification
-  - Privacy by design and default
-
-### 7.2 Terms of Service
-
-- Clear, plain-language privacy policy
-- No hidden data collection
-- Explicit consent for any data processing
-- Easy opt-out mechanisms
-
-### 7.3 Child Safety Compliance
-
-- Age verification mechanisms
-- Parental consent for minors
-- COPPA compliance (for US market)
-- Special protections for children's data
-
-### 7.4 Legal Structure
-
-- Incorporate in Iceland (Einkahlutafélag - EHF)
-- Register with Icelandic Data Protection Authority
-- Terms of service reviewed by privacy lawyer
-- Regular legal compliance audits
+-- Auto-delete old locations (Phase 2)
+-- Use pg_cron or a daily cleanup job
+```
 
 ---
 
-## 8. Monetization Strategy
+## 5. Implementation Roadmap (Solo Developer)
 
-### 8.1 Freemium Model
+### Month 1-2: Backend Foundation
+**Goal**: Get a working API deployed
 
-**Free Tier**
-- Up to 5 family members
-- 30-day location history
-- Basic places (up to 10)
-- Core safety features
-- Community support
+- [ ] **Week 1-2: Setup & Learning**
+  - Choose: Rust (Axum) or Node.js (Express) - be honest about your comfort level
+  - Set up project structure with AI coding assistant
+  - Create git repo, README, basic docs
+  - Sign up for Fly.io or Render (free tier initially)
+  - Set up managed PostgreSQL (Neon.tech free tier: 0.5GB)
 
-**Premium Tier** (~$5-7/month or $50-60/year)
-- Unlimited family members
-- Unlimited location history
-- Unlimited places
-- Advanced safety features
-- Priority support
-- Multiple family circles
+- [ ] **Week 3-4: Core API**
+  - User registration & login (email/password, JWT)
+  - Password hashing (bcrypt)
+  - Family creation and invite codes
+  - Location POST endpoint (store lat/lng)
+  - Location GET endpoint (retrieve family locations)
+  - Basic error handling and validation
 
-**Enterprise/School Tier** (Custom pricing)
-- Organization management
-- Admin dashboards
-- Compliance reporting
-- SLA guarantees
-- Dedicated support
+- [ ] **Week 5-6: Polish & Deploy**
+  - Write API tests (basic integration tests)
+  - Add request rate limiting
+  - Deploy to Fly.io/Render
+  - Set up CI/CD (GitHub Actions)
+  - Test with Postman/cURL
 
-### 8.2 Revenue Projections
+**Success**: Working REST API deployed to cloud that you can hit with cURL
 
-**Conservative Estimates:**
-- Year 1: 10,000 users, 5% conversion → $30,000 ARR
-- Year 2: 50,000 users, 8% conversion → $240,000 ARR
-- Year 3: 150,000 users, 10% conversion → $900,000 ARR
+### Month 3-4: Mobile App MVP
+**Goal**: One working mobile app (iOS OR Android)
 
-### 8.3 Cost Structure
+- [ ] **Week 7-8: React Native Setup**
+  - Initialize Expo project
+  - Set up navigation (React Navigation)
+  - Design basic screens: Login, Map, Profile
+  - Install dependencies: react-native-maps, expo-location
+  - Test on emulator/physical device
 
-**Fixed Costs (Monthly):**
-- Infrastructure (Iceland hosting): $2,000-5,000
-- Team salaries (initially 3-5 people): $20,000-40,000
-- Legal/compliance: $1,000-2,000
-- Marketing: $5,000-10,000
+- [ ] **Week 9-10: Core Features**
+  - Login/Register screens (connect to API)
+  - Request location permission
+  - Manual "Update Location" button
+  - Send location to API
+  - Display family members on map (using Mapbox/Google Maps)
+  - Basic error handling
 
-**Variable Costs:**
-- Server costs scale with users (~$0.50-1.00 per active user/year)
+- [ ] **Week 11-12: Testing & Beta**
+  - Test on real devices (iOS or Android)
+  - Add loading states and error messages
+  - Simple onboarding flow
+  - TestFlight (iOS) or Internal Testing (Android)
+  - Get 2-3 family members to test
 
-### 8.4 Funding Strategy
+**Success**: You and 2-3 people can share locations using the app
 
-- **Bootstrap**: Initial development with founder funds
-- **Grants**: Apply for Icelandic innovation grants
-- **Angel Investment**: Raise $200-500k for scaling
-- **Revenue-Focused**: Aim for profitability within 18 months
+### Month 5-6: Polish & Stability
+**Goal**: Make it reliable enough for daily use
 
----
+- [ ] **Week 13-14: Bug Fixes**
+  - Fix bugs found during family testing
+  - Improve UI/UX based on feedback
+  - Add location history view
+  - Better map markers and styling
 
-## 9. Marketing and Go-to-Market
+- [ ] **Week 15-16: Core Features**
+  - Auto-refresh locations (polling every 30s)
+  - Battery level sharing (if easy)
+  - Profile pictures (optional)
+  - Push notifications for join requests
 
-### 9.1 Target Audience
+- [ ] **Week 17-18: DevOps**
+  - Set up logging (Sentry for errors)
+  - Database backups (automated)
+  - Monitoring (UptimeRobot or provider's)
+  - Write deployment docs
+  - Cost optimization review
 
-**Primary:**
-- Privacy-conscious families
-- Tech-savvy parents
-- European families (GDPR-aware)
-- Nordic market (local advantage)
+**Success**: App works reliably, family uses it daily
 
-**Secondary:**
-- Schools and educational institutions
-- Organizations with field workers
-- Elderly care providers
+### Month 7-12: Privacy Features (Phase 2)
+**Goal**: Add the encryption that makes this worthwhile
 
-### 9.2 Marketing Channels
+- [ ] **Encryption Research (2-3 weeks)**
+  - Learn Signal Protocol or AES-256-GCM
+  - Design key management system
+  - Consider using library: libsignal or Web Crypto API
+  - Write encryption/decryption tests
 
-1. **Content Marketing**
-   - Blog about privacy, family safety, digital rights
-   - Privacy guides and resources
-   - Transparent security reports
+- [ ] **Backend E2E Encryption (3-4 weeks)**
+  - Update API to handle encrypted blobs
+  - Family key generation and distribution
+  - Encrypted location storage
+  - Key rotation planning
 
-2. **Community Building**
-   - Privacy advocate partnerships
-   - Reddit, HackerNews presence
-   - Privacy-focused conferences
+- [ ] **Mobile E2E Encryption (4-5 weeks)**
+  - Client-side encryption before send
+  - Key storage (secure keychain/keystore)
+  - Decrypt on retrieval
+  - Handle edge cases (offline, key loss)
 
-3. **PR Strategy**
-   - "Iceland-based privacy alternative" angle
-   - Tech media outreach (TechCrunch, Ars Technica)
-   - Privacy organization endorsements
+- [ ] **Background Location (3-4 weeks)**
+  - Research iOS/Android background location
+  - Implement background tracking
+  - Battery optimization testing
+  - Geofencing (if time allows)
 
-4. **App Store Optimization**
-   - Keywords: privacy, family, location, safety, GDPR
-   - High-quality screenshots emphasizing privacy
-   - User reviews highlighting privacy features
+- [ ] **Real-time Updates (2-3 weeks)**
+  - Add WebSocket server
+  - WebSocket client in app
+  - Real-time location push
+  - Handle reconnection
 
-5. **Referral Program**
-   - Free premium months for referrals
-   - Family invite bonuses
+**Success**: E2E encrypted, background tracking works, battery drain acceptable
 
-### 9.3 Brand Positioning
+### Month 13-18: Enhancement (Phase 3)
+**Goal**: Second platform + polish
 
-**Key Messages:**
-- "Your family's safety, your data's privacy"
-- "Built in Iceland, built for privacy"
-- "Family safety without surveillance"
-- "The ethical alternative"
+- [ ] **Second Platform (8-10 weeks)**
+  - If React Native: Already done!
+  - If native: Build iOS or Android version
+  - Feature parity with first platform
+  - Cross-platform testing
 
----
+- [ ] **Additional Features**
+  - Geofencing & place management
+  - Simple in-app messaging
+  - Ghost mode (pause sharing)
+  - Data export/delete
 
-## 10. Competitive Analysis
+- [ ] **Open Source Prep**
+  - Clean up code
+  - Write comprehensive README
+  - Add LICENSE (GPL-3.0)
+  - Deployment guides
+  - Security documentation
 
-### 10.1 BigB Service Weaknesses (Our Opportunities)
-
-1. **Privacy Concerns**
-   - Known for selling location data
-   - Partnerships with data brokers
-   - Law enforcement data sharing
-   - → **Our Advantage**: True privacy, no data selling
-
-2. **Surveillance Capitalism**
-   - Business model based on data extraction
-   - → **Our Advantage**: Transparent subscription model
-
-3. **Feature Bloat**
-   - Too many features, confusing UX
-   - → **Our Advantage**: Focused, clean interface
-
-4. **Trust Issues**
-   - Multiple privacy scandals
-   - → **Our Advantage**: Iceland-based, transparent operations
-
-5. **Expensive Premium Tiers**
-   - Aggressive upselling
-   - → **Our Advantage**: Fair, transparent pricing
-
-### 10.2 Our Competitive Advantages
-
-1. **Privacy-First**: Only true E2E encrypted alternative
-2. **Location**: Iceland's strong privacy reputation
-3. **Transparency**: Open source apps, published audits
-4. **Ethics**: No data selling, no surveillance capitalism
-5. **Compliance**: GDPR-native design
-6. **Community**: Built with and for privacy advocates
-
----
-
-## 11. Risk Analysis and Mitigation
-
-### 11.1 Technical Risks
-
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Battery drain issues | High | Medium | Extensive optimization, battery benchmarking |
-| Scalability problems | High | Low | Load testing, scalable architecture |
-| Security vulnerabilities | Critical | Medium | Regular audits, bug bounty program |
-| Data loss | Critical | Low | Regular backups, redundancy |
-
-### 11.2 Business Risks
-
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Low user adoption | High | Medium | Strong marketing, unique value proposition |
-| Competition from BigB | Medium | High | Focus on privacy differentiator |
-| Regulatory changes | Medium | Low | Legal monitoring, compliance team |
-| Funding shortage | High | Medium | Bootstrap, focus on revenue early |
-
-### 11.3 Operational Risks
-
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Key team member departure | Medium | Low | Documentation, knowledge sharing |
-| Infrastructure failure | High | Low | Redundancy, disaster recovery plan |
-| Vendor lock-in | Low | Low | Open source stack, avoid proprietary services |
+**Success**: Both platforms working, ready for open source release
 
 ---
 
-## 12. Success Metrics
+## 6. Development Workflow & AI Coding Tips
 
-### 12.1 Key Performance Indicators (KPIs)
+### 6.1 AI Coding Assistance Strategy
 
-**User Metrics:**
-- Monthly Active Users (MAU)
-- Daily Active Users (DAU)
-- User retention (30-day, 90-day)
-- Churn rate
-- Net Promoter Score (NPS)
+**Best Practices:**
+- **Start Simple**: Get basic features working before complexity
+- **Iterate Quickly**: AI is great for rapid prototyping
+- **Ask for Explanations**: Don't just copy code, understand it
+- **Use Specific Prompts**: "Create a JWT authentication middleware in Rust using Axum" not "make auth"
+- **Test Everything**: AI-generated code needs testing
+- **Review Security**: Never trust AI for crypto/security without review
 
-**Business Metrics:**
-- Monthly Recurring Revenue (MRR)
-- Customer Acquisition Cost (CAC)
-- Lifetime Value (LTV)
-- LTV/CAC ratio
-- Free-to-paid conversion rate
+**Recommended AI Tools:**
+- **GitHub Copilot**: Inline code completion (best for Rust, JS, TypeScript)
+- **Claude/GPT-4**: Architecture discussions, debugging, code review
+- **Cursor IDE**: AI-native editor for full file generation
+- **v0.dev**: UI component generation (React/Tailwind)
 
-**Technical Metrics:**
-- App crash rate (<1%)
-- API response time (<200ms)
-- Uptime (99.9%+)
-- Battery impact (<5% per day)
+**Workflow Example:**
+```
+1. Design feature with AI (architecture, API design)
+2. Generate boilerplate code (AI)
+3. Implement core logic (you + AI pair programming)
+4. Write tests (AI can generate test cases)
+5. Debug and refine (AI helps with errors)
+6. Code review (ask AI to review your code)
+```
 
-**Privacy Metrics:**
-- Data breach incidents (target: 0)
-- Security audit scores
-- GDPR compliance score
-- User data deletion requests processed
+### 6.2 Project Structure
 
-### 12.2 Success Criteria by Phase
+**Backend (Rust + Axum):**
+```
+backend/
+├── src/
+│   ├── main.rs              # Server entry point
+│   ├── routes/
+│   │   ├── auth.rs          # Login, register
+│   │   ├── locations.rs     # Location CRUD
+│   │   └── families.rs      # Family management
+│   ├── models/              # Database models
+│   ├── middleware/          # Auth, rate limiting
+│   ├── db.rs                # Database connection
+│   └── crypto.rs            # Encryption (Phase 2)
+├── migrations/              # SQL migrations
+├── tests/                   # Integration tests
+└── Cargo.toml
+```
 
-**Phase 1 (Month 4):**
-- ✓ Apps launched on iOS and Android
-- ✓ 1,000+ active users
-- ✓ <2% crash rate
-- ✓ 4.0+ app store rating
-- ✓ Security audit completed
+**Frontend (React Native + Expo):**
+```
+mobile/
+├── src/
+│   ├── screens/
+│   │   ├── LoginScreen.tsx
+│   │   ├── MapScreen.tsx
+│   │   └── ProfileScreen.tsx
+│   ├── components/
+│   │   ├── Map.tsx
+│   │   └── LocationButton.tsx
+│   ├── api/
+│   │   └── client.ts        # API calls
+│   ├── navigation/
+│   │   └── AppNavigator.tsx
+│   └── utils/
+│       └── location.ts      # Location helpers
+├── app.json                 # Expo config
+└── package.json
+```
 
-**Phase 2 (Month 8):**
-- ✓ 10,000+ active users
-- ✓ 5%+ conversion to premium
-- ✓ $30,000+ MRR
-- ✓ 4.5+ app store rating
-- ✓ Featured in privacy publications
+### 6.3 Development Environment
 
-**Phase 3 (Month 12):**
-- ✓ 50,000+ active users
-- ✓ 8%+ conversion to premium
-- ✓ $200,000+ ARR
-- ✓ Profitability achieved
-- ✓ Enterprise customers acquired
+**Required Tools:**
+- **Git**: Version control
+- **Docker** (optional): For local PostgreSQL
+- **Postman/Insomnia**: API testing
+- **Expo CLI**: Mobile development
+- **Android Studio/Xcode**: Mobile testing (optional, use Expo Go initially)
+
+**Rust Backend:**
+```bash
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Create project
+cargo new draugar-backend
+cd draugar-backend
+cargo add axum tokio sqlx bcrypt jsonwebtoken
+```
+
+**React Native Mobile:**
+```bash
+# Install Node.js & npm first
+npx create-expo-app draugar-mobile
+cd draugar-mobile
+npx expo install expo-location react-native-maps
+npm install @react-navigation/native @react-navigation/stack
+```
+
+### 6.4 Deployment Checklist
+
+**Backend Deployment (Fly.io Example):**
+- [ ] Create Dockerfile
+- [ ] Set environment variables (DATABASE_URL, JWT_SECRET)
+- [ ] Deploy: `flyctl launch`
+- [ ] Set up PostgreSQL: `flyctl postgres create`
+- [ ] Run migrations
+- [ ] Test API endpoints
+
+**Mobile Deployment:**
+- [ ] iOS: TestFlight for beta testing
+- [ ] Android: Google Play Internal Testing
+- [ ] Update API endpoints to production URL
+- [ ] Test on real devices
+- [ ] Prepare app store listings
+
+### 6.5 Privacy & Legal (Minimal for Personal Project)
+
+**What You Need:**
+- [ ] **Privacy Policy**: Use a template (GDPR-compliant)
+  - Generators: iubenda, TermsFeed (basic free tiers)
+  - Key points: what data you collect, how you store it, how to delete
+- [ ] **Terms of Service**: Basic template
+- [ ] **Data Export**: Implement user data export API endpoint
+- [ ] **Data Deletion**: Implement account deletion endpoint
+- [ ] **Consent**: Clear checkboxes during signup
+
+**What You DON'T Need (Personal Project):**
+- ✗ Lawyers (use templates initially)
+- ✗ Data Protection Officer
+- ✗ Business registration (until you monetize)
+- ✗ Insurance
+- ✗ Formal compliance audits
+
+**⚠️ If You Go Public or Monetize:**
+- Consult a lawyer for proper Privacy Policy and ToS
+- GDPR compliance if targeting EU users
+- COPPA compliance if allowing children under 13
+- Consider basic liability protection
 
 ---
 
-## 13. Team Structure
+## 7. DevOps & Operations (Solo Developer)
 
-### 13.1 Initial Team (Months 1-4)
+### 7.1 Hosting & Costs (Free → Paid)
 
-**Founders/Core Team:**
-1. **CEO/Product Lead** - Vision, product, fundraising
-2. **CTO/Backend Engineer** - Rust backend, infrastructure
-3. **iOS Developer** - Native iOS app development
-4. **Android Developer** - Native Android app development
-5. **Designer** (Contract) - UI/UX design
+**Phase 1 - Free Tier ($0-5/month):**
+- **Fly.io/Render Free**: $0 (with limits)
+  - PostgreSQL: Neon.tech free tier (0.5GB, 10GB transfer)
+  - Hosting: Fly.io free tier or Render free web service
+  - Maps: Mapbox free tier (50k loads/month)
+  - Total: $0-5/month for MVP
 
-### 13.2 Growth Phase (Months 5-12)
+**Phase 2 - Growing ($20-50/month):**
+- **Fly.io/Render**: $10-20/month (small instance)
+- **Database**: Neon Scale plan or provider's managed DB ($10-20/month)
+- **Maps**: Mapbox pay-as-you-go or switch to OSM
+- **Monitoring**: Sentry free tier, Better Stack ($10/mo)
+- Total: ~$20-50/month for 100-500 users
 
-**Additional Hires:**
-6. **Backend Engineer** - Scale infrastructure
-7. **Security Engineer** - Security audits, compliance
-8. **Customer Support Lead** - User support, community
-9. **Marketing Lead** - Growth, PR, content
-10. **Data Protection Officer** - GDPR compliance
+**Phase 3 - Production ($100-300/month):**
+- **Fly.io/Render**: $50-100/month (scaled instances)
+- **Database**: Managed PostgreSQL ($30-80/month)
+- **Redis**: Upstash or managed Redis ($10-20/month)
+- **Monitoring & Logs**: Grafana Cloud or paid tier ($20-50/month)
+- **Backups**: $10-20/month
+- Total: ~$100-300/month for 1000-5000 users
 
-### 13.3 Advisory Board
+### 7.2 Monitoring & Logging
 
-- Privacy law expert (Iceland/EU)
-- Security/cryptography expert
-- Family safety advocate
-- Experienced SaaS founder
+**Phase 1 - Keep It Simple:**
+- Use provider's built-in monitoring (Fly.io, Render dashboards)
+- Sentry for error tracking (free tier: 5k errors/month)
+- UptimeRobot for basic uptime monitoring (free)
+- No complex logging initially
+
+**Phase 2 - Add Observability:**
+- Better Stack or Grafana Cloud (free tiers available)
+- Application logs centralized
+- Database query performance monitoring
+- API response time tracking
+
+**Phase 3 - Full Observability:**
+- Prometheus + Grafana (self-hosted or cloud)
+- Distributed tracing (if needed)
+- Custom dashboards
+- Alerting via email/Slack
+
+### 7.3 Backup & Disaster Recovery
+
+**Critical for Personal Project:**
+- [ ] **Database Backups**:
+  - Automated daily backups (provider managed)
+  - Test restore procedure monthly
+  - Keep 7-30 days of backups
+- [ ] **Code Backups**:
+  - Git repos on GitHub (already backed up)
+  - Tag releases for easy rollback
+- [ ] **Disaster Recovery Plan**:
+  - Document how to restore from backup
+  - Keep secrets backed up securely (1Password, Bitwarden)
+  - Test full system restore once per quarter
+
+### 7.4 CI/CD Pipeline
+
+**GitHub Actions (Free for Public Repos):**
+
+```yaml
+# .github/workflows/backend.yml
+name: Backend CI/CD
+on:
+  push:
+    branches: [main]
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: cargo test
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only
+```
+
+**Benefits:**
+- Automated testing on every push
+- Automatic deployment on main branch
+- No manual deployment steps
+- Roll back by reverting commit
 
 ---
 
-## 14. Technical Deep Dive
+## 8. Technical Risks (Solo Developer)
 
-### 14.1 Encryption Architecture
+### 8.1 Major Risks & Mitigations
 
-**Key Management:**
+| Risk | Impact | Mitigation Strategy |
+|------|--------|-------------------|
+| **Burnout** | Critical | Set realistic goals, take breaks, don't work weekends |
+| **Scope Creep** | High | Stick to MVP, ruthlessly cut features |
+| **Battery Drain** | High | Test early and often on real devices, use profiling tools |
+| **Security Vulnerability** | Critical | Use AI to review security code, post to r/netsec for audit |
+| **Key Management Bug** | Critical | Implement key recovery, extensive testing, simple design |
+| **Data Loss** | High | Automated backups, test restore monthly |
+| **Platform Rejection** | Medium | Follow App Store/Play Store guidelines strictly |
+| **Encryption Complexity** | High | Start without E2E, add in Phase 2 after learning |
+
+### 8.2 Common Solo Developer Pitfalls
+
+**Avoid These:**
+- ✗ Building features nobody uses
+- ✗ Premature optimization
+- ✗ Not shipping for months
+- ✗ Over-engineering (microservices, complex arch)
+- ✗ Ignoring security until "later"
+- ✗ No backups/disaster recovery
+- ✗ Not testing on real devices
+- ✗ Feature creep ("just one more thing...")
+
+**Do These:**
+- ✓ Ship MVP in 3-6 months max
+- ✓ Get real users ASAP (friends, family)
+- ✓ Iterate based on feedback
+- ✓ Keep architecture simple
+- ✓ Automate deployments early
+- ✓ Document as you go
+- ✓ Take breaks to avoid burnout
+
+---
+
+## 9. Personal Success Metrics
+
+### 9.1 What "Success" Looks Like (Personal Project)
+
+**Phase 1 (Month 6):**
+- ✓ Working app that you and family use daily
+- ✓ No major bugs for 2+ weeks
+- ✓ < 5 crashes/month
+- ✓ Battery drain < 10%/day
+- ✓ Learned Rust OR solidified React Native skills
+
+**Phase 2 (Month 12):**
+- ✓ E2E encryption working correctly
+- ✓ 10-20 people using it (friends, family, early testers)
+- ✓ Background location tracking reliable
+- ✓ Clean, maintainable codebase
+- ✓ Solid DevOps practices
+
+**Phase 3 (Month 18):**
+- ✓ Both iOS and Android working
+- ✓ 50-100 users (if public)
+- ✓ Positive reviews from early users
+- ✓ Code ready to open source
+- ✓ Portfolio piece you're proud of
+
+**Personal Goals:**
+- Learn new technologies (Rust, encryption, mobile dev)
+- Build something ethically valuable
+- Create a portfolio project
+- Potentially help others care about privacy
+- Have fun coding!
+
+### 9.2 Key Metrics to Track
+
+**Technical Health:**
+- API response time (keep < 500ms)
+- App crash rate (< 1%)
+- Database query performance
+- Deployment frequency (aim for weekly updates)
+
+**User Experience:**
+- Battery impact (< 10% per day)
+- App load time (< 3 seconds)
+- Location update reliability
+- User-reported bugs (track in GitHub Issues)
+
+**Learning Goals:**
+- New skills acquired
+- Code quality improvements
+- System design decisions made
+- Problems solved
+
+---
+
+## 10. Technical Deep Dive (Phase 2 - Encryption)
+
+### 10.1 Encryption Architecture (Implement in Phase 2)
+
+**⚠️ Note: Start WITHOUT encryption in Phase 1. Add this in Phase 2 after MVP works.**
+
+**Simplified E2E Encryption Approach:**
 ```
 1. Family Circle Created
-   → Generate Family Master Key (FMK) on admin device
-   → Encrypt FMK with each member's public key
-   → Store encrypted FMK copies on server
+   → Admin generates Family Master Key (FMK) - AES-256 key
+   → Store FMK in device secure storage (Keychain/Keystore)
+   → Share FMK with family members via QR code or secure link
 
-2. Location Update
-   → Generate ephemeral location data: {lat, lng, timestamp, accuracy}
+2. Location Update (Encrypted)
+   → JSON: {lat: 64.1466, lng: -21.9426, timestamp: "2026-01-14T12:00:00Z"}
    → Encrypt with FMK using AES-256-GCM
    → Send encrypted blob to server
-   → Server stores encrypted blob (cannot read)
+   → Server stores blob (cannot decrypt, no key)
 
 3. Location Retrieval
-   → Family member requests location updates
-   → Server sends encrypted blobs
-   → Client decrypts using FMK
+   → Family member fetches encrypted blobs
+   → Decrypt locally using FMK
    → Display on map
 ```
 
-**Key Rotation:**
-- Automatic key rotation every 90 days
-- Manual rotation when member leaves
-- Zero-knowledge re-encryption
+**Key Management Strategy (Simple):**
+- **Phase 2a**: Single family key, shared via QR code
+  - Good enough for family use
+  - Easy to implement
+  - If member leaves, generate new key and re-encrypt
 
-### 14.2 Database Schema (Simplified)
+- **Phase 2b** (Later): Per-user key encryption
+  - Each user has keypair
+  - FMK encrypted with each user's public key
+  - More complex but better security
 
-```sql
--- Users table
-CREATE TABLE users (
-    id UUID PRIMARY KEY,
-    email TEXT UNIQUE NOT NULL,
-    encrypted_private_key TEXT NOT NULL,
-    public_key TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW()
-);
+**Libraries to Use:**
+- **JavaScript/TypeScript**: Web Crypto API (built-in browser/React Native)
+- **Rust**: `aes-gcm` crate, `ring` for crypto primitives
+- Start simple, don't implement Signal Protocol unless necessary
 
--- Family circles
-CREATE TABLE families (
-    id UUID PRIMARY KEY,
-    name TEXT NOT NULL,
-    admin_user_id UUID REFERENCES users(id),
-    encrypted_master_key TEXT NOT NULL, -- Encrypted per-member
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Family memberships
-CREATE TABLE family_members (
-    id UUID PRIMARY KEY,
-    family_id UUID REFERENCES families(id),
-    user_id UUID REFERENCES users(id),
-    role TEXT NOT NULL, -- admin, adult, child
-    encrypted_family_key TEXT NOT NULL, -- FMK encrypted with user's public key
-    joined_at TIMESTAMP DEFAULT NOW()
-);
-
--- Location updates (encrypted)
-CREATE TABLE location_updates (
-    id UUID PRIMARY KEY,
-    user_id UUID REFERENCES users(id),
-    family_id UUID REFERENCES families(id),
-    encrypted_data BYTEA NOT NULL, -- Encrypted {lat, lng, accuracy, timestamp}
-    created_at TIMESTAMP DEFAULT NOW(),
-    expires_at TIMESTAMP NOT NULL -- Auto-delete
-);
-
-CREATE INDEX idx_location_family_time ON location_updates(family_id, created_at DESC);
-```
-
-### 14.3 API Design
+### 10.2 API Design (MVP)
 
 **REST API Endpoints:**
 
@@ -732,54 +954,105 @@ wss://api.draugar.is/v1/realtime
 
 ---
 
-## 15. Next Steps
+## 11. Getting Started (Week 1 Actions)
 
-### Immediate Actions (Week 1)
+### Day 1-2: Setup Development Environment
 
-1. **Legal Setup**
-   - [ ] Register company in Iceland
-   - [ ] Consult with privacy lawyer
-   - [ ] Draft initial privacy policy
+- [ ] **Install Tools**:
+  - Install Rust (if using Rust) OR Node.js LTS
+  - Install Git
+  - Install VS Code or Cursor IDE
+  - Install Docker Desktop (optional, for local PostgreSQL)
+  - Set up GitHub Copilot or similar AI tool
 
-2. **Infrastructure**
-   - [ ] Select Iceland data center provider
-   - [ ] Set up development environment
-   - [ ] Configure cloud infrastructure
+- [ ] **Create Repositories**:
+  ```bash
+  # Backend
+  mkdir draugar-backend && cd draugar-backend
+  cargo init  # or: npm init -y
+  git init && git remote add origin <your-repo>
 
-3. **Development**
-   - [ ] Set up git repositories
-   - [ ] Initialize backend project (Rust)
-   - [ ] Initialize iOS project
-   - [ ] Initialize Android project
+  # Mobile
+  npx create-expo-app draugar-mobile
+  cd draugar-mobile
+  git init && git remote add origin <your-repo>
+  ```
 
-4. **Design**
-   - [ ] Create brand identity
-   - [ ] Design app wireframes
-   - [ ] User flow mapping
+- [ ] **Sign Up for Services**:
+  - GitHub account (free)
+  - Fly.io or Render account (free tier)
+  - Neon.tech or Supabase (free PostgreSQL)
+  - Mapbox account (free tier)
 
-5. **Planning**
-   - [ ] Finalize technical architecture
-   - [ ] Create detailed sprint plans
-   - [ ] Set up project management tools
+### Day 3-4: Backend Hello World
+
+- [ ] **Create Simple API**:
+  - Set up basic Rust/Axum or Node/Express server
+  - Add one endpoint: `GET /health` → `{"status": "ok"}`
+  - Deploy to Fly.io or Render
+  - Verify it works with curl
+
+- [ ] **Database Setup**:
+  - Create Neon/Supabase PostgreSQL database
+  - Run first migration (users table)
+  - Test connection from backend
+
+### Day 5-7: Mobile Hello World
+
+- [ ] **Create Basic App**:
+  - Initialize React Native + Expo project
+  - Add one screen with "Hello World"
+  - Run on iOS simulator or Android emulator (or Expo Go on phone)
+  - Add button that calls your backend `/health` endpoint
+  - Display result
+
+**Success Criteria for Week 1:**
+- ✓ Backend deployed and responding
+- ✓ Database connected
+- ✓ Mobile app running on device
+- ✓ Mobile app can call backend API
+- ✓ Git repos set up with first commits
+
+### Week 2+: Follow Phase 1 Roadmap
+
+Continue with the implementation roadmap in Section 5.
 
 ---
 
-## 16. Conclusion
+## 12. Conclusion
 
-Draugar represents a unique opportunity to build a privacy-respecting alternative in the family safety space. By leveraging Iceland's strong privacy framework, implementing end-to-end encryption, and committing to ethical business practices, Draugar can capture a growing market of privacy-conscious users who are dissatisfied with the surveillance practices of mainstream competitors.
+Draugar is an ambitious personal project to build a privacy-first family tracking app. As a solo developer using AI coding tools, you have a real shot at building something meaningful.
 
-The path forward requires:
-- **Technical Excellence**: Build a robust, scalable, secure platform
-- **Privacy Commitment**: Never compromise on privacy principles
-- **User Focus**: Listen to users, iterate quickly
-- **Transparency**: Build trust through openness
-- **Execution**: Ship fast, learn fast, improve fast
+### Keys to Success:
 
-With the right team, execution, and commitment to our values, Draugar can become the trusted choice for families who want safety without surveillance.
+1. **Start Simple**: MVP first, encryption later. Get something working in 3-6 months.
+2. **Use AI Effectively**: AI tools can 10x your productivity, but you still need to understand the code.
+3. **Ship Early**: Get family using it ASAP. Real feedback > theoretical perfection.
+4. **Keep It Sustainable**: This is a marathon, not a sprint. Take breaks, avoid burnout.
+5. **Learn as You Go**: Use this as a learning project. It's okay to make mistakes.
+
+### Why This Matters:
+
+Family tracking apps like Life360 have privacy issues. By building a transparent, open-source alternative, you're contributing to a more privacy-respecting internet. Even if only your family uses it, you've created something valuable.
+
+### What's Next:
+
+1. Follow the Week 1 checklist above
+2. Join Reddit communities (r/rust, r/reactnative, r/privacy)
+3. Document your journey (blog, Twitter, GitHub)
+4. Ask for help when stuck (AI, Stack Overflow, Discord)
+5. Have fun building!
 
 ---
 
-**Document Version:** 1.0
+## Document Information
+
+**Version:** 2.0 (Solo Developer Edition)
 **Last Updated:** 2026-01-14
-**Status:** Planning Phase
-**Next Review:** Upon completion of Phase 1 milestones
+**Project Type:** Personal/Open Source
+**Estimated Timeline:** 6-18 months for full MVP + privacy features
+**Next Steps:** Complete Week 1 setup checklist
+
+---
+
+**"Your family's safety, your data's privacy. Built by one developer who cares."**
