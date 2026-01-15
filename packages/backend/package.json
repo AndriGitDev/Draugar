@@ -11,11 +11,15 @@
   "dependencies": {
     "@draugar/shared": "workspace:*",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "drizzle-orm": "^0.45.1",
+    "express": "^4.21.2",
+    "pg": "^8.17.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.7",
+    "@types/pg": "^8.16.0",
+    "drizzle-kit": "^0.31.8",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
