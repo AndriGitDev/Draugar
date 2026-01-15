@@ -30,7 +30,7 @@ None
 **Plans**: TBD
 
 Plans:
-- [ ] 01-01: Monorepo setup with shared TypeScript types
+- [x] 01-01: Monorepo setup with shared TypeScript types
 - [ ] 01-02: React Native Expo project scaffold
 - [ ] 01-03: Node.js backend scaffold with Express
 
@@ -98,7 +98,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/3 | Not started | - |
+| 1. Foundation | 1/3 | In progress | - |
 | 2. Backend Core | 0/3 | Not started | - |
 | 3. Authentication | 0/3 | Not started | - |
 | 4. E2E Encryption | 0/3 | Not started | - |
