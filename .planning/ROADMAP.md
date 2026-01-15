@@ -41,7 +41,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 02-01: PostgreSQL schema and connection setup
+- [x] 02-01: PostgreSQL schema and connection setup
 - [ ] 02-02: Express API structure with error handling
 - [ ] 02-03: WebSocket server integration
 
@@ -99,7 +99,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-01-15 |
-| 2. Backend Core | 0/3 | Not started | - |
+| 2. Backend Core | 1/3 | In progress | - |
 | 3. Authentication | 0/3 | Not started | - |
 | 4. E2E Encryption | 0/3 | Not started | - |
 | 5. Real-Time Location | 0/3 | Not started | - |
