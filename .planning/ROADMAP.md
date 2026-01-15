@@ -14,7 +14,7 @@ None
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation** - Project setup, monorepo structure, dev environment
+- [x] **Phase 1: Foundation** - Project setup, monorepo structure, dev environment
 - [ ] **Phase 2: Backend Core** - API server, PostgreSQL, WebSocket infrastructure
 - [ ] **Phase 3: Authentication** - Invite codes, JWT tokens, session management
 - [ ] **Phase 4: E2E Encryption** - Crypto implementation, key exchange, zero-knowledge architecture
@@ -32,7 +32,7 @@ None
 Plans:
 - [x] 01-01: Monorepo setup with shared TypeScript types
 - [x] 01-02: React Native Expo project scaffold
-- [ ] 01-03: Node.js backend scaffold with Express
+- [x] 01-03: Node.js backend scaffold with Express
 
 ### Phase 2: Backend Core
 **Goal**: API server with PostgreSQL and WebSocket ready for features
@@ -98,7 +98,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/3 | In progress | - |
+| 1. Foundation | 3/3 | Complete | 2026-01-15 |
 | 2. Backend Core | 0/3 | Not started | - |
 | 3. Authentication | 0/3 | Not started | - |
 | 4. E2E Encryption | 0/3 | Not started | - |
