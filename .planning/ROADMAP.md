@@ -15,7 +15,7 @@ None
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 1: Foundation** - Project setup, monorepo structure, dev environment
-- [ ] **Phase 2: Backend Core** - API server, PostgreSQL, WebSocket infrastructure
+- [x] **Phase 2: Backend Core** - API server, PostgreSQL, WebSocket infrastructure
 - [ ] **Phase 3: Authentication** - Invite codes, JWT tokens, session management
 - [ ] **Phase 4: E2E Encryption** - Crypto implementation, key exchange, zero-knowledge architecture
 - [ ] **Phase 5: Real-Time Location** - Location sharing, map display, WebSocket sync
@@ -43,7 +43,7 @@ Plans:
 Plans:
 - [x] 02-01: PostgreSQL schema and connection setup
 - [x] 02-02: Express API structure with error handling
-- [ ] 02-03: WebSocket server integration
+- [x] 02-03: WebSocket server integration
 
 ### Phase 3: Authentication
 **Goal**: Users can join via invite code and maintain sessions
@@ -99,7 +99,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-01-15 |
-| 2. Backend Core | 2/3 | In progress | - |
+| 2. Backend Core | 3/3 | Complete | 2026-01-16 |
 | 3. Authentication | 0/3 | Not started | - |
 | 4. E2E Encryption | 0/3 | Not started | - |
 | 5. Real-Time Location | 0/3 | Not started | - |
