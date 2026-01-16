@@ -16,8 +16,6 @@ Draugar (Old Norse for "ghosts") is a privacy-first family safety and location t
 
 **Promise:** Your family's safety. Your data's privacy. No compromises.
 
-**Status:** Personal learning project → Open source release → Community-driven platform
-
 ---
 
 ## Why Draugar?
@@ -40,40 +38,53 @@ Popular family tracking apps like Life360 have serious privacy issues:
 
 ---
 
-## Key Features
+## Project Status
 
-### Phase 1 - MVP (Months 1-6)
-- [x] User authentication (email/password)
-- [x] Create family circles (invite via link)
-- [x] Manual location sharing (button press)
-- [x] View family on map (OpenStreetMap)
-- [x] Basic web dashboard
-- [ ] HTTPS encryption (TLS 1.3)
+**Current Phase:** In active development.
+**Progress:** 3 of 6 phases complete. Core backend, authentication, and project foundation are finished.
+**Next Up:** Phase 4 - End-to-End Encryption.
 
-### Phase 2 - Privacy & Polish (Months 7-12)
-- [ ] End-to-end encryption (AES-256-GCM)
-- [ ] Background location tracking (battery optimized)
-- [ ] Real-time updates (WebSocket)
+Progress: █████████░ 50%
+
+---
+
+## Roadmap
+
+### Phase 1: Foundation
+**Status**: ✅ Complete
+- [x] Monorepo setup with pnpm and shared TypeScript types
+- [x] React Native (Expo) mobile application scaffold
+- [x] Node.js (Express) backend scaffold
+
+### Phase 2: Backend Core
+**Status**: ✅ Complete
+- [x] PostgreSQL schema and connection setup with Drizzle ORM
+- [x] Express API structure with robust error handling
+- [x] WebSocket server integration with Socket.IO
+
+### Phase 3: Authentication
+**Status**: ✅ Complete
+- [x] Invite code generation and validation system
+- [x] JWT token flow and session management (`jose` library)
+- [x] Mobile auth screens and secure token storage (`expo-secure-store`)
+
+### Phase 4: E2E Encryption
+**Status**: ⬜ Not Started
+- [ ] Crypto library setup and key generation
+- [ ] Key exchange protocol between devices
+- [ ] Encrypt/decrypt location data flow
+
+### Phase 5: Real-Time Location
+**Status**: ⬜ Not Started
+- [ ] MapLibre integration with OpenStreetMap
+- [ ] Location broadcasting and receiving via WebSocket
+- [ ] Background location tracking setup
+
+### Phase 6: Mobile Polish & Deployment
+**Status**: ⬜ Not Started
 - [ ] Ghost mode (pause sharing)
-- [ ] Location history with auto-delete
-- [ ] Battery level sharing
-- [ ] Basic geofencing (2-3 places)
-- [ ] SOS button
-
-### Phase 3 - Enhancement (Months 13-18)
-- [ ] Encrypted messaging within family
-- [ ] Advanced geofencing
-- [ ] Place management (home, work, school)
-- [ ] Data export/import (JSON, KML)
-- [ ] Self-hosting documentation
-- [ ] Battery optimization
-- [ ] Offline mode support
-
-### Phase 4 - Community (Months 18+)
-- [ ] Open source all code
-- [ ] Comprehensive documentation
-- [ ] Community contributions
-- [ ] Feature requests from users
+- [ ] Battery optimization and settings
+- [ ] Docker setup and VPS deployment
 
 ---
 
@@ -83,88 +94,63 @@ Popular family tracking apps like Life360 have serious privacy issues:
 ✅ **React Native + Expo**
 - Single codebase for iOS and Android
 - TypeScript for type safety
-- OpenStreetMap tiles (react-native-maps)
+- MapLibre for privacy-respecting maps
 - expo-location for tracking
-- Deploys to both platforms simultaneously
-
-**Why React Native:**
-- Fastest path to both iOS and Android
-- Excellent AI coding assistance (TypeScript)
-- Mature ecosystem for location tracking
-- Can add native features later if needed
 
 ### Backend
 ✅ **Node.js + TypeScript + Express**
 - Unified language with frontend (TypeScript)
-- Prisma ORM (type-safe database access)
-- PostgreSQL with PostGIS (location data)
-- JWT authentication with bcrypt
+- **Drizzle ORM** for lightweight, type-safe database access
+- **Socket.IO** for real-time communication
+- PostgreSQL for data storage
+- JWT authentication with `jose`
 - Zod for validation
 
-**Why Node.js:**
-- Same language as mobile (easy context switching)
-- Excellent AI coding tools (Copilot, Claude)
-- Fast development for solo developer
-- Easy to debug and iterate
-
 ### Infrastructure
-
-**Phase 1-2: Render + Neon**
-- Render Web Service (free tier → $7/month)
-- Neon.tech PostgreSQL (free tier → $19/month)
-- Quick deployment and iteration
-- Low cost for MVP
-
-**Phase 3: Self-Hosted in Finland**
-- Docker VPS in Finland (€10-20/month)
-- Complete control and data sovereignty
-- Self-hosted OSM tile server
-- Caddy/Nginx reverse proxy with HTTPS
+✅ **Hetzner VPS in Finland**
+- Docker deployment for backend services
+- Privacy-friendly jurisdiction
+- Full control over data and infrastructure
 
 ### Maps
-✅ **OpenStreetMap**
-- Phase 1: Free public OSM tile servers
-- Phase 2+: Self-hosted tile server on Finland VPS
-- No API keys, no usage limits
-- Complete privacy from day 1
+✅ **OpenStreetMap + MapLibre**
+- No API keys, no tracking, no usage limits
+- Self-hostable for maximum privacy
 - Perfect alignment with privacy-first values
 
 ---
 
 ## Architecture
 
-### Phase 1 - MVP (Monolithic)
+### Current Architecture (Phase 3 Complete)
 ```
 ┌─────────────────────────────────────┐
 │    Mobile Clients (React Native)    │
-│         iOS & Android               │
-│   - OpenStreetMap display           │
-│   - Manual location updates         │
+│    - Expo, TypeScript               │
+│    - Auth screens, Secure Storage   │
 └──────────────┬──────────────────────┘
-               │ HTTPS/TLS 1.3
+               │ HTTPS + WebSocket
                ▼
 ┌─────────────────────────────────────┐
-│   Node.js Backend (Express)         │
-│   - REST API                        │
-│   - JWT Authentication              │
-│   - Location storage                │
-│   - Family management               │
+│ Node.js Backend (Express/Socket.IO) │
+│   - REST API for auth (JWT)         │
+│   - WebSocket for real-time         │
+│   - Invite code logic               │
 └──────────────┬──────────────────────┘
                │
                ▼
 ┌─────────────────────────────────────┐
-│  PostgreSQL + PostGIS (Neon)        │
-│  - Users, families, locations       │
+│      PostgreSQL (Drizzle ORM)       │
+│      - Users, families, invites     │
 └─────────────────────────────────────┘
 ```
 
-### Phase 2 - E2E Encrypted
+### Target Architecture (Phase 6)
 ```
 ┌─────────────────────────────────────┐
-│    Mobile Clients                   │
+│    Mobile Clients (E2E Encrypted)   │
 │   - Client-side encryption          │
-│   - WebSocket real-time             │
-│   - Background tracking             │
+│   - Background location tracking    │
 └──────────────┬──────────────────────┘
                │ HTTPS + WebSocket + E2E
                ▼
@@ -174,31 +160,46 @@ Popular family tracking apps like Life360 have serious privacy issues:
 │   - Cannot read location data       │
 └──────────────┬──────────────────────┘
                │
-        ┌──────┴──────┐
-        ▼             ▼
-┌──────────────┐  ┌──────────────┐
-│  PostgreSQL  │  │  Redis       │
-│  (Primary)   │  │  (Cache)     │
-└──────────────┘  └──────────────┘
-```
-
-### Phase 3 - Self-Hosted
-```
+               ▼
 ┌─────────────────────────────────────┐
-│         Finland Docker VPS          │
-│  ┌──────────────────────────────┐   │
-│  │  Caddy (HTTPS Proxy)         │   │
-│  └────────┬─────────────────────┘   │
-│           │                          │
-│  ┌────────┴─────────────────────┐   │
-│  │  Backend + PostgreSQL +       │   │
-│  │  Redis + OSM Tile Server      │   │
-│  │  (Docker Compose)             │   │
-│  └──────────────────────────────┘   │
+│      PostgreSQL (Finland VPS)       │
+│      - Stores encrypted data        │
 └─────────────────────────────────────┘
 ```
 
-**Key Privacy Feature:** Server stores only encrypted location data and cannot read it.
+---
+
+## Development Setup
+
+This project is a `pnpm` monorepo.
+
+### Prerequisites
+- Node.js 20+ LTS
+- pnpm (e.g., `npm install -g pnpm`)
+- Git
+- Docker (for local PostgreSQL)
+
+### Monorepo Setup
+```bash
+# Clone the repository
+git clone <repo-url>
+cd draugar
+
+# Install all dependencies for all packages
+pnpm install
+
+# Set up environment variables
+# (copy .env.example to .env in packages/backend)
+cp packages/backend/.env.example packages/backend/.env
+# Edit packages/backend/.env with your DATABASE_URL, JWT_SECRET
+
+# Run database migrations
+pnpm --filter backend db:push
+
+# Run development servers
+# This will start the backend and mobile dev servers concurrently
+pnpm dev
+```
 
 ---
 
@@ -218,113 +219,6 @@ Read our full [Privacy Principles](PRIVACY_PRINCIPLES.md) for details.
 
 ---
 
-## Project Status
-
-**Current Phase:** Solo Development + Planning
-**Developer:** One person with AI coding assistance
-**Target:** MVP in 6 months, privacy features in 12 months
-**Timeline:** 6-18 months for full feature set
-
-### Development Approach
-
-This is a **personal learning project** that will become open source:
-
-**Solo Development Strategy:**
-- Using AI coding assistants (Claude, Copilot)
-- Iterative development (ship early, iterate often)
-- Start simple, add complexity gradually
-- Focus on learning modern development practices
-- Build something genuinely useful
-
-**Why Solo?**
-- Complete control over privacy decisions
-- Learning opportunity (Rust alternative considered, chose TypeScript)
-- Sustainable scope for one developer
-- Can maintain long-term
-
-### Roadmap
-
-**Phase 1: MVP (Months 1-6)**
-- Backend API with authentication
-- React Native mobile app (iOS + Android)
-- Manual location sharing
-- Basic map display with OpenStreetMap
-- Family circle management
-- Deploy to Render + Neon
-
-**Phase 2: Privacy Features (Months 7-12)**
-- End-to-end encryption implementation
-- Background location tracking
-- Real-time updates (WebSocket)
-- Ghost mode and privacy controls
-- Battery optimization
-
-**Phase 3: Enhancement (Months 13-18)**
-- Advanced features (messaging, geofencing)
-- Self-hosting documentation
-- Migrate to Finland VPS
-- Polish and accessibility
-- Open source preparation
-
-**Phase 4: Community (Months 18+)**
-- Full open source release
-- Community contributions
-- Self-hosting guides
-- Documentation
-
-See [PROJECT_PLAN.md](PROJECT_PLAN.md) for detailed technical roadmap.
-
----
-
-## Development Setup
-
-### Prerequisites
-- Node.js 20+ LTS
-- Git
-- Docker (optional, for local PostgreSQL)
-- Expo CLI for mobile development
-
-### Backend Setup
-```bash
-# Clone repo
-git clone https://github.com/yourusername/draugar-backend
-cd draugar-backend
-
-# Install dependencies
-npm install
-
-# Set up environment
-cp .env.example .env
-# Edit .env with your DATABASE_URL, JWT_SECRET
-
-# Initialize Prisma
-npx prisma migrate dev
-
-# Run development server
-npm run dev
-```
-
-### Mobile App Setup
-```bash
-# Clone repo
-git clone https://github.com/yourusername/draugar-mobile
-cd draugar-mobile
-
-# Install dependencies
-npm install
-
-# Run on iOS
-npm run ios
-
-# Run on Android
-npm run android
-
-# Or use Expo Go
-npm start
-```
-
----
-
 ## Documentation
 
 - [Project Plan](PROJECT_PLAN.md) - Comprehensive technical and business plan
@@ -340,7 +234,6 @@ npm start
 - Single codebase = 60-70% time savings
 - Both iOS and Android from day 1
 - Excellent AI coding assistance for TypeScript
-- Can add native modules later if needed
 - Expo simplifies deployment and OTA updates
 
 ### Why Node.js over Rust?
@@ -473,7 +366,7 @@ Inspired by:
 Built with:
 - React Native + Expo
 - Node.js + TypeScript + Express
-- PostgreSQL + PostGIS + Prisma
+- PostgreSQL + PostGIS + Drizzle ORM
 - OpenStreetMap
 - AI coding assistants (Claude, GitHub Copilot)
 
@@ -481,4 +374,4 @@ Built with:
 
 **"Your family's safety, your data's privacy. Built by one developer who cares."**
 
-*Currently in active development. MVP target: 6 months. Open source release: 18 months.*
+*Currently in active development. Phase 4 (E2E Encryption) is next.*
