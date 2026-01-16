@@ -2,16 +2,18 @@ import { Router, type Router as RouterType } from 'express';
 import { eq, and, isNull, or, gt } from 'drizzle-orm';
 import { db, inviteCodes } from '../db';
 import { generateInviteCode } from '../utils/inviteCode';
+import { authMiddleware } from '../middleware/auth';
 import { ApiError } from '../utils/ApiError';
 
 const router: RouterType = Router();
 
 /**
- * POST /api/invites - Create new invite code
+ * POST /api/invites - Create new invite code (protected)
+ * Requires: Authorization: Bearer <token>
  * Body: { expiresInHours?: number } (optional, null = never expires)
  * Response: { code: string, expiresAt: string | null }
  */
-router.post('/', async (req, res, next) => {
+router.post('/', authMiddleware, async (req, res, next) => {
   try {
     const { expiresInHours } = req.body;
 
@@ -26,7 +28,7 @@ router.post('/', async (req, res, next) => {
       .insert(inviteCodes)
       .values({
         code,
-        createdBy: null, // For now, no auth - will add in 03-02
+        createdBy: req.user!.userId, // Set to authenticated user
         expiresAt,
       })
       .returning();
