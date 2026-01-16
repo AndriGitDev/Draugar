@@ -40,132 +40,28 @@ Popular family tracking apps like Life360 have serious privacy issues:
 
 ## Project Status
 
-**Current Phase:** In active development.
-**Progress:** 3 of 6 phases complete. Core backend, authentication, and project foundation are finished.
-**Next Up:** Phase 4 - End-to-End Encryption.
-
-Progress: █████████░ 50%
-
----
-
-## Roadmap
-
-### Phase 1: Foundation
-**Status**: ✅ Complete
-- [x] Monorepo setup with pnpm and shared TypeScript types
-- [x] React Native (Expo) mobile application scaffold
-- [x] Node.js (Express) backend scaffold
-
-### Phase 2: Backend Core
-**Status**: ✅ Complete
-- [x] PostgreSQL schema and connection setup with Drizzle ORM
-- [x] Express API structure with robust error handling
-- [x] WebSocket server integration with Socket.IO
-
-### Phase 3: Authentication
-**Status**: ✅ Complete
-- [x] Invite code generation and validation system
-- [x] JWT token flow and session management (`jose` library)
-- [x] Mobile auth screens and secure token storage (`expo-secure-store`)
-
-### Phase 4: E2E Encryption
-**Status**: ⬜ Not Started
-- [ ] Crypto library setup and key generation
-- [ ] Key exchange protocol between devices
-- [ ] Encrypt/decrypt location data flow
-
-### Phase 5: Real-Time Location
-**Status**: ⬜ Not Started
-- [ ] MapLibre integration with OpenStreetMap
-- [ ] Location broadcasting and receiving via WebSocket
-- [ ] Background location tracking setup
-
-### Phase 6: Mobile Polish & Deployment
-**Status**: ⬜ Not Started
-- [ ] Ghost mode (pause sharing)
-- [ ] Battery optimization and settings
-- [ ] Docker setup and VPS deployment
+This project is currently in active development. The core functionality is being built, with a focus on privacy and security.
 
 ---
 
 ## Technology Stack
 
 ### Mobile Apps
-✅ **React Native + Expo**
-- Single codebase for iOS and Android
-- TypeScript for type safety
-- MapLibre for privacy-respecting maps
-- expo-location for tracking
+*   **React Native + Expo**: For building cross-platform mobile apps from a single codebase.
+*   **TypeScript**: For type safety.
+*   **MapLibre**: For privacy-respecting maps.
 
 ### Backend
-✅ **Node.js + TypeScript + Express**
-- Unified language with frontend (TypeScript)
-- **Drizzle ORM** for lightweight, type-safe database access
-- **Socket.IO** for real-time communication
-- PostgreSQL for data storage
-- JWT authentication with `jose`
-- Zod for validation
-
-### Infrastructure
-✅ **Hetzner VPS in Finland**
-- Docker deployment for backend services
-- Privacy-friendly jurisdiction
-- Full control over data and infrastructure
-
-### Maps
-✅ **OpenStreetMap + MapLibre**
-- No API keys, no tracking, no usage limits
-- Self-hostable for maximum privacy
-- Perfect alignment with privacy-first values
+*   **Node.js + TypeScript + Express**: For a fast and modern backend.
+*   **Drizzle ORM**: For lightweight, type-safe database access.
+*   **Socket.IO**: For real-time communication.
+*   **PostgreSQL**: For data storage.
 
 ---
 
-## Architecture
+## High-Level Architecture
 
-### Current Architecture (Phase 3 Complete)
-```
-┌─────────────────────────────────────┐
-│    Mobile Clients (React Native)    │
-│    - Expo, TypeScript               │
-│    - Auth screens, Secure Storage   │
-└──────────────┬──────────────────────┘
-               │ HTTPS + WebSocket
-               ▼
-┌─────────────────────────────────────┐
-│ Node.js Backend (Express/Socket.IO) │
-│   - REST API for auth (JWT)         │
-│   - WebSocket for real-time         │
-│   - Invite code logic               │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      PostgreSQL (Drizzle ORM)       │
-│      - Users, families, invites     │
-└─────────────────────────────────────┘
-```
-
-### Target Architecture (Phase 6)
-```
-┌─────────────────────────────────────┐
-│    Mobile Clients (E2E Encrypted)   │
-│   - Client-side encryption          │
-│   - Background location tracking    │
-└──────────────┬──────────────────────┘
-               │ HTTPS + WebSocket + E2E
-               ▼
-┌─────────────────────────────────────┐
-│   Backend Server                    │
-│   - Stores encrypted blobs only     │
-│   - Cannot read location data       │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      PostgreSQL (Finland VPS)       │
-│      - Stores encrypted data        │
-└─────────────────────────────────────┘
-```
+Draugar uses a standard client-server architecture. The mobile app (client) communicates with the backend server via HTTPS and WebSockets. All location data is end-to-end encrypted, meaning the server cannot access the raw location data.
 
 ---
 
@@ -221,157 +117,22 @@ Read our full [Privacy Principles](PRIVACY_PRINCIPLES.md) for details.
 
 ## Documentation
 
-- [Project Plan](PROJECT_PLAN.md) - Comprehensive technical and business plan
 - [Privacy Principles](PRIVACY_PRINCIPLES.md) - Privacy commitments and design
-- Contributing Guide - Coming soon after open source release
+- Contributing Guide - Coming soon
 - Security Policy - Coming soon
-
----
-
-## Technology Choices Explained
-
-### Why React Native over Native?
-- Single codebase = 60-70% time savings
-- Both iOS and Android from day 1
-- Excellent AI coding assistance for TypeScript
-- Expo simplifies deployment and OTA updates
-
-### Why Node.js over Rust?
-- Same language as frontend (TypeScript)
-- Faster development for solo developer
-- Excellent AI tool support
-- Easy debugging and iteration
-- Can optimize later if needed
-
-### Why OpenStreetMap over Google/Mapbox?
-- Complete privacy - no API keys or tracking
-- No usage limits or costs
-- Can self-host tiles on Finland VPS
-- Aligns with privacy-first mission
-- Community-driven and ethical
-
-### Why Self-Host Eventually?
-- Complete data sovereignty
-- EU/Finland data protection laws
-- Lower long-term costs
-- Full control over infrastructure
-- Privacy and ethical values
-
----
-
-## Why This Matters
-
-Family tracking apps are useful, but mainstream options have serious privacy issues:
-- Life360 has been caught selling precise location data
-- Most apps use surveillance business models
-- Closed source means no way to verify privacy claims
-- Users have no control over their data
-
-**Draugar is different:**
-- Built for privacy from day 1
-- Open source for transparency
-- No business model based on data exploitation
-- Self-hostable for maximum control
-- Learning project that respects users
 
 ---
 
 ## Contributing
 
-This project will be open sourced in Phase 4 (Month 18+). At that point:
-- Mobile apps: GPL-3.0
-- Backend: Open for self-hosting
-- Contribution guidelines will be published
-- Community features and bug fixes welcome
-
-For now, you can:
-- Star this repo to show support
-- Share with privacy-conscious friends
-- Provide feedback on privacy principles
-- Wait for open source release
-
----
-
-## Support This Project
-
-**As a User:**
-- Sign up for early testing when MVP is ready
-- Provide feedback on features and UX
-- Tell privacy-conscious friends and family
-
-**As a Developer:**
-- Wait for open source release (Month 18+)
-- Security researchers welcome after Phase 2
-- Documentation contributions appreciated
-
-**As a Supporter:**
-- Star the repo
-- Share on social media
-- Spread the word about privacy alternatives
-
----
-
-## Learning Goals
-
-This project is also a personal learning journey:
-- Modern full-stack TypeScript development
-- React Native + Expo mobile development
-- End-to-end encryption implementation
-- Database design with PostGIS
-- DevOps and deployment
-- Privacy engineering
-- Solo development with AI assistance
-
----
-
-## Comparison with Alternatives
-
-| Feature | Draugar | Life360 | Find My Friends |
-|---------|---------|---------|-----------------|
-| Open Source | ✅ Yes | ❌ No | ❌ No |
-| End-to-End Encryption | ✅ Yes | ❌ No | ⚠️ Partial |
-| Data Selling | ❌ Never | ⚠️ History of it | ❌ No (but Apple) |
-| Self-Hostable | ✅ Yes | ❌ No | ❌ No |
-| Privacy-First Maps | ✅ OSM | ❌ Google | ❌ Apple |
-| Cross-Platform | ✅ Yes | ✅ Yes | ❌ iOS only |
-| Cost | Free/Low | Freemium | Free (iOS) |
-
----
-
-## Contact
-
-- **Developer**: [Your email or GitHub]
-- **Issues**: GitHub Issues (when public)
-- **Security**: security@draugar.is (when live)
-- **General**: hello@draugar.is (when live)
+This project is open source and contributions are welcome. Please see the upcoming `CONTRIBUTING.md` for more details.
 
 ---
 
 ## License
 
-Mobile Apps: GPL-3.0 (open source)
-Backend: To be determined (will support self-hosting)
+This project is licensed under the GPL-3.0 license.
 
 ---
 
-## Acknowledgments
-
-Inspired by:
-- Privacy advocates fighting surveillance capitalism
-- Signal Protocol (encryption design)
-- OpenStreetMap community (privacy-respecting maps)
-- Self-hosting movement (data sovereignty)
-- Ethical technology builders
-
-Built with:
-- React Native + Expo
-- Node.js + TypeScript + Express
-- PostgreSQL + PostGIS + Drizzle ORM
-- OpenStreetMap
-- AI coding assistants (Claude, GitHub Copilot)
-
----
-
-**"Your family's safety, your data's privacy. Built by one developer who cares."**
-
-*Currently in active development. Phase 4 (E2E Encryption) is next.*
+**"Your family's safety, your data's privacy."**
