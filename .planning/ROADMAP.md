@@ -52,7 +52,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 03-01: Invite code generation and validation
+- [x] 03-01: Invite code generation and validation
 - [ ] 03-02: JWT token flow and session management
 - [ ] 03-03: Mobile auth screens and token storage
 
@@ -100,7 +100,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-01-15 |
 | 2. Backend Core | 3/3 | Complete | 2026-01-16 |
-| 3. Authentication | 0/3 | Not started | - |
+| 3. Authentication | 1/3 | In progress | - |
 | 4. E2E Encryption | 0/3 | Not started | - |
 | 5. Real-Time Location | 0/3 | Not started | - |
 | 6. Mobile Polish & Deployment | 0/3 | Not started | - |
