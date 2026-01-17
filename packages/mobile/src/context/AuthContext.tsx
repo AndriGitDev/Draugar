@@ -1,7 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { saveToken, getToken, clearToken } from '../utils/storage';
-import { apiRequest, type ApiError } from '../utils/api';
+import { apiRequest, registerPublicKey, fetchGroupKey, type ApiError } from '../utils/api';
 import type { AuthResponse } from '@draugar/shared';
+import {
+  initSodium,
+  generateAndStoreKeypair,
+  hasKeypair,
+  unwrapAndStoreGroupKey,
+  getGroupKey,
+  getKeypair,
+  clearAllKeys,
+} from '../crypto';
 
 interface User {
   id: string;
@@ -36,6 +45,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     async function checkAuth() {
       try {
+        // Initialize sodium early
+        await initSodium();
+
         const token = await getToken();
         if (!token) {
           setState({ user: null, isLoading: false });
@@ -43,11 +55,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
 
         // Validate token with /api/auth/me
-        const response = await apiRequest<{ user: User }>('/api/auth/me');
-        setState({ user: response.user, isLoading: false });
+        const response = await apiRequest<{ id: string; name: string }>('/api/auth/me');
+        const user = { id: response.id, name: response.name };
+
+        // Ensure crypto is set up for returning users
+        try {
+          if (await hasKeypair()) {
+            // Have keypair, check if we have group key
+            if (!(await getGroupKey())) {
+              // Fetch group key from server
+              const wrappedKey = await fetchGroupKey();
+              await unwrapAndStoreGroupKey(wrappedKey);
+            }
+          }
+          // Note: If no keypair, user will need to re-join to generate one
+        } catch (cryptoErr) {
+          // Crypto errors shouldn't prevent auth - log and continue
+          console.warn('Crypto setup error:', cryptoErr);
+        }
+
+        setState({ user, isLoading: false });
       } catch (err) {
         // Token invalid or expired, clear it
         await clearToken();
+        await clearAllKeys();
         setState({ user: null, isLoading: false });
       }
     }
@@ -66,6 +97,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
       });
 
       await saveToken(response.token);
+
+      // Setup crypto after successful auth
+      try {
+        await initSodium();
+
+        // Check if we have a keypair already (shouldn't for new user)
+        if (!(await hasKeypair())) {
+          // Generate new keypair and register with server
+          const publicKey = await generateAndStoreKeypair();
+          // Register public key and get wrapped group key
+          const wrappedKey = await registerPublicKey(publicKey);
+          await unwrapAndStoreGroupKey(wrappedKey);
+        } else if (!(await getGroupKey())) {
+          // Have keypair but no group key - fetch it
+          const keypair = await getKeypair();
+          if (keypair) {
+            const wrappedKey = await fetchGroupKey();
+            await unwrapAndStoreGroupKey(wrappedKey);
+          }
+        }
+      } catch (cryptoErr) {
+        // Crypto errors shouldn't block auth - log and continue
+        console.warn('Crypto setup error during join:', cryptoErr);
+      }
+
       setState({ user: response.user, isLoading: false });
     } catch (err) {
       setState((prev) => ({ ...prev, isLoading: false }));
@@ -77,6 +133,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = useCallback(async () => {
     await clearToken();
+    // Clear all crypto keys on logout
+    await clearAllKeys();
     setState({ user: null, isLoading: false });
     setError(null);
   }, []);

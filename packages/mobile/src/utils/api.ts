@@ -1,4 +1,5 @@
 import { getToken } from './storage';
+import type { WrappedGroupKey } from '@draugar/shared';
 
 /**
  * API base URL - defaults to localhost for development
@@ -87,4 +88,23 @@ export async function apiRequest<T>(
     };
     throw unknownError;
   }
+}
+
+/**
+ * Register public key with server and get wrapped group key
+ */
+export async function registerPublicKey(
+  publicKey: string
+): Promise<WrappedGroupKey> {
+  return apiRequest<WrappedGroupKey>('/api/crypto/register-key', {
+    method: 'POST',
+    body: JSON.stringify({ publicKey }),
+  });
+}
+
+/**
+ * Fetch wrapped group key (for re-fetching on app restart)
+ */
+export async function fetchGroupKey(): Promise<WrappedGroupKey> {
+  return apiRequest<WrappedGroupKey>('/api/crypto/group-key');
 }
