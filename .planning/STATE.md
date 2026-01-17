@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Smooth real-time location tracking that actually works — privacy is table stakes, but the app must feel responsive and reliable for family to adopt it.
-**Current focus:** Phase 4 — E2E Encryption
+**Current focus:** Phase 5 — Location Tracking
 
 ## Current Position
 
-Phase: 4 of 6 (E2E Encryption)
-Plan: 3 of 4 in current phase
-Status: In progress
-Last activity: 2026-01-17 — Completed 04-02-PLAN.md (Backend libsodium)
+Phase: 4 of 6 (E2E Encryption) - COMPLETE
+Plan: 4 of 4 in current phase
+Status: Phase complete
+Last activity: 2026-01-17 — Completed 04-04-PLAN.md (Key exchange API)
 
-Progress: ████████████████░░ 92%
+Progress: █████████████████░ 96%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 4.1 min
-- Total execution time: 49 min
+- Total plans completed: 13
+- Average duration: 4.0 min
+- Total execution time: 52 min
 
 **By Phase:**
 
@@ -30,10 +30,10 @@ Progress: ████████████████░░ 92%
 | 1. Foundation | 3/3 | 11 min | 3.7 min |
 | 2. Backend Core | 3/3 | 15 min | 5.0 min |
 | 3. Authentication | 3/3 | 14 min | 4.7 min |
-| 4. E2E Encryption | 3/4 | 9 min | 3.0 min |
+| 4. E2E Encryption | 4/4 | 12 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-03 (8 min), 04-01 (1 min), 04-03 (4 min), 04-02 (4 min)
+- Last 5 plans: 04-01 (1 min), 04-03 (4 min), 04-02 (4 min), 04-04 (3 min)
 - Trend: Stable velocity
 
 ## Accumulated Context
@@ -70,6 +70,8 @@ Recent decisions affecting current work:
 - Type assertions for libsodium return types (Uint8Array casts)
 - Nonce prepended to encrypted data for single-string transmission
 - groupMembers junction table for user-group relationships
+- Graceful crypto errors in auth flow (log but don't block)
+- Async main() wrapper for backend startup with sodium init
 
 ### Pending Todos
 
@@ -82,13 +84,13 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-17
-Stopped at: Completed 04-02-PLAN.md
+Stopped at: Completed 04-04-PLAN.md
 Resume file: None
-Next: 04-04 (Key exchange API)
+Next: Phase 5 - Location Tracking
 
-**Phase 4 Wave Structure:**
+**Phase 4 Complete:**
 - Wave 1: 04-01 (Crypto types) - COMPLETE
 - Wave 2 (parallel): 04-02, 04-03 (Backend + Mobile libsodium) - COMPLETE
-- Wave 3: 04-04 (Key exchange API)
+- Wave 3: 04-04 (Key exchange API) - COMPLETE
 
-3/4 plans complete.
+4/4 plans complete. Full E2E key exchange working.
