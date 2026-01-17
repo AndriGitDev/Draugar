@@ -64,9 +64,10 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 04-01: Crypto library setup and key generation
-- [ ] 04-02: Key exchange protocol between devices
-- [ ] 04-03: Encrypt/decrypt location data flow
+- [x] 04-01: Shared crypto types and constants
+- [ ] 04-02: Backend libsodium integration
+- [ ] 04-03: Mobile libsodium integration
+- [ ] 04-04: Key exchange API
 
 ### Phase 5: Real-Time Location
 **Goal**: Family members see each other on map in real-time
@@ -101,6 +102,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Foundation | 3/3 | Complete | 2026-01-15 |
 | 2. Backend Core | 3/3 | Complete | 2026-01-16 |
 | 3. Authentication | 3/3 | Complete | 2026-01-16 |
-| 4. E2E Encryption | 0/3 | Not started | - |
+| 4. E2E Encryption | 1/4 | In progress | - |
 | 5. Real-Time Location | 0/3 | Not started | - |
 | 6. Mobile Polish & Deployment | 0/3 | Not started | - |
