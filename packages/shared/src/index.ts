@@ -11,3 +11,13 @@ export type {
   InterServerEvents,
   SocketData,
 } from './types/ws-messages';
+
+// Crypto types
+export type {
+  EncryptedPayload,
+  CryptoKeyPair,
+  WrappedGroupKey,
+  PublicKeyRegistration,
+} from './crypto';
+
+export { CRYPTO } from './crypto';
