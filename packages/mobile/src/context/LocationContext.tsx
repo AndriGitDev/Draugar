@@ -103,7 +103,11 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
   }, [isAuthenticated]);
 
   const handleLocationUpdate = useCallback(async (locationObj: Location.LocationObject) => {
-    if (!user?.id) return;
+    console.log('[LocationContext] handleLocationUpdate called');
+    if (!user?.id) {
+      console.warn('[LocationContext] No user ID, skipping location update');
+      return;
+    }
 
     const location: LocationType = {
       userId: user.id,
@@ -113,6 +117,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
       timestamp: new Date(locationObj.timestamp),
     };
 
+    console.log('[LocationContext] Sending location:', location.latitude, location.longitude);
     await sendLocationUpdate(location);
   }, [user?.id]);
 
