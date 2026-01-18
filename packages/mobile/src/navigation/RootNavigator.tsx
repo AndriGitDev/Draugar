@@ -5,11 +5,13 @@ import { useAuth } from '../context/AuthContext';
 import { JoinScreen } from '../screens/JoinScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MapScreen } from '../screens/MapScreen';
+import { SettingsScreen } from '../screens/SettingsScreen';
 
 export type RootStackParamList = {
   Join: undefined;
   Home: undefined;
   Map: undefined;
+  Settings: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +36,11 @@ export function RootNavigator() {
             name="Map"
             component={MapScreen}
             options={{ title: 'Family Map' }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{ title: 'Settings' }}
           />
         </>
       ) : (

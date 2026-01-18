@@ -1,5 +1,35 @@
 import * as Location from 'expo-location';
+import * as SecureStore from 'expo-secure-store';
 import { LOCATION_TASK_NAME, setLocationUpdateHandler } from './backgroundTask';
+
+const FREQUENCY_KEY = 'draugar_update_frequency';
+
+type FrequencyPreset = 'low' | 'balanced' | 'high';
+
+interface FrequencySettings {
+  distanceInterval: number;
+  deferredUpdatesInterval: number;
+}
+
+const FREQUENCY_PRESETS: Record<FrequencyPreset, FrequencySettings> = {
+  low: { distanceInterval: 100, deferredUpdatesInterval: 300000 }, // 100m, 5 min
+  balanced: { distanceInterval: 50, deferredUpdatesInterval: 60000 }, // 50m, 1 min
+  high: { distanceInterval: 20, deferredUpdatesInterval: 30000 }, // 20m, 30 sec
+};
+
+export async function getUpdateFrequencySettings(): Promise<FrequencySettings> {
+  try {
+    const stored = await SecureStore.getItemAsync(FREQUENCY_KEY);
+    if (stored && stored in FREQUENCY_PRESETS) {
+      console.log('[location] Using frequency preset:', stored);
+      return FREQUENCY_PRESETS[stored as FrequencyPreset];
+    }
+  } catch (error) {
+    console.error('[location] Failed to read frequency setting:', error);
+  }
+  console.log('[location] Using default balanced preset');
+  return FREQUENCY_PRESETS.balanced;
+}
 
 export interface LocationPermissions {
   foreground: boolean;
@@ -42,14 +72,17 @@ export async function startLocationUpdates(
   // Register the update handler
   setLocationUpdateHandler(onUpdate);
 
+  // Get user-selected frequency settings
+  const frequencySettings = await getUpdateFrequencySettings();
+
   if (permissions.background) {
     // Check if already running
     const isRunning = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME);
     if (!isRunning) {
       await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
         accuracy: Location.Accuracy.Balanced,
-        distanceInterval: 50,
-        deferredUpdatesInterval: 60000,
+        distanceInterval: frequencySettings.distanceInterval,
+        deferredUpdatesInterval: frequencySettings.deferredUpdatesInterval,
         pausesUpdatesAutomatically: true,
         activityType: Location.ActivityType.Other,
         showsBackgroundLocationIndicator: true,
@@ -60,7 +93,13 @@ export async function startLocationUpdates(
         },
       });
     }
-    console.log('[location] Background tracking started');
+    console.log(
+      '[location] Background tracking started with intervals:',
+      frequencySettings.distanceInterval,
+      'm /',
+      frequencySettings.deferredUpdatesInterval / 1000,
+      's'
+    );
   } else {
     // Foreground-only fallback
     console.log('[location] Foreground-only tracking (no background permission)');
