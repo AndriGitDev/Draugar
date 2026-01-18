@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import MapLibreGL from '@maplibre/maplibre-react-native';
+import { MapView, Camera, UserLocation, MarkerView, UserTrackingMode } from '@maplibre/maplibre-react-native';
 
 // OpenFreeMap - free OSM tiles, no API key needed
 // Attribution is auto-handled by MapLibre when logoEnabled and attributionEnabled are true
 const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty/style.json';
 
-// Initialize MapLibre (no token needed for OpenFreeMap)
-MapLibreGL.setAccessToken(null);
+// Note: No token needed for OpenFreeMap - it's free and open
 
 interface FamilyMember {
   id: string;
@@ -24,21 +23,21 @@ interface MapScreenProps {
 export function MapScreen({ familyMembers = [] }: MapScreenProps): React.JSX.Element {
   return (
     <View style={styles.container}>
-      <MapLibreGL.MapView
+      <MapView
         style={styles.map}
-        styleURL={OPENFREEMAP_STYLE}
+        mapStyle={OPENFREEMAP_STYLE}
         logoEnabled={true}
         attributionEnabled={true}
       >
-        <MapLibreGL.Camera
+        <Camera
           zoomLevel={14}
           followUserLocation={true}
-          followUserMode="normal"
+          followUserMode={UserTrackingMode.Follow}
           animationMode="flyTo"
           animationDuration={1000}
         />
 
-        <MapLibreGL.UserLocation
+        <UserLocation
           visible={true}
           animated={true}
           showsUserHeadingIndicator={true}
@@ -47,7 +46,7 @@ export function MapScreen({ familyMembers = [] }: MapScreenProps): React.JSX.Ele
 
         {/* Family member markers - will be populated by Plan 04 */}
         {familyMembers.map((member) => (
-          <MapLibreGL.MarkerView
+          <MarkerView
             key={member.id}
             coordinate={[member.longitude, member.latitude]}
           >
@@ -56,9 +55,9 @@ export function MapScreen({ familyMembers = [] }: MapScreenProps): React.JSX.Ele
                 {member.name.charAt(0).toUpperCase()}
               </Text>
             </View>
-          </MapLibreGL.MarkerView>
+          </MarkerView>
         ))}
-      </MapLibreGL.MapView>
+      </MapView>
     </View>
   );
 }
