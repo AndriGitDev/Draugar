@@ -60,6 +60,9 @@ export async function requestLocationPermissions(): Promise<LocationPermissions>
   };
 }
 
+// Store subscription for foreground updates
+let foregroundSubscription: Location.LocationSubscription | null = null;
+
 export async function startLocationUpdates(
   onUpdate: (location: Location.LocationObject) => void
 ): Promise<boolean> {
@@ -69,11 +72,28 @@ export async function startLocationUpdates(
     return false;
   }
 
-  // Register the update handler
+  // Register the update handler for background task
   setLocationUpdateHandler(onUpdate);
 
   // Get user-selected frequency settings
   const frequencySettings = await getUpdateFrequencySettings();
+
+  // Always start foreground watcher for immediate updates while app is open
+  if (foregroundSubscription) {
+    foregroundSubscription.remove();
+  }
+  foregroundSubscription = await Location.watchPositionAsync(
+    {
+      accuracy: Location.Accuracy.Balanced,
+      distanceInterval: 10, // More sensitive for foreground
+      timeInterval: 10000, // Every 10 seconds
+    },
+    (location) => {
+      console.log('[location] Foreground update:', location.coords.latitude, location.coords.longitude);
+      onUpdate(location);
+    }
+  );
+  console.log('[location] Foreground watcher started');
 
   if (permissions.background) {
     // Check if already running
@@ -110,6 +130,12 @@ export async function startLocationUpdates(
 
 export async function stopLocationUpdates(): Promise<void> {
   setLocationUpdateHandler(null);
+
+  // Stop foreground watcher
+  if (foregroundSubscription) {
+    foregroundSubscription.remove();
+    foregroundSubscription = null;
+  }
 
   const isRunning = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME);
   if (isRunning) {
