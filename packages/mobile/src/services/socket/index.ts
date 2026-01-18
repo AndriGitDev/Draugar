@@ -14,7 +14,7 @@ let socket: DraugarSocket | null = null;
 let ghostMode = false;
 
 // Callbacks for location updates from other family members
-type LocationCallback = (userId: string, location: Location) => void;
+type LocationCallback = (userId: string, userName: string, location: Location) => void;
 const locationCallbacks: Set<LocationCallback> = new Set();
 
 export function onFamilyLocationUpdate(callback: LocationCallback): () => void {
@@ -51,15 +51,15 @@ export async function connectSocket(serverUrl: string): Promise<boolean> {
     console.log('[socket] Disconnected:', reason);
   });
 
-  socket.on('location:broadcast', async ({ senderId, payload }) => {
-    console.log('[socket] Received location:broadcast from', senderId);
+  socket.on('location:broadcast', async ({ senderId, senderName, payload }) => {
+    console.log('[socket] Received location:broadcast from', senderName);
     // Decrypt the location from another family member
     const location = await decryptLocation(payload);
     if (location) {
-      console.log('[socket] Decrypted location for', senderId, ':', location.latitude, location.longitude);
-      locationCallbacks.forEach((cb) => cb(senderId, location));
+      console.log('[socket] Decrypted location for', senderName, ':', location.latitude, location.longitude);
+      locationCallbacks.forEach((cb) => cb(senderId, senderName, location));
     } else {
-      console.error('[socket] Failed to decrypt location from', senderId);
+      console.error('[socket] Failed to decrypt location from', senderName);
     }
   });
 

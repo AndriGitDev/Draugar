@@ -10,8 +10,8 @@ export interface ClientToServerEvents {
 
 // Server -> Client messages
 export interface ServerToClientEvents {
-  // Broadcast includes senderId so receiver knows who sent it
-  'location:broadcast': (data: { senderId: string; payload: EncryptedPayload }) => void;
+  // Broadcast includes senderId and senderName so receiver knows who sent it
+  'location:broadcast': (data: { senderId: string; senderName: string; payload: EncryptedPayload }) => void;
   'user:online': (userId: string) => void;
   'user:offline': (userId: string) => void;
   'error': (message: string) => void;
@@ -23,5 +23,6 @@ export interface InterServerEvents {}
 // Socket data (attached to each socket)
 export interface SocketData {
   userId: string | null;
+  userName: string | null;
   authenticated: boolean;
 }

@@ -81,12 +81,12 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
     if (isAuthenticated) {
 
       // Listen for family location updates
-      const unsubscribe = onFamilyLocationUpdate((userId, location) => {
+      const unsubscribe = onFamilyLocationUpdate((userId, userName, location) => {
         setFamilyLocations((prev) => {
           const next = new Map(prev);
           next.set(userId, {
             id: userId,
-            name: userId.slice(0, 8), // TODO: Get actual name from user data
+            name: userName,
             latitude: location.latitude,
             longitude: location.longitude,
             lastUpdated: new Date(location.timestamp),

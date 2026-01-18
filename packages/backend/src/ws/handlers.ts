@@ -7,6 +7,7 @@ export function handleLocationUpdate(
   payload: EncryptedPayload
 ): void {
   const senderId = socket.data.userId;
+  const senderName = socket.data.userName || 'Unknown';
 
   if (!senderId || !socket.data.authenticated) {
     socket.emit('error', 'Not authenticated');
@@ -18,10 +19,11 @@ export function handleLocationUpdate(
   // For now: broadcast to all authenticated users (single family group)
   socket.broadcast.emit('location:broadcast', {
     senderId,
+    senderName,
     payload,
   });
 
-  console.log(`[ws] Location broadcast from user ${senderId}`);
+  console.log(`[ws] Location broadcast from user ${senderId} (${senderName})`);
 }
 
 // Keep handleSubscribe and handleUnsubscribe - they'll be used for room-based filtering later

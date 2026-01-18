@@ -24,6 +24,7 @@ export function createWebSocketServer(httpServer: HttpServer): DraugarServer {
     try {
       const payload = await verifyToken(token);
       socket.data.userId = payload.userId;
+      socket.data.userName = payload.name;
       socket.data.authenticated = true;
       console.log(`[ws] Authenticated user: ${payload.userId} (${payload.name})`);
       next();
