@@ -1,3 +1,6 @@
+// Must import before any component renders to register background task
+import './src/services/location';
+
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './src/context/AuthContext';
