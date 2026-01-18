@@ -11,6 +11,7 @@ import { encryptLocation, decryptLocation } from '../../crypto';
 type DraugarSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
 let socket: DraugarSocket | null = null;
+let ghostMode = false;
 
 // Callbacks for location updates from other family members
 type LocationCallback = (userId: string, location: Location) => void;
@@ -60,7 +61,21 @@ export async function connectSocket(serverUrl: string): Promise<boolean> {
   return true;
 }
 
+export function setGhostMode(enabled: boolean): void {
+  ghostMode = enabled;
+  console.log('[socket] Ghost mode:', enabled ? 'ON' : 'OFF');
+}
+
+export function isGhostModeEnabled(): boolean {
+  return ghostMode;
+}
+
 export async function sendLocationUpdate(location: Location): Promise<void> {
+  if (ghostMode) {
+    console.log('[socket] Ghost mode active, skipping location broadcast');
+    return;
+  }
+
   if (!socket?.connected) {
     console.warn('[socket] Not connected, skipping location update');
     return;

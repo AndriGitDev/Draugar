@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { Location as LocationType } from '@draugar/shared';
 import * as Location from 'expo-location';
+import * as SecureStore from 'expo-secure-store';
 import {
   startLocationUpdates,
   stopLocationUpdates,
@@ -13,8 +14,11 @@ import {
   sendLocationUpdate,
   onFamilyLocationUpdate,
   disconnectSocket,
+  setGhostMode as socketSetGhostMode,
 } from '../services/socket';
 import { useAuth } from './AuthContext';
+
+const GHOST_MODE_KEY = 'draugar_ghost_mode';
 
 interface FamilyMember {
   id: string;
@@ -28,9 +32,11 @@ interface LocationContextValue {
   isTracking: boolean;
   permissions: LocationPermissions;
   familyLocations: Map<string, FamilyMember>;
+  isGhostMode: boolean;
   startTracking: () => Promise<boolean>;
   stopTracking: () => Promise<void>;
   requestPermissions: () => Promise<LocationPermissions>;
+  toggleGhostMode: () => void;
   isAuthenticated: boolean;
 }
 
@@ -42,10 +48,18 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
   const [isTracking, setIsTracking] = useState(false);
   const [permissions, setPermissions] = useState<LocationPermissions>({ foreground: false, background: false });
   const [familyLocations, setFamilyLocations] = useState<Map<string, FamilyMember>>(new Map());
+  const [isGhostMode, setIsGhostMode] = useState(false);
 
-  // Check permissions on mount
+  // Check permissions and load ghost mode on mount
   useEffect(() => {
     getLocationPermissionStatus().then(setPermissions);
+
+    // Load ghost mode from SecureStore
+    SecureStore.getItemAsync(GHOST_MODE_KEY).then((value) => {
+      const enabled = value === 'true';
+      setIsGhostMode(enabled);
+      socketSetGhostMode(enabled);
+    });
   }, []);
 
   // Connect socket when authenticated
@@ -108,15 +122,28 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
     return perms;
   }, []);
 
+  const toggleGhostMode = useCallback(() => {
+    setIsGhostMode((prev) => {
+      const newValue = !prev;
+      // Update socket service immediately
+      socketSetGhostMode(newValue);
+      // Persist to SecureStore
+      SecureStore.setItemAsync(GHOST_MODE_KEY, newValue ? 'true' : 'false');
+      return newValue;
+    });
+  }, []);
+
   return (
     <LocationContext.Provider
       value={{
         isTracking,
         permissions,
         familyLocations,
+        isGhostMode,
         startTracking,
         stopTracking,
         requestPermissions: requestPermissionsHandler,
+        toggleGhostMode,
         isAuthenticated,
       }}
     >
