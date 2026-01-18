@@ -1,24 +1,36 @@
-import type { Location } from '@draugar/shared';
-import type { DraugarSocket } from './types';
+import type { EncryptedPayload } from '@draugar/shared';
+import type { DraugarSocket, DraugarServer } from './types';
 
 export function handleLocationUpdate(
+  io: DraugarServer,
   socket: DraugarSocket,
-  location: Omit<Location, 'userId'>
+  payload: EncryptedPayload
 ): void {
-  // Will broadcast to family group after auth is implemented
-  console.log(`[ws] Location update from socket ${socket.id}:`, location);
-  // For now, echo back to sender as proof of concept
-  socket.emit('location:broadcast', {
-    ...location,
-    userId: socket.data.userId || 'anonymous',
+  const senderId = socket.data.userId;
+
+  if (!senderId || !socket.data.authenticated) {
+    socket.emit('error', 'Not authenticated');
+    return;
+  }
+
+  // Broadcast to all OTHER authenticated sockets
+  // In future: filter by group membership from database
+  // For now: broadcast to all authenticated users (single family group)
+  socket.broadcast.emit('location:broadcast', {
+    senderId,
+    payload,
   });
+
+  console.log(`[ws] Location broadcast from user ${senderId}`);
 }
 
+// Keep handleSubscribe and handleUnsubscribe - they'll be used for room-based filtering later
 export function handleSubscribe(socket: DraugarSocket): void {
   console.log(`[ws] Socket ${socket.id} subscribed to location updates`);
-  // Will join room based on family group after auth
+  // TODO: Join room based on group membership
 }
 
 export function handleUnsubscribe(socket: DraugarSocket): void {
   console.log(`[ws] Socket ${socket.id} unsubscribed from location updates`);
+  // TODO: Leave room
 }

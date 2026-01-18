@@ -19,7 +19,7 @@ export function createWebSocketServer(httpServer: HttpServer): DraugarServer {
     socket.data.authenticated = false;
 
     // Register event handlers
-    socket.on('location:update', (location) => handleLocationUpdate(socket, location));
+    socket.on('location:update', (payload) => handleLocationUpdate(io, socket, payload));
     socket.on('location:subscribe', () => handleSubscribe(socket));
     socket.on('location:unsubscribe', () => handleUnsubscribe(socket));
 
