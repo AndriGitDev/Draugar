@@ -1,5 +1,5 @@
 import { io, Socket } from 'socket.io-client';
-import * as SecureStore from 'expo-secure-store';
+import { getToken } from '../../utils/storage';
 import type {
   ClientToServerEvents,
   ServerToClientEvents,
@@ -23,13 +23,16 @@ export function onFamilyLocationUpdate(callback: LocationCallback): () => void {
 }
 
 export async function connectSocket(serverUrl: string): Promise<boolean> {
-  const token = await SecureStore.getItemAsync('draugar_token');
+  console.log('[socket] connectSocket called with URL:', serverUrl);
+
+  const token = await getToken();
   if (!token) {
-    console.error('[socket] No auth token');
+    console.error('[socket] No auth token found in SecureStore');
     return false;
   }
+  console.log('[socket] Token retrieved, length:', token.length);
 
-  console.log('[socket] Connecting to', serverUrl);
+  console.log('[socket] Creating socket.io connection to', serverUrl);
 
   socket = io(serverUrl, {
     auth: { token },
@@ -49,10 +52,14 @@ export async function connectSocket(serverUrl: string): Promise<boolean> {
   });
 
   socket.on('location:broadcast', async ({ senderId, payload }) => {
+    console.log('[socket] Received location:broadcast from', senderId);
     // Decrypt the location from another family member
     const location = await decryptLocation(payload);
     if (location) {
+      console.log('[socket] Decrypted location for', senderId, ':', location.latitude, location.longitude);
       locationCallbacks.forEach((cb) => cb(senderId, location));
+    } else {
+      console.error('[socket] Failed to decrypt location from', senderId);
     }
   });
 
@@ -83,13 +90,17 @@ export async function sendLocationUpdate(location: Location): Promise<void> {
   }
 
   if (!socket?.connected) {
-    console.warn('[socket] Not connected, skipping location update');
+    console.warn('[socket] Not connected (socket exists:', !!socket, ', connected:', socket?.connected, '), skipping location update');
     return;
   }
 
+  console.log('[socket] Encrypting and sending location update...');
   const encrypted = await encryptLocation(location);
   if (encrypted) {
     socket.emit('location:update', encrypted);
+    console.log('[socket] Location update sent');
+  } else {
+    console.error('[socket] Failed to encrypt location - no group key?');
   }
 }
 
