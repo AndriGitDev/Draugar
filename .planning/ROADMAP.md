@@ -4,105 +4,33 @@
 
 From zero to a working family location sharing app. Start with foundation and backend infrastructure, add authentication and encryption layers, then build out real-time location features. End with mobile polish and deployment to Finland VPS.
 
-## Domain Expertise
+## Milestones
 
-None
+- [v1.0 MVP](milestones/v1.0-ROADMAP.md) — Phases 1-6 (shipped 2026-01-18)
 
-## Phases
+## Completed Milestones
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+<details>
+<summary>v1.0 MVP (Phases 1-6) — SHIPPED 2026-01-18</summary>
 
-- [x] **Phase 1: Foundation** - Project setup, monorepo structure, dev environment
-- [x] **Phase 2: Backend Core** - API server, PostgreSQL, WebSocket infrastructure
-- [x] **Phase 3: Authentication** - Invite codes, JWT tokens, session management
-- [x] **Phase 4: E2E Encryption** - Crypto implementation, key exchange, zero-knowledge architecture
-- [x] **Phase 5: Real-Time Location** - Location sharing, map display, WebSocket sync
-- [x] **Phase 6: Mobile Polish & Deployment** - Background tracking, ghost mode, Docker deployment
+- [x] Phase 1: Foundation (3/3 plans) — completed 2026-01-15
+- [x] Phase 2: Backend Core (3/3 plans) — completed 2026-01-16
+- [x] Phase 3: Authentication (3/3 plans) — completed 2026-01-16
+- [x] Phase 4: E2E Encryption (4/4 plans) — completed 2026-01-17
+- [x] Phase 5: Real-Time Location (4/4 plans) — completed 2026-01-18
+- [x] Phase 6: Mobile Polish & Deployment (3/3 plans) — completed 2026-01-18
 
-## Phase Details
-
-### Phase 1: Foundation
-**Goal**: Working development environment with React Native + Node.js monorepo
-**Depends on**: Nothing (first phase)
-**Research**: Unlikely (established patterns)
-**Plans**: TBD
-
-Plans:
-- [x] 01-01: Monorepo setup with shared TypeScript types
-- [x] 01-02: React Native Expo project scaffold
-- [x] 01-03: Node.js backend scaffold with Express
-
-### Phase 2: Backend Core
-**Goal**: API server with PostgreSQL and WebSocket ready for features
-**Depends on**: Phase 1
-**Research**: Unlikely (standard Node/Express/WebSocket patterns)
-**Plans**: TBD
-
-Plans:
-- [x] 02-01: PostgreSQL schema and connection setup
-- [x] 02-02: Express API structure with error handling
-- [x] 02-03: WebSocket server integration
-
-### Phase 3: Authentication
-**Goal**: Users can join via invite code and maintain sessions
-**Depends on**: Phase 2
-**Research**: Unlikely (invite codes simpler than OAuth)
-**Plans**: TBD
-
-Plans:
-- [x] 03-01: Invite code generation and validation
-- [x] 03-02: JWT token flow and session management
-- [x] 03-03: Mobile auth screens and token storage
-
-### Phase 4: E2E Encryption
-**Goal**: Zero-knowledge architecture where server cannot read location data
-**Depends on**: Phase 3
-**Research**: Likely (cryptographic architecture)
-**Research topics**: Signal Protocol basics, libsodium/tweetnacl for JS, key exchange patterns for family group
-**Plans**: TBD
-
-Plans:
-- [x] 04-01: Shared crypto types and constants
-- [x] 04-02: Backend libsodium integration
-- [x] 04-03: Mobile libsodium integration
-- [x] 04-04: Key exchange API
-
-### Phase 5: Real-Time Location
-**Goal**: Family members see each other on map in real-time
-**Depends on**: Phase 4
-**Research**: Likely (React Native background location)
-**Research topics**: expo-location background modes, MapLibre React Native integration, battery optimization strategies
-**Plans**: TBD
-
-Plans:
-- [x] 05-01: Location and map dependencies
-- [x] 05-02: Background location service
-- [x] 05-03: MapScreen with OpenFreeMap
-- [x] 05-04: Socket integration and family markers
-
-### Phase 6: Mobile Polish & Deployment
-**Goal**: Production-ready app deployed to Finland VPS
-**Depends on**: Phase 5
-**Research**: Unlikely (Docker patterns exist)
-**Plans**: TBD
-
-Plans:
-- [x] 06-01: Ghost mode (pause sharing)
-- [x] 06-02: Battery optimization and settings
-- [x] 06-03: Docker setup and VPS deployment
+</details>
 
 ## Progress
 
-**Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Foundation | v1.0 | 3/3 | Complete | 2026-01-15 |
+| 2. Backend Core | v1.0 | 3/3 | Complete | 2026-01-16 |
+| 3. Authentication | v1.0 | 3/3 | Complete | 2026-01-16 |
+| 4. E2E Encryption | v1.0 | 4/4 | Complete | 2026-01-17 |
+| 5. Real-Time Location | v1.0 | 4/4 | Complete | 2026-01-18 |
+| 6. Mobile Polish & Deployment | v1.0 | 3/3 | Complete | 2026-01-18 |
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Foundation | 3/3 | Complete | 2026-01-15 |
-| 2. Backend Core | 3/3 | Complete | 2026-01-16 |
-| 3. Authentication | 3/3 | Complete | 2026-01-16 |
-| 4. E2E Encryption | 4/4 | Complete | 2026-01-17 |
-| 5. Real-Time Location | 4/4 | Complete | 2026-01-18 |
-| 6. Mobile Polish & Deployment | 3/3 | Complete | 2026-01-18 |
+**Total:** 6 phases, 20 plans — v1.0 MVP complete

@@ -4,6 +4,8 @@
 
 A privacy-first family location sharing app — an ethical alternative to Life360. React Native mobile app with Node.js/TypeScript backend, self-hosted on a Finland VPS. Built for one family with maximum privacy: end-to-end encryption, minimal data collection, and full user data ownership.
 
+**Current State (v1.0):** Fully functional MVP with real-time location sharing, E2E encryption, and Docker deployment ready. 2,900 lines of TypeScript across mobile and backend packages.
+
 ## Core Value
 
 Smooth real-time location tracking that actually works — privacy is table stakes, but the app must feel responsive and reliable for family to adopt it.
@@ -12,17 +14,17 @@ Smooth real-time location tracking that actually works — privacy is table stak
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Real-time location sharing on a map (WebSocket-based) — v1.0
+- [x] Single family group where everyone sees everyone — v1.0
+- [x] Invite code authentication (admin creates codes, family joins with code) — v1.0
+- [x] End-to-end encryption (server cannot read location data) — v1.0 (XChaCha20-Poly1305)
+- [x] OpenStreetMap/MapLibre for privacy-respecting maps — v1.0
+- [x] Background location tracking (battery optimized) — v1.0
+- [x] Ghost mode (pause sharing temporarily) — v1.0
 
 ### Active
 
-- [ ] Real-time location sharing on a map (WebSocket-based)
-- [ ] Single family group where everyone sees everyone
-- [ ] Invite code authentication (admin creates codes, family joins with code)
-- [ ] End-to-end encryption (server cannot read location data)
-- [ ] OpenStreetMap/MapLibre for privacy-respecting maps
-- [ ] Background location tracking (battery optimized)
-- [ ] Ghost mode (pause sharing temporarily)
+(None — v1.0 complete, awaiting real-world testing)
 
 ### Out of Scope
 
@@ -58,11 +60,19 @@ Smooth real-time location tracking that actually works — privacy is table stak
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Single group model | Simpler than multi-circle, family is one unit | — Pending |
-| Invite code auth | More controlled than email signup, simpler to implement | — Pending |
-| Node.js over Go/Rust | Same language as frontend, faster iteration | — Pending |
-| Skip web dashboard | Mobile-first, reduce scope | — Pending |
-| Docker deployment | Fits existing VPS setup with Jellyseer | — Pending |
+| Single group model | Simpler than multi-circle, family is one unit | ✓ Good |
+| Invite code auth | More controlled than email signup, simpler to implement | ✓ Good |
+| Node.js over Go/Rust | Same language as frontend, faster iteration | ✓ Good |
+| Skip web dashboard | Mobile-first, reduce scope | ✓ Good |
+| Docker deployment | Fits existing VPS setup with Jellyseer | ✓ Good |
+| pnpm monorepo | Better workspace support than npm/yarn | ✓ Good |
+| Drizzle ORM | Lighter weight than Prisma, pure TypeScript | ✓ Good |
+| Socket.IO | Reconnection handling, mobile-friendly fallbacks | ✓ Good |
+| jose library | Edge compatible, ESM native (vs jsonwebtoken) | ✓ Good |
+| XChaCha20-Poly1305 | Modern encryption, libsodium supported | ✓ Good |
+| MapLibre | No Google dependency, privacy-respecting | ✓ Good |
+| expo-location | Simpler than react-native-background-geolocation, free | ✓ Good |
+| Broadcast to all users | MVP simplicity, room-based filtering deferred | ⚠️ Revisit |
 
 ---
-*Last updated: 2026-01-14 after initialization*
+*Last updated: 2026-01-18 after v1.0 milestone*
