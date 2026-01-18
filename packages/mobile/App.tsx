@@ -4,6 +4,7 @@ import './src/services/location';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './src/context/AuthContext';
+import { LocationProvider } from './src/context/LocationContext';
 import { RootNavigator } from './src/navigation/RootNavigator';
 
 // Verify shared types are accessible from workspace package
@@ -15,10 +16,12 @@ const _typeCheck: { user: User; location: Location } | null = null;
 export default function App() {
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <RootNavigator />
-        <StatusBar style="auto" />
-      </NavigationContainer>
+      <LocationProvider>
+        <NavigationContainer>
+          <RootNavigator />
+          <StatusBar style="auto" />
+        </NavigationContainer>
+      </LocationProvider>
     </AuthProvider>
   );
 }
