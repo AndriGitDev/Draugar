@@ -95,12 +95,16 @@ export async function sendLocationUpdate(location: Location): Promise<void> {
   }
 
   console.log('[socket] Encrypting and sending location update...');
-  const encrypted = await encryptLocation(location);
-  if (encrypted) {
-    socket.emit('location:update', encrypted);
-    console.log('[socket] Location update sent');
-  } else {
-    console.error('[socket] Failed to encrypt location - no group key?');
+  try {
+    const encrypted = await encryptLocation(location);
+    if (encrypted) {
+      socket.emit('location:update', encrypted);
+      console.log('[socket] Location update sent');
+    } else {
+      console.error('[socket] Failed to encrypt location - no group key?');
+    }
+  } catch (error) {
+    console.error('[socket] Encryption error:', error);
   }
 }
 
