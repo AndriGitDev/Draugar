@@ -60,7 +60,12 @@ export async function decryptLocation(
     const ciphertext = sodium.from_base64(payload.c);
 
     // Decrypt with secretbox (XSalsa20-Poly1305)
-    const plaintext = sodium.crypto_secretbox_open_easy(ciphertext, nonce, groupKey);
+    const decrypted = sodium.crypto_secretbox_open_easy(ciphertext, nonce, groupKey);
+
+    // Convert Uint8Array to string
+    const plaintext = typeof decrypted === 'string'
+      ? decrypted
+      : new TextDecoder().decode(decrypted);
 
     const location = JSON.parse(plaintext) as Location;
 
