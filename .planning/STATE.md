@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 
 ## Current Position
 
-Phase: 4 of 6 (E2E Encryption) - COMPLETE
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-17 — Completed 04-04-PLAN.md (Key exchange API)
+Phase: 5 of 6 (Real-Time Location)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-18 — Completed 05-01-PLAN.md (Location dependencies)
 
-Progress: █████████████████░ 96%
+Progress: █████████████████░░ 88%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
-- Average duration: 4.0 min
-- Total execution time: 52 min
+- Total plans completed: 14
+- Average duration: 3.9 min
+- Total execution time: 54 min
 
 **By Phase:**
 
@@ -31,9 +31,10 @@ Progress: █████████████████░ 96%
 | 2. Backend Core | 3/3 | 15 min | 5.0 min |
 | 3. Authentication | 3/3 | 14 min | 4.7 min |
 | 4. E2E Encryption | 4/4 | 12 min | 3.0 min |
+| 5. Real-Time Location | 1/3 | 2 min | 2.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-01 (1 min), 04-03 (4 min), 04-02 (4 min), 04-04 (3 min)
+- Last 5 plans: 04-02 (4 min), 04-03 (4 min), 04-04 (3 min), 05-01 (2 min)
 - Trend: Stable velocity
 
 ## Accumulated Context
@@ -72,6 +73,8 @@ Recent decisions affecting current work:
 - groupMembers junction table for user-group relationships
 - Graceful crypto errors in auth flow (log but don't block)
 - Async main() wrapper for backend startup with sodium init
+- MapLibre over react-native-maps for privacy (no Google dependency)
+- expo-location over react-native-background-geolocation (simpler, no license cost)
 
 ### Pending Todos
 
@@ -83,14 +86,14 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-17
-Stopped at: Completed 04-04-PLAN.md
+Last session: 2026-01-18
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
-Next: Phase 5 - Location Tracking
+Next: 05-02-PLAN.md (Location broadcasting)
 
-**Phase 4 Complete:**
-- Wave 1: 04-01 (Crypto types) - COMPLETE
-- Wave 2 (parallel): 04-02, 04-03 (Backend + Mobile libsodium) - COMPLETE
-- Wave 3: 04-04 (Key exchange API) - COMPLETE
+**Phase 5 Progress:**
+- 05-01 (Location dependencies) - COMPLETE
+- 05-02 (Location broadcasting) - Not started
+- 05-03 (Background tracking) - Not started
 
-4/4 plans complete. Full E2E key exchange working.
+1/3 plans complete. Dependencies installed, ready for implementation.

@@ -18,7 +18,7 @@ None
 - [x] **Phase 2: Backend Core** - API server, PostgreSQL, WebSocket infrastructure
 - [x] **Phase 3: Authentication** - Invite codes, JWT tokens, session management
 - [x] **Phase 4: E2E Encryption** - Crypto implementation, key exchange, zero-knowledge architecture
-- [ ] **Phase 5: Real-Time Location** - Location sharing, map display, WebSocket sync
+- [ ] **Phase 5: Real-Time Location** - Location sharing, map display, WebSocket sync (In progress: 1/3)
 - [ ] **Phase 6: Mobile Polish & Deployment** - Background tracking, ghost mode, Docker deployment
 
 ## Phase Details
@@ -77,7 +77,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 05-01: MapLibre integration with OpenStreetMap
+- [x] 05-01: Location and map dependencies
 - [ ] 05-02: Location broadcasting and receiving via WebSocket
 - [ ] 05-03: Background location tracking setup
 
@@ -103,5 +103,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Backend Core | 3/3 | Complete | 2026-01-16 |
 | 3. Authentication | 3/3 | Complete | 2026-01-16 |
 | 4. E2E Encryption | 4/4 | Complete | 2026-01-17 |
-| 5. Real-Time Location | 0/3 | Not started | - |
+| 5. Real-Time Location | 1/3 | In progress | - |
 | 6. Mobile Polish & Deployment | 0/3 | Not started | - |
