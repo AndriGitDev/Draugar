@@ -29,6 +29,8 @@ export async function connectSocket(serverUrl: string): Promise<boolean> {
     return false;
   }
 
+  console.log('[socket] Connecting to', serverUrl);
+
   socket = io(serverUrl, {
     auth: { token },
     transports: ['websocket', 'polling'],
@@ -56,6 +58,10 @@ export async function connectSocket(serverUrl: string): Promise<boolean> {
 
   socket.on('error', (message) => {
     console.error('[socket] Error:', message);
+  });
+
+  socket.on('connect_error', (error) => {
+    console.error('[socket] Connection error:', error.message);
   });
 
   return true;
