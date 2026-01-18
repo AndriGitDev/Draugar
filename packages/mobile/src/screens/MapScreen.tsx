@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MapView, Camera, UserLocation, MarkerView, UserTrackingMode } from '@maplibre/maplibre-react-native';
+import { useLocation } from '../context/LocationContext';
 
 // OpenFreeMap - free OSM tiles, no API key needed
 // Attribution is auto-handled by MapLibre when logoEnabled and attributionEnabled are true
@@ -8,19 +9,19 @@ const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty/style.js
 
 // Note: No token needed for OpenFreeMap - it's free and open
 
-interface FamilyMember {
-  id: string;
-  name: string;
-  latitude: number;
-  longitude: number;
-  lastUpdated: Date;
-}
+export function MapScreen(): React.JSX.Element {
+  const { isTracking, familyLocations, startTracking, stopTracking, permissions } = useLocation();
 
-interface MapScreenProps {
-  familyMembers?: FamilyMember[];
-}
+  const handleToggleTracking = async () => {
+    if (isTracking) {
+      await stopTracking();
+    } else {
+      await startTracking();
+    }
+  };
 
-export function MapScreen({ familyMembers = [] }: MapScreenProps): React.JSX.Element {
+  const familyMembers = Array.from(familyLocations.values());
+
   return (
     <View style={styles.container}>
       <MapView
@@ -44,7 +45,6 @@ export function MapScreen({ familyMembers = [] }: MapScreenProps): React.JSX.Ele
           minDisplacement={10}
         />
 
-        {/* Family member markers - will be populated by Plan 04 */}
         {familyMembers.map((member) => (
           <MarkerView
             key={member.id}
@@ -58,6 +58,22 @@ export function MapScreen({ familyMembers = [] }: MapScreenProps): React.JSX.Ele
           </MarkerView>
         ))}
       </MapView>
+
+      <View style={styles.controls}>
+        <TouchableOpacity
+          style={[styles.button, isTracking && styles.buttonActive]}
+          onPress={handleToggleTracking}
+        >
+          <Text style={styles.buttonText}>
+            {isTracking ? 'Stop Sharing' : 'Share Location'}
+          </Text>
+        </TouchableOpacity>
+        {!permissions.background && (
+          <Text style={styles.warning}>
+            Background location not enabled - sharing stops when app is closed
+          </Text>
+        )}
+      </View>
     </View>
   );
 }
@@ -88,6 +104,38 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  controls: {
+    position: 'absolute',
+    bottom: 40,
+    left: 20,
+    right: 20,
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#4A90A4',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonActive: {
+    backgroundColor: '#e74c3c',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  warning: {
+    marginTop: 8,
+    color: '#e74c3c',
+    fontSize: 12,
+    textAlign: 'center',
   },
 });
 
