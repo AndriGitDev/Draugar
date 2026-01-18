@@ -5,7 +5,7 @@ import { useLocation } from '../context/LocationContext';
 
 // OpenFreeMap - free OSM tiles, no API key needed
 // Attribution is auto-handled by MapLibre when logoEnabled and attributionEnabled are true
-const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty/style.json';
+const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty';
 
 // Note: No token needed for OpenFreeMap - it's free and open
 
