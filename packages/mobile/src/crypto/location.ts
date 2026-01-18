@@ -5,6 +5,7 @@ import { getGroupKey } from './keyStore';
 
 /**
  * Encrypt a location update before sending to server.
+ * Uses crypto_secretbox (XSalsa20-Poly1305) for React Native compatibility.
  * @param location - The location data to encrypt
  * @returns EncryptedPayload ready for transmission, or null if no group key
  */
@@ -20,22 +21,14 @@ export async function encryptLocation(
   const sodium = getSodium();
   const groupKey = sodium.from_base64(groupKeyB64);
 
-  // Serialize location to JSON bytes
-  const plaintext = new TextEncoder().encode(JSON.stringify(location));
+  // Serialize location to JSON string
+  const message = JSON.stringify(location);
 
-  // Generate random nonce (24 bytes for XChaCha20-Poly1305)
-  const nonce = sodium.randombytes_buf(
-    sodium.crypto_aead_xchacha20poly1305_ietf_NPUBBYTES
-  );
+  // Generate random nonce (24 bytes for secretbox)
+  const nonce = sodium.randombytes_buf(sodium.crypto_secretbox_NONCEBYTES);
 
-  // Encrypt with authenticated encryption
-  const ciphertext = sodium.crypto_aead_xchacha20poly1305_ietf_encrypt(
-    plaintext,
-    null, // no additional authenticated data
-    null, // unused parameter (secret nonce)
-    nonce,
-    groupKey
-  );
+  // Encrypt with authenticated encryption (XSalsa20-Poly1305)
+  const ciphertext = sodium.crypto_secretbox_easy(message, nonce, groupKey);
 
   return {
     v: CRYPTO.PAYLOAD_VERSION,
@@ -46,6 +39,7 @@ export async function encryptLocation(
 
 /**
  * Decrypt a location update received from server (via WebSocket).
+ * Uses crypto_secretbox_open (XSalsa20-Poly1305) for React Native compatibility.
  * @param payload - The encrypted payload
  * @returns Decrypted Location or null if decryption fails
  */
@@ -65,17 +59,10 @@ export async function decryptLocation(
     const nonce = sodium.from_base64(payload.n);
     const ciphertext = sodium.from_base64(payload.c);
 
-    const plaintext = sodium.crypto_aead_xchacha20poly1305_ietf_decrypt(
-      null, // unused parameter (secret nonce)
-      ciphertext,
-      null, // no additional authenticated data
-      nonce,
-      groupKey
-    );
+    // Decrypt with secretbox (XSalsa20-Poly1305)
+    const plaintext = sodium.crypto_secretbox_open_easy(ciphertext, nonce, groupKey);
 
-    const location = JSON.parse(
-      new TextDecoder().decode(plaintext)
-    ) as Location;
+    const location = JSON.parse(plaintext) as Location;
 
     return location;
   } catch (error) {
