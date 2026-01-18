@@ -10,7 +10,7 @@ const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty/style.js
 // Note: No token needed for OpenFreeMap - it's free and open
 
 export function MapScreen(): React.JSX.Element {
-  const { isTracking, familyLocations, startTracking, stopTracking, permissions } = useLocation();
+  const { isTracking, familyLocations, startTracking, stopTracking, permissions, isGhostMode, toggleGhostMode } = useLocation();
 
   const handleToggleTracking = async () => {
     if (isTracking) {
@@ -60,6 +60,21 @@ export function MapScreen(): React.JSX.Element {
       </MapView>
 
       <View style={styles.controls}>
+        {isTracking && (
+          <TouchableOpacity
+            style={[styles.ghostButton, isGhostMode && styles.ghostButtonActive]}
+            onPress={toggleGhostMode}
+          >
+            <Text style={[styles.ghostButtonText, isGhostMode && styles.ghostButtonTextActive]}>
+              {isGhostMode ? 'Visible' : 'Go Invisible'}
+            </Text>
+          </TouchableOpacity>
+        )}
+        {isTracking && isGhostMode && (
+          <Text style={styles.ghostIndicator}>
+            You're invisible to family
+          </Text>
+        )}
         <TouchableOpacity
           style={[styles.button, isTracking && styles.buttonActive]}
           onPress={handleToggleTracking}
@@ -130,6 +145,33 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  ghostButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 16,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  ghostButtonActive: {
+    backgroundColor: '#6c757d',
+    borderColor: '#6c757d',
+  },
+  ghostButtonText: {
+    color: '#333',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+  ghostButtonTextActive: {
+    color: '#fff',
+  },
+  ghostIndicator: {
+    color: '#6c757d',
+    fontSize: 11,
+    marginBottom: 8,
+    fontStyle: 'italic',
   },
   warning: {
     marginTop: 8,
