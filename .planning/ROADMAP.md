@@ -18,7 +18,7 @@ None
 - [x] **Phase 2: Backend Core** - API server, PostgreSQL, WebSocket infrastructure
 - [x] **Phase 3: Authentication** - Invite codes, JWT tokens, session management
 - [x] **Phase 4: E2E Encryption** - Crypto implementation, key exchange, zero-knowledge architecture
-- [ ] **Phase 5: Real-Time Location** - Location sharing, map display, WebSocket sync (In progress: 2/3)
+- [ ] **Phase 5: Real-Time Location** - Location sharing, map display, WebSocket sync (In progress: 3/4)
 - [ ] **Phase 6: Mobile Polish & Deployment** - Background tracking, ghost mode, Docker deployment
 
 ## Phase Details
@@ -79,7 +79,8 @@ Plans:
 Plans:
 - [x] 05-01: Location and map dependencies
 - [x] 05-02: Background location service
-- [ ] 05-03: MapScreen with socket integration
+- [x] 05-03: MapScreen with OpenFreeMap
+- [ ] 05-04: Socket integration and family markers
 
 ### Phase 6: Mobile Polish & Deployment
 **Goal**: Production-ready app deployed to Finland VPS
@@ -103,5 +104,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Backend Core | 3/3 | Complete | 2026-01-16 |
 | 3. Authentication | 3/3 | Complete | 2026-01-16 |
 | 4. E2E Encryption | 4/4 | Complete | 2026-01-17 |
-| 5. Real-Time Location | 2/3 | In progress | - |
+| 5. Real-Time Location | 3/4 | In progress | - |
 | 6. Mobile Polish & Deployment | 0/3 | Not started | - |
