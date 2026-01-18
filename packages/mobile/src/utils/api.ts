@@ -2,10 +2,10 @@ import { getToken } from './storage';
 import type { WrappedGroupKey } from '@draugar/shared';
 
 /**
- * API base URL - defaults to localhost for development
- * Note: Use machine IP (not localhost) for device testing
+ * API base URL - defaults to VPS for testing
+ * Override with EXPO_PUBLIC_API_URL env var for local development
  */
-export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3001';
+export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://46.62.215.113:3000';
 
 export interface ApiError {
   message: string;

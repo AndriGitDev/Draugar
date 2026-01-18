@@ -65,8 +65,8 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
   // Connect socket when authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      // Get server URL from environment or use default
-      const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
+      // Get server URL from environment or use VPS default
+      const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'http://46.62.215.113:3000';
       connectSocket(serverUrl);
 
       // Listen for family location updates
