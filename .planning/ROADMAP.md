@@ -89,7 +89,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 06-01: Ghost mode (pause sharing)
+- [x] 06-01: Ghost mode (pause sharing)
 - [ ] 06-02: Battery optimization and settings
 - [ ] 06-03: Docker setup and VPS deployment
 
@@ -105,4 +105,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Authentication | 3/3 | Complete | 2026-01-16 |
 | 4. E2E Encryption | 4/4 | Complete | 2026-01-17 |
 | 5. Real-Time Location | 4/4 | Complete | 2026-01-18 |
-| 6. Mobile Polish & Deployment | 0/3 | Not started | - |
+| 6. Mobile Polish & Deployment | 1/3 | In progress | - |

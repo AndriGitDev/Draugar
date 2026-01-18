@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Smooth real-time location tracking that actually works — privacy is table stakes, but the app must feel responsive and reliable for family to adopt it.
-**Current focus:** Phase 5 — Location Tracking
+**Current focus:** Phase 6 — Mobile Polish & Deployment
 
 ## Current Position
 
-Phase: 5 of 6 (Real-Time Location)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-18 — Completed 05-04-PLAN.md (Socket integration and family markers)
+Phase: 6 of 6 (Mobile Polish & Deployment)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-18 — Completed 06-01-PLAN.md (Ghost mode)
 
-Progress: ███████████████████░ 97%
+Progress: ████████████████████ 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
-- Average duration: 3.8 min
-- Total execution time: 64 min
+- Total plans completed: 18
+- Average duration: 3.7 min
+- Total execution time: 67 min
 
 **By Phase:**
 
@@ -32,9 +32,10 @@ Progress: ███████████████████░ 97%
 | 3. Authentication | 3/3 | 14 min | 4.7 min |
 | 4. E2E Encryption | 4/4 | 12 min | 3.0 min |
 | 5. Real-Time Location | 4/4 | 12 min | 3.0 min |
+| 6. Mobile Polish | 1/3 | 3 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 05-01 (2 min), 05-02 (1 min), 05-03 (1 min), 05-04 (8 min)
+- Last 5 plans: 05-02 (1 min), 05-03 (1 min), 05-04 (8 min), 06-01 (3 min)
 - Trend: Stable velocity
 
 ## Accumulated Context
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - Callback subscription pattern for family location updates (Set-based callbacks)
 - LocationContext manages both tracking state and family member locations
 - Broadcast to all authenticated users for MVP (room-based filtering deferred)
+- Ghost mode persisted to SecureStore key 'draugar_ghost_mode'
+- Module-level ghostMode flag in socket service for broadcast control
 
 ### Pending Todos
 
@@ -94,14 +97,13 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 05-04-PLAN.md
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None
-Next: Phase 6 (Polish and UI refinements)
+Next: 06-02 (Battery optimization and settings)
 
-**Phase 5 Progress:**
-- 05-01 (Location dependencies) - COMPLETE
-- 05-02 (Background location service) - COMPLETE
-- 05-03 (MapScreen with OpenFreeMap) - COMPLETE
-- 05-04 (Socket integration) - COMPLETE
+**Phase 6 Progress:**
+- 06-01 (Ghost mode) - COMPLETE
+- 06-02 (Battery optimization and settings) - PENDING
+- 06-03 (Docker setup and VPS deployment) - PENDING
 
-4/4 plans complete. Phase 5 (Real-Time Location) finished. Ready for Phase 6.
+1/3 plans complete. Phase 6 (Mobile Polish & Deployment) in progress.
