@@ -31,7 +31,7 @@ Popular family tracking apps like Life360 have serious privacy issues:
 ### The Solution: Draugar
 - **End-to-End Encryption**: Location data encrypted on your device before transmission
 - **Zero-Knowledge Architecture**: Server cannot read your location data
-- **No Data Selling**: Never. Ever. Legally binding commitment.
+- **No Data Selling**: We sell storage and convenience, not your data.
 - **Open Source**: Mobile apps published on GitHub for full transparency
 - **Self-Hostable**: Run your own instance if desired
 - **Privacy-Respecting Maps**: OpenStreetMap instead of Google Maps
@@ -40,28 +40,56 @@ Popular family tracking apps like Life360 have serious privacy issues:
 
 ## Project Status
 
-This project is currently in active development. The core functionality is being built, with a focus on privacy and security.
+This project is currently in active development. The core functionality (Real-Time Location) is built and verified. Next steps involve refining the mobile experience and implementing the premium feature set.
+
+---
+
+## Sustainability & Business Model
+
+Draugar is sustainable because it charges for **service and storage**, not by selling user data. Our business model is transparent:
+
+### Sovereign Basic (Free)
+*The core safety features every family deserves.*
+* **Real-Time Tracking:** Unlimited live location sharing.
+* **Encryption:** Full End-to-End Zero-Knowledge encryption.
+* **Safe Zones:** 1 Zone (e.g., Home) with entry/exit alerts.
+* **Ghost Mode:** Manual toggle to pause sharing instantly.
+* **Map:** Privacy-respecting OpenStreetMap tiles.
+
+### Sovereign Plus (Premium)
+*Convenience features for families who want more history and automation.*
+* **Location History:** 30 Days or Unlimited encrypted history.
+* **Unlimited Safe Zones:** Alerts for School, Work, Gym, etc.
+* **Priority Support:** Direct access to support for peace of mind.
+* *(Future)* **Automated Ghost Mode:** Schedule privacy breaks automatically.
+
+*Note: Since Draugar is Open Source (GPL-3.0), advanced users can always self-host the full platform for free. The subscription pays for the convenience of our managed, secure infrastructure.*
 
 ---
 
 ## Technology Stack
 
 ### Mobile Apps
-*   **React Native + Expo**: For building cross-platform mobile apps from a single codebase.
-*   **TypeScript**: For type safety.
-*   **MapLibre**: For privacy-respecting maps.
+* **React Native + Expo**: For building cross-platform mobile apps from a single codebase.
+* **TypeScript**: For type safety.
+* **MapLibre**: For privacy-respecting maps (OpenFreeMap tiles).
+* **Expo SecureStore**: For hardware-backed encryption key storage.
 
 ### Backend
-*   **Node.js + TypeScript + Express**: For a fast and modern backend.
-*   **Drizzle ORM**: For lightweight, type-safe database access.
-*   **Socket.IO**: For real-time communication.
-*   **PostgreSQL**: For data storage.
+* **Node.js + TypeScript + Express**: For a fast and modern backend.
+* **Drizzle ORM**: For lightweight, type-safe database access.
+* **Socket.IO**: For real-time, encrypted location broadcasting.
+* **PostgreSQL**: For data storage.
 
 ---
 
 ## High-Level Architecture
 
-Draugar uses a standard client-server architecture. The mobile app (client) communicates with the backend server via HTTPS and WebSockets. All location data is end-to-end encrypted, meaning the server cannot access the raw location data.
+Draugar uses a standard client-server architecture with a **Zero-Knowledge** twist:
+1.  **Key Generation:** Devices generate keys locally.
+2.  **Encryption:** Location data is encrypted on the device using the group key (XChaCha20-Poly1305).
+3.  **Relay:** The server receives opaque blobs and relays them to other family members via WebSockets.
+4.  **Storage:** The server stores encrypted history (for Premium users) but cannot decrypt it.
 
 ---
 
@@ -95,44 +123,3 @@ pnpm --filter backend db:push
 # Run development servers
 # This will start the backend and mobile dev servers concurrently
 pnpm dev
-```
-
----
-
-## Privacy Principles
-
-Draugar is built on privacy-first principles:
-
-1. **Zero-Knowledge Architecture** - Server cannot read your data
-2. **Data Minimization** - Collect only what's essential
-3. **User Sovereignty** - You own and control your data
-4. **Transparency** - Open source mobile apps
-5. **No Surveillance Capitalism** - Never sell data
-6. **Privacy by Default** - Most protective settings enabled
-7. **OpenStreetMap** - Privacy-respecting maps from day 1
-
-Read our full [Privacy Principles](PRIVACY_PRINCIPLES.md) for details.
-
----
-
-## Documentation
-
-- [Privacy Principles](PRIVACY_PRINCIPLES.md) - Privacy commitments and design
-- Contributing Guide - Coming soon
-- Security Policy - Coming soon
-
----
-
-## Contributing
-
-This project is open source and contributions are welcome. Please see the upcoming `CONTRIBUTING.md` for more details.
-
----
-
-## License
-
-This project is licensed under the GPL-3.0 license.
-
----
-
-**"Your family's safety, your data's privacy."**
