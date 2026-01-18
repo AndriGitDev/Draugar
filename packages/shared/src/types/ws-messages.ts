@@ -1,15 +1,17 @@
-import type { Location } from './location';
+import type { EncryptedPayload } from '../crypto/types';
 
 // Client -> Server messages
 export interface ClientToServerEvents {
-  'location:update': (location: Omit<Location, 'userId'>) => void;
+  // Location update contains encrypted payload (userId is in JWT auth, not payload)
+  'location:update': (payload: EncryptedPayload) => void;
   'location:subscribe': () => void;
   'location:unsubscribe': () => void;
 }
 
 // Server -> Client messages
 export interface ServerToClientEvents {
-  'location:broadcast': (location: Location) => void;
+  // Broadcast includes senderId so receiver knows who sent it
+  'location:broadcast': (data: { senderId: string; payload: EncryptedPayload }) => void;
   'user:online': (userId: string) => void;
   'user:offline': (userId: string) => void;
   'error': (message: string) => void;
