@@ -65,9 +65,20 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
   // Connect socket when authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      // Get server URL from environment or use VPS default
-      const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'http://46.62.215.113:3000';
-      connectSocket(serverUrl);
+      console.log('[LocationContext] User authenticated, connecting socket...');
+      // Small delay to ensure token is saved to SecureStore
+      const timer = setTimeout(() => {
+        const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'http://46.62.215.113:3000';
+        connectSocket(serverUrl);
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthenticated]);
+
+  // Separate effect for family location updates
+  useEffect(() => {
+    if (isAuthenticated) {
 
       // Listen for family location updates
       const unsubscribe = onFamilyLocationUpdate((userId, location) => {
