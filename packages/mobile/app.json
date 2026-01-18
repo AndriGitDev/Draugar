@@ -28,7 +28,21 @@
     },
     "plugins": [
       "expo-secure-store",
-      ["react-native-libsodium", {}]
+      [
+        "react-native-libsodium",
+        {}
+      ],
+      "@maplibre/maplibre-react-native",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Draugar to access your location for family location sharing.",
+          "locationAlwaysPermission": "Allow Draugar to track your location in the background for family location sharing.",
+          "locationWhenInUsePermission": "Allow Draugar to access your location while using the app.",
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": true
+        }
+      ]
     ]
   }
 }
