@@ -68,7 +68,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
       console.log('[LocationContext] User authenticated, connecting socket...');
       // Small delay to ensure token is saved to SecureStore
       const timer = setTimeout(() => {
-        const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'http://46.62.215.113:3000';
+        const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'https://draugar-app.andri.is';
         connectSocket(serverUrl);
       }, 500);
 

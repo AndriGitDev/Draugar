@@ -5,7 +5,7 @@ import type { WrappedGroupKey } from '@draugar/shared';
  * API base URL - defaults to VPS for testing
  * Override with EXPO_PUBLIC_API_URL env var for local development
  */
-export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://46.62.215.113:3000';
+export const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://draugar-app.andri.is';
 
 export interface ApiError {
   message: string;

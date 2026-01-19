@@ -7,7 +7,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "http://46.62.215.113:3000"
+        "EXPO_PUBLIC_API_URL": "https://draugar-app.andri.is"
       }
     },
     "preview": {
@@ -16,7 +16,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "http://46.62.215.113:3000"
+        "EXPO_PUBLIC_API_URL": "https://draugar-app.andri.is"
       }
     },
     "production": {
@@ -24,7 +24,7 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "http://46.62.215.113:3000"
+        "EXPO_PUBLIC_API_URL": "https://draugar-app.andri.is"
       }
     }
   },
