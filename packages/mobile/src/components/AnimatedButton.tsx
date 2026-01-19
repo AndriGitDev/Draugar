@@ -3,6 +3,7 @@ import {
   Animated,
   TouchableOpacity,
   StyleSheet,
+  StyleProp,
   ViewStyle,
   TextStyle,
   GestureResponderEvent,
@@ -11,7 +12,7 @@ import {
 interface AnimatedButtonProps {
   onPress: () => void;
   children: React.ReactNode;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   textStyle?: TextStyle;
   disabled?: boolean;
   activeScale?: number;

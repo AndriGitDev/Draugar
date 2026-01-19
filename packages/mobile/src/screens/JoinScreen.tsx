@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -11,6 +9,7 @@ import {
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme/colors';
+import { AnimatedButton, AnimatedInput, FadeInView } from '../components';
 
 export function JoinScreen() {
   const [code, setCode] = useState('');
@@ -45,12 +44,12 @@ export function JoinScreen() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <View style={styles.content}>
+      <FadeInView style={styles.content}>
         <Text style={styles.title}>Draugar</Text>
         <Text style={styles.subtitle}>Join your family</Text>
 
         <View style={styles.form}>
-          <TextInput
+          <AnimatedInput
             style={styles.input}
             placeholder="Invite code"
             placeholderTextColor={colors.textMuted}
@@ -62,7 +61,7 @@ export function JoinScreen() {
             editable={!isSubmitting}
           />
 
-          <TextInput
+          <AnimatedInput
             style={styles.input}
             placeholder="Your name"
             placeholderTextColor={colors.textMuted}
@@ -75,7 +74,7 @@ export function JoinScreen() {
 
           {error && <Text style={styles.error}>{error}</Text>}
 
-          <TouchableOpacity
+          <AnimatedButton
             style={[styles.button, isDisabled && styles.buttonDisabled]}
             onPress={handleJoin}
             disabled={isDisabled}
@@ -85,9 +84,9 @@ export function JoinScreen() {
             ) : (
               <Text style={styles.buttonText}>Join</Text>
             )}
-          </TouchableOpacity>
+          </AnimatedButton>
         </View>
-      </View>
+      </FadeInView>
     </KeyboardAvoidingView>
   );
 }
