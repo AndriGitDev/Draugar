@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/RootNavigator';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme/colors';
+import { AnimatedButton, FadeInView } from '../components';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -12,28 +13,28 @@ export function HomeScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <FadeInView style={styles.content}>
         <Text style={styles.welcome}>Welcome, {user?.name}!</Text>
         <Text style={styles.subtitle}>What would you like to do?</Text>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
+          <AnimatedButton
             style={styles.primaryButton}
             onPress={() => navigation.navigate('Map')}
           >
             <Text style={styles.primaryButtonText}>View Map</Text>
             <Text style={styles.buttonSubtext}>See your family members</Text>
-          </TouchableOpacity>
+          </AnimatedButton>
 
-          <TouchableOpacity
+          <AnimatedButton
             style={styles.secondaryButton}
             onPress={() => navigation.navigate('Settings')}
           >
             <Text style={styles.secondaryButtonText}>Settings</Text>
             <Text style={styles.buttonSubtext}>Battery & location options</Text>
-          </TouchableOpacity>
+          </AnimatedButton>
         </View>
-      </View>
+      </FadeInView>
     </SafeAreaView>
   );
 }

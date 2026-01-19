@@ -10,6 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useAuth } from '../context/AuthContext';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors } from '../theme/colors';
+import { AnimatedButton, FadeInView } from '../components';
 
 const FREQUENCY_KEY = 'draugar_update_frequency';
 
@@ -94,20 +95,21 @@ export function SettingsScreen({ navigation }: Props) {
         <View style={styles.placeholder} />
       </View>
 
-      <View style={styles.section}>
+      <FadeInView delay={100} style={styles.section}>
         <Text style={styles.sectionTitle}>Location Update Frequency</Text>
         <Text style={styles.sectionSubtitle}>
           Choose how often your location is shared with family
         </Text>
 
         {FREQUENCY_OPTIONS.map((option) => (
-          <TouchableOpacity
+          <AnimatedButton
             key={option.id}
             style={[
               styles.optionCard,
               selectedFrequency === option.id && styles.optionCardSelected,
             ]}
             onPress={() => handleFrequencyChange(option.id)}
+            activeScale={0.98}
           >
             <View style={styles.optionRadio}>
               <View
@@ -126,14 +128,14 @@ export function SettingsScreen({ navigation }: Props) {
               <Text style={styles.optionDescription}>{option.description}</Text>
               <Text style={styles.optionDetail}>{option.detail}</Text>
             </View>
-          </TouchableOpacity>
+          </AnimatedButton>
         ))}
-      </View>
+      </FadeInView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <AnimatedButton style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Logout</Text>
-        </TouchableOpacity>
+        </AnimatedButton>
       </View>
     </SafeAreaView>
   );
