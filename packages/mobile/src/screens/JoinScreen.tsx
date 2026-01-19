@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
+import { colors } from '../theme/colors';
 
 export function JoinScreen() {
   const [code, setCode] = useState('');
@@ -52,7 +53,7 @@ export function JoinScreen() {
           <TextInput
             style={styles.input}
             placeholder="Invite code"
-            placeholderTextColor="#999"
+            placeholderTextColor={colors.textMuted}
             value={code}
             onChangeText={handleCodeChange}
             autoCapitalize="characters"
@@ -64,7 +65,7 @@ export function JoinScreen() {
           <TextInput
             style={styles.input}
             placeholder="Your name"
-            placeholderTextColor="#999"
+            placeholderTextColor={colors.textMuted}
             value={name}
             onChangeText={setName}
             autoCapitalize="words"
@@ -80,7 +81,7 @@ export function JoinScreen() {
             disabled={isDisabled}
           >
             {isSubmitting ? (
-              <ActivityIndicator color="#fff" />
+              <ActivityIndicator color={colors.background} />
             ) : (
               <Text style={styles.buttonText}>Join</Text>
             )}
@@ -94,7 +95,7 @@ export function JoinScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
   },
   content: {
     flex: 1,
@@ -105,12 +106,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#1a1a1a',
+    color: colors.text,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 18,
-    color: '#666',
+    color: colors.textSecondary,
     marginBottom: 48,
   },
   form: {
@@ -118,32 +119,33 @@ const styles = StyleSheet.create({
     maxWidth: 320,
   },
   input: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.surface,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
-    color: '#1a1a1a',
+    color: colors.text,
     marginBottom: 16,
   },
   error: {
-    color: '#dc2626',
+    color: colors.error,
     fontSize: 14,
     marginBottom: 16,
     textAlign: 'center',
   },
   button: {
-    backgroundColor: '#2563eb',
+    backgroundColor: colors.primary,
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
     marginTop: 8,
   },
   buttonDisabled: {
-    backgroundColor: '#93c5fd',
+    backgroundColor: colors.primaryDark,
+    opacity: 0.6,
   },
   buttonText: {
-    color: '#fff',
+    color: colors.background,
     fontSize: 18,
     fontWeight: '600',
   },

@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-na
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/RootNavigator';
 import { useAuth } from '../context/AuthContext';
+import { colors } from '../theme/colors';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -40,7 +41,7 @@ export function HomeScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
   },
   content: {
     flex: 1,
@@ -51,13 +52,13 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 28,
     fontWeight: '600',
-    color: '#1a1a1a',
+    color: colors.text,
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: colors.textSecondary,
     marginBottom: 48,
     textAlign: 'center',
   },
@@ -66,35 +67,35 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   primaryButton: {
-    backgroundColor: '#4A90A4',
+    backgroundColor: colors.primary,
     borderRadius: 12,
     paddingVertical: 20,
     paddingHorizontal: 24,
     alignItems: 'center',
   },
   primaryButtonText: {
-    color: '#fff',
+    color: colors.background,
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
   },
   secondaryButton: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.surface,
     borderRadius: 12,
     paddingVertical: 20,
     paddingHorizontal: 24,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e5e5e5',
+    borderColor: colors.border,
   },
   secondaryButtonText: {
-    color: '#1a1a1a',
+    color: colors.text,
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
   },
   buttonSubtext: {
     fontSize: 13,
-    color: '#888',
+    color: colors.textSecondary,
   },
 });
