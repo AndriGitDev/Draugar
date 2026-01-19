@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { MapView, Camera, UserLocation, MarkerView, UserTrackingMode } from '@maplibre/maplibre-react-native';
 import { useLocation } from '../context/LocationContext';
 import { colors } from '../theme/colors';
+import { AnimatedButton } from '../components';
 
 // OpenFreeMap - free OSM tiles, no API key needed
 // Attribution is auto-handled by MapLibre when logoEnabled and attributionEnabled are true
@@ -62,28 +63,29 @@ export function MapScreen(): React.JSX.Element {
 
       <View style={styles.controls}>
         {isTracking && (
-          <TouchableOpacity
+          <AnimatedButton
             style={[styles.ghostButton, isGhostMode && styles.ghostButtonActive]}
             onPress={toggleGhostMode}
+            activeScale={0.95}
           >
             <Text style={[styles.ghostButtonText, isGhostMode && styles.ghostButtonTextActive]}>
               {isGhostMode ? 'Visible' : 'Go Invisible'}
             </Text>
-          </TouchableOpacity>
+          </AnimatedButton>
         )}
         {isTracking && isGhostMode && (
           <Text style={styles.ghostIndicator}>
             You're invisible to family
           </Text>
         )}
-        <TouchableOpacity
+        <AnimatedButton
           style={[styles.button, isTracking && styles.buttonActive]}
           onPress={handleToggleTracking}
         >
           <Text style={styles.buttonText}>
             {isTracking ? 'Stop Sharing' : 'Share Location'}
           </Text>
-        </TouchableOpacity>
+        </AnimatedButton>
         {!permissions.background && (
           <Text style={styles.warning}>
             Background location not enabled - sharing stops when app is closed
