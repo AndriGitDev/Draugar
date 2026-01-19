@@ -9,6 +9,7 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import { useAuth } from '../context/AuthContext';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { colors } from '../theme/colors';
 
 const FREQUENCY_KEY = 'draugar_update_frequency';
 
@@ -141,7 +142,7 @@ export function SettingsScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.background,
   },
   header: {
     flexDirection: 'row',
@@ -149,22 +150,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e5e5',
+    borderBottomColor: colors.border,
   },
   backButton: {
     padding: 8,
   },
   backText: {
-    color: '#4A90A4',
+    color: colors.primary,
     fontSize: 16,
     fontWeight: '500',
   },
   title: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1a1a1a',
+    color: colors.text,
   },
   placeholder: {
     width: 50,
@@ -176,17 +177,17 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#1a1a1a',
+    color: colors.text,
     marginBottom: 4,
   },
   sectionSubtitle: {
     fontSize: 14,
-    color: '#666',
+    color: colors.textSecondary,
     marginBottom: 16,
   },
   optionCard: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
@@ -194,8 +195,8 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   optionCardSelected: {
-    borderColor: '#4A90A4',
-    backgroundColor: '#f0f7f9',
+    borderColor: colors.primary,
+    backgroundColor: colors.surfaceLight,
   },
   optionRadio: {
     marginRight: 12,
@@ -206,18 +207,18 @@ const styles = StyleSheet.create({
     height: 22,
     borderRadius: 11,
     borderWidth: 2,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
   },
   radioOuterSelected: {
-    borderColor: '#4A90A4',
+    borderColor: colors.primary,
   },
   radioInner: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: '#4A90A4',
+    backgroundColor: colors.primary,
   },
   optionContent: {
     flex: 1,
@@ -225,18 +226,18 @@ const styles = StyleSheet.create({
   optionName: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1a1a1a',
+    color: colors.text,
     marginBottom: 2,
   },
   optionDescription: {
     fontSize: 14,
-    color: '#4A90A4',
+    color: colors.primary,
     fontWeight: '500',
     marginBottom: 4,
   },
   optionDetail: {
     fontSize: 13,
-    color: '#666',
+    color: colors.textSecondary,
   },
   footer: {
     flex: 1,
@@ -245,13 +246,13 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   logoutButton: {
-    backgroundColor: '#dc2626',
+    backgroundColor: colors.error,
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
   },
   logoutText: {
-    color: '#fff',
+    color: colors.text,
     fontSize: 16,
     fontWeight: '600',
   },

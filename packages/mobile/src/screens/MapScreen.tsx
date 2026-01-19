@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { MapView, Camera, UserLocation, MarkerView, UserTrackingMode } from '@maplibre/maplibre-react-native';
 import { useLocation } from '../context/LocationContext';
+import { colors } from '../theme/colors';
 
 // OpenFreeMap - free OSM tiles, no API key needed
 // Attribution is auto-handled by MapLibre when logoEnabled and attributionEnabled are true
@@ -104,11 +105,11 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#4A90A4',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#fff',
+    borderColor: colors.text,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   markerText: {
-    color: '#fff',
+    color: colors.background,
     fontWeight: 'bold',
     fontSize: 18,
   },
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#4A90A4',
+    backgroundColor: colors.primary,
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 24,
@@ -139,43 +140,43 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonActive: {
-    backgroundColor: '#e74c3c',
+    backgroundColor: colors.error,
   },
   buttonText: {
-    color: '#fff',
+    color: colors.background,
     fontWeight: 'bold',
     fontSize: 16,
   },
   ghostButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(26, 26, 26, 0.9)',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 16,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.border,
   },
   ghostButtonActive: {
-    backgroundColor: '#6c757d',
-    borderColor: '#6c757d',
+    backgroundColor: colors.secondaryDark,
+    borderColor: colors.secondaryDark,
   },
   ghostButtonText: {
-    color: '#333',
+    color: colors.text,
     fontWeight: '600',
     fontSize: 13,
   },
   ghostButtonTextActive: {
-    color: '#fff',
+    color: colors.text,
   },
   ghostIndicator: {
-    color: '#6c757d',
+    color: colors.textSecondary,
     fontSize: 11,
     marginBottom: 8,
     fontStyle: 'italic',
   },
   warning: {
     marginTop: 8,
-    color: '#e74c3c',
+    color: colors.error,
     fontSize: 12,
     textAlign: 'center',
   },
