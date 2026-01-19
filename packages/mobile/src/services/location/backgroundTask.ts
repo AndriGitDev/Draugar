@@ -20,15 +20,8 @@ TaskManager.defineTask(LOCATION_TASK_NAME, async ({ data, error }) => {
 
   if (data) {
     const { locations } = data as { locations: Location.LocationObject[] };
-    console.log('[location] Background task received', locations.length, 'location(s)');
-    if (locations.length > 0) {
-      const loc = locations[locations.length - 1];
-      console.log('[location] Latest:', loc.coords.latitude, loc.coords.longitude);
-      if (onLocationUpdate) {
-        onLocationUpdate(loc);
-      } else {
-        console.warn('[location] No handler registered for location updates');
-      }
+    if (locations.length > 0 && onLocationUpdate) {
+      onLocationUpdate(locations[locations.length - 1]);
     }
   }
 });

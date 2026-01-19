@@ -65,7 +65,6 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
   // Connect socket when authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('[LocationContext] User authenticated, connecting socket...');
       // Small delay to ensure token is saved to SecureStore
       const timer = setTimeout(() => {
         const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'https://draugar-app.andri.is';
@@ -103,11 +102,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
   }, [isAuthenticated]);
 
   const handleLocationUpdate = useCallback(async (locationObj: Location.LocationObject) => {
-    console.log('[LocationContext] handleLocationUpdate called');
-    if (!user?.id) {
-      console.warn('[LocationContext] No user ID, skipping location update');
-      return;
-    }
+    if (!user?.id) return;
 
     const location: LocationType = {
       userId: user.id,
@@ -117,7 +112,6 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
       timestamp: new Date(locationObj.timestamp),
     };
 
-    console.log('[LocationContext] Sending location:', location.latitude, location.longitude);
     await sendLocationUpdate(location);
   }, [user?.id]);
 

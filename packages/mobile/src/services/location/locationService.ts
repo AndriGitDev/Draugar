@@ -21,13 +21,11 @@ export async function getUpdateFrequencySettings(): Promise<FrequencySettings> {
   try {
     const stored = await SecureStore.getItemAsync(FREQUENCY_KEY);
     if (stored && stored in FREQUENCY_PRESETS) {
-      console.log('[location] Using frequency preset:', stored);
       return FREQUENCY_PRESETS[stored as FrequencyPreset];
     }
   } catch (error) {
     console.error('[location] Failed to read frequency setting:', error);
   }
-  console.log('[location] Using default balanced preset');
   return FREQUENCY_PRESETS.balanced;
 }
 
@@ -85,18 +83,13 @@ export async function startLocationUpdates(
   foregroundSubscription = await Location.watchPositionAsync(
     {
       accuracy: Location.Accuracy.Balanced,
-      distanceInterval: 10, // More sensitive for foreground
-      timeInterval: 10000, // Every 10 seconds
+      distanceInterval: 10,
+      timeInterval: 10000,
     },
-    (location) => {
-      console.log('[location] Foreground update:', location.coords.latitude, location.coords.longitude);
-      onUpdate(location);
-    }
+    onUpdate
   );
-  console.log('[location] Foreground watcher started');
 
   if (permissions.background) {
-    // Check if already running
     const isRunning = await Location.hasStartedLocationUpdatesAsync(LOCATION_TASK_NAME);
     if (!isRunning) {
       await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
@@ -113,16 +106,6 @@ export async function startLocationUpdates(
         },
       });
     }
-    console.log(
-      '[location] Background tracking started with intervals:',
-      frequencySettings.distanceInterval,
-      'm /',
-      frequencySettings.deferredUpdatesInterval / 1000,
-      's'
-    );
-  } else {
-    // Foreground-only fallback
-    console.log('[location] Foreground-only tracking (no background permission)');
   }
 
   return true;
@@ -131,7 +114,6 @@ export async function startLocationUpdates(
 export async function stopLocationUpdates(): Promise<void> {
   setLocationUpdateHandler(null);
 
-  // Stop foreground watcher
   if (foregroundSubscription) {
     foregroundSubscription.remove();
     foregroundSubscription = null;
@@ -141,5 +123,4 @@ export async function stopLocationUpdates(): Promise<void> {
   if (isRunning) {
     await Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME);
   }
-  console.log('[location] Tracking stopped');
 }
