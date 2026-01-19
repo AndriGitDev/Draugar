@@ -19,7 +19,7 @@ export default function App() {
       <LocationProvider>
         <NavigationContainer>
           <RootNavigator />
-          <StatusBar style="auto" />
+          <StatusBar style="light" />
         </NavigationContainer>
       </LocationProvider>
     </AuthProvider>
