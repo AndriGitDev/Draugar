@@ -24,6 +24,6 @@
 
 **Git range:** `feat(01-01)` → `feat(06-03)`
 
-**What's next:** Deploy to Finland VPS, test with family, iterate based on real usage.
+**What's next:** Deploy to VPS, test with family, iterate based on real usage.
 
 ---
