@@ -4,13 +4,12 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 [![Privacy First](https://img.shields.io/badge/Privacy-First-green.svg)](PRIVACY_PRINCIPLES.md)
-[![v1.0 MVP](https://img.shields.io/badge/Status-v1.0%20Complete-success.svg)](.planning/STATE.md)
 
 ---
 
 ## Overview
 
-Draugar (Old Norse for "ghosts") is a privacy-first family location sharing app — an ethical alternative to Life360. Built for one family with maximum privacy: end-to-end encryption, minimal data collection, and full user data ownership. Self-hosted on a Finland VPS.
+Draugar (Old Norse for "ghosts") is a privacy-first family location sharing app — an ethical alternative to Life360. Built for families with maximum privacy: end-to-end encryption, minimal data collection, and full user data ownership.
 
 **Mission:** Family safety without surveillance capitalism.
 
@@ -21,26 +20,26 @@ Draugar (Old Norse for "ghosts") is a privacy-first family location sharing app 
 ## Why Draugar?
 
 ### The Problem
-Popular family tracking apps like Life360 have serious privacy issues:
-- Sell location data to data brokers
-- Track users for advertising
-- Server can see all unencrypted location data
+Popular family tracking apps often have serious privacy issues:
+- Selling location data to data brokers
+- Tracking users for advertising
+- Servers can see unencrypted location data
 - Complex privacy policies hiding data sharing
 - Closed source - no way to verify claims
 
 ### The Solution: Draugar
 - **End-to-End Encryption**: Location data encrypted with XChaCha20-Poly1305 on your device before transmission
 - **Zero-Knowledge Architecture**: Server cannot read your location data
-- **No Data Selling**: Personal family project, not a business
+- **No Data Selling**: This is an open-source project, not a business
 - **Open Source**: Full transparency (GPL-3.0 license)
-- **Self-Hostable**: Runs on your own VPS
+- **Self-Hostable**: Runs on your own infrastructure
 - **Privacy-Respecting Maps**: OpenFreeMap/MapLibre instead of Google Maps
 
 ---
 
 ## Project Status
 
-**v1.0 MVP:** ✅ Complete (shipped 2026-01-18)
+**v1.0 MVP:** ✅ Complete
 
 The app is fully functional with all core features implemented:
 - ✅ Real-time location sharing on a map (WebSocket-based)
@@ -52,25 +51,9 @@ The app is fully functional with all core features implemented:
 - ✅ Ghost mode (pause sharing temporarily)
 - ✅ Docker deployment ready
 
-**Next Steps:** Deploy to VPS, test with family, iterate based on real-world usage.
-
-**Detailed Planning:** See [.planning/](.planning/) folder for comprehensive project tracking (roadmap, milestones, phase plans, and current state).
-
----
-
-## Implementation Stats
-
-- **Duration:** 5 days (2026-01-14 → 2026-01-18)
-- **Code:** 2,900 lines of TypeScript across mobile and backend
-- **Phases:** 6 phases, 20 plans completed
-- **Files:** 50+ files created/modified
-- **Scale:** Built for 2-10 users (one family)
-
 ---
 
 ## Technology Stack
-
-**Monorepo:** pnpm workspace with shared TypeScript types
 
 ### Mobile App
 - **React Native + Expo**: Cross-platform iOS/Android app
@@ -90,7 +73,7 @@ The app is fully functional with all core features implemented:
 
 ### Infrastructure
 - **Docker**: Container deployment
-- **Hetzner VPS (Finland)**: Privacy-friendly hosting jurisdiction
+- **Self-Hostable**: Can be deployed to any Docker-capable infrastructure
 
 ---
 
@@ -104,22 +87,6 @@ Draugar uses a **zero-knowledge architecture** where the server relays encrypted
 4. **Decryption:** Each family member's device decrypts location data locally using the shared group key
 
 The server never has access to plaintext location data — true end-to-end encryption.
-
----
-
-## Project Planning & Tracking
-
-The `.planning/` folder contains comprehensive project documentation:
-
-- **[STATE.md](.planning/STATE.md)** - Current project status, metrics, and next steps
-- **[PROJECT.md](.planning/PROJECT.md)** - Project definition, requirements, constraints, and key decisions
-- **[ROADMAP.md](.planning/ROADMAP.md)** - High-level milestone and phase progress
-- **[MILESTONES.md](.planning/MILESTONES.md)** - Milestone summaries and statistics
-- **[milestones/](.planning/milestones/)** - Detailed milestone breakdowns
-- **[phases/](.planning/phases/)** - Individual phase plans and summaries (42 documents total)
-- **[config.json](.planning/config.json)** - Planning workflow configuration
-
-**Development approach:** "YOLO mode" — rapid iteration with all confirmation gates disabled for maximum velocity during solo development.
 
 ---
 
@@ -160,7 +127,6 @@ draugar/
 │   ├── shared/          # Shared TypeScript types and constants
 │   ├── backend/         # Node.js/Express API server
 │   └── mobile/          # React Native/Expo mobile app
-└── .planning/           # Project documentation and tracking
 ```
 
 ---
@@ -176,34 +142,12 @@ draugar/
 - **Ghost Mode:** Pause sharing temporarily with one tap
 - **Single Family Group:** Everyone sees everyone, simple and focused
 
-### Out of Scope
-- Premium tiers/monetization (personal family project)
-- Multiple circles/groups (single family is sufficient)
-- Location history storage (real-time only for v1.0)
+### Future Roadmap
+- Multiple circles/groups
+- Location history storage
 - Safe zones/geofencing alerts
-- Driving safety features (crash detection, speed alerts)
-- Social features (chat, check-ins, reactions)
-- Web dashboard (mobile-first)
-- Email/password auth (invite codes preferred)
-
----
-
-## Key Technical Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| **pnpm monorepo** | Better workspace support than npm/yarn |
-| **Drizzle ORM** | Lighter weight than Prisma, pure TypeScript |
-| **Socket.IO** | Reconnection handling, mobile-friendly fallbacks |
-| **jose library** | Edge compatible, ESM native (vs jsonwebtoken) |
-| **XChaCha20-Poly1305** | Modern encryption, libsodium supported |
-| **MapLibre** | No Google dependency, privacy-respecting |
-| **expo-location** | Simpler than react-native-background-geolocation, free |
-| **Single group model** | Simpler than multi-circle, family is one unit |
-| **Invite code auth** | More controlled than email signup |
-| **Docker deployment** | Fits existing VPS setup |
-
-See [.planning/PROJECT.md](.planning/PROJECT.md) for full decision log and rationale.
+- Driving safety features
+- Web dashboard
 
 ---
 

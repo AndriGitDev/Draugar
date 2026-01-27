@@ -67,7 +67,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }): R
     if (isAuthenticated) {
       // Small delay to ensure token is saved to SecureStore
       const timer = setTimeout(() => {
-        const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'https://draugar-app.andri.is';
+        const serverUrl = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000';
         connectSocket(serverUrl);
       }, 500);
 

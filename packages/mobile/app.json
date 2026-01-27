@@ -60,9 +60,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "3b5e2cba-397b-4961-9311-4a0b91bd6731"
+        "projectId": "your-expo-project-id"
       }
     },
-    "owner": "andridev"
+    "owner": "your-expo-username"
   }
 }

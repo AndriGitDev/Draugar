@@ -2,7 +2,7 @@
 
 ## Overview
 
-From zero to a working family location sharing app. Start with foundation and backend infrastructure, add authentication and encryption layers, then build out real-time location features. End with mobile polish and deployment to Finland VPS.
+From zero to a working family location sharing app. Start with foundation and backend infrastructure, add authentication and encryption layers, then build out real-time location features. End with mobile polish and deployment to VPS.
 
 ## Milestones
 

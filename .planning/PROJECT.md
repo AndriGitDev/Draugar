@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A privacy-first family location sharing app — an ethical alternative to Life360. React Native mobile app with Node.js/TypeScript backend, self-hosted on a Finland VPS. Built for one family with maximum privacy: end-to-end encryption, minimal data collection, and full user data ownership.
+A privacy-first family location sharing app — an ethical alternative to Life360. React Native mobile app with Node.js/TypeScript backend, self-hosted on a VPS. Built for one family with maximum privacy: end-to-end encryption, minimal data collection, and full user data ownership.
 
 **Current State (v1.0):** Fully functional MVP with real-time location sharing, E2E encryption, and Docker deployment ready. 2,900 lines of TypeScript across mobile and backend packages.
 
@@ -42,7 +42,7 @@ Smooth real-time location tracking that actually works — privacy is table stak
 
 **Existing work:** Comprehensive planning docs exist (README.md, PROJECT_PLAN.md, PRIVACY_PRINCIPLES.md) but no code yet. The planning was more ambitious — this PROJECT.md reflects a focused v1.
 
-**Infrastructure:** Hetzner VPS in Finland already running Docker with Jellyseer. Backend will be another Docker container alongside existing services.
+**Infrastructure:** VPS in a privacy-friendly jurisdiction already running Docker with Jellyseer. Backend will be another Docker container alongside existing services.
 
 **Scale:** 2-10 users (one family). No need to over-engineer for scale.
 
@@ -51,7 +51,7 @@ Smooth real-time location tracking that actually works — privacy is table stak
 ## Constraints
 
 - **Tech stack**: React Native (Expo) + Node.js/TypeScript + PostgreSQL — unified TypeScript ecosystem
-- **Hosting**: Docker on existing Hetzner Finland VPS — privacy-friendly jurisdiction, existing infrastructure
+- **Hosting**: Docker on existing  VPS — privacy-friendly jurisdiction, existing infrastructure
 - **Maps**: OpenStreetMap/MapLibre only — no Google Maps, no tracking
 - **Privacy**: E2E encryption required — zero-knowledge architecture, server cannot read locations
 - **Solo dev**: Claude builds, user validates — no team coordination overhead
