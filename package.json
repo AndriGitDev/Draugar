@@ -7,5 +7,11 @@
     "typecheck": "pnpm -r typecheck",
     "postinstall": "pnpm --filter @draugar/shared build"
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "pnpm": {
+    "overrides": {
+      "socket.io-parser": ">=4.2.6",
+      "esbuild": ">=0.25.0"
+    }
+  }
 }
