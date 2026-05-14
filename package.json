@@ -12,7 +12,7 @@
     "overrides": {
       "socket.io-parser": ">=4.2.6",
       "esbuild": ">=0.25.0",
-      "@xmldom/xmldom": ">=0.8.12",
+      "@xmldom/xmldom": "0.9.10",
       "node-forge": ">=1.4.0",
       "brace-expansion@<1.1.13": "1.1.13",
       "brace-expansion@>=2.0.0 <2.0.3": "2.0.3",
@@ -24,7 +24,8 @@
       "picomatch@4.0.1": "4.0.4",
       "picomatch@4.0.2": "4.0.4",
       "picomatch@4.0.3": "4.0.4",
-      "yaml@>=2.0.0 <2.8.3": ">=2.8.3"
+      "yaml@>=2.0.0 <2.8.3": ">=2.8.3",
+      "postcss@<8.5.10": "^8.5.10"
     }
   }
 }
