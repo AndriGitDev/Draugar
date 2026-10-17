@@ -6,7 +6,8 @@
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "@draugar/shared": "workspace:*",
@@ -22,7 +23,6 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
-    "@types/libsodium-wrappers": "^0.8.2",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.18.0",
     "drizzle-kit": "^0.31.10",

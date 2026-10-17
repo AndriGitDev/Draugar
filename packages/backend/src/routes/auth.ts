@@ -28,39 +28,45 @@ router.post('/join', async (req, res, next) => {
     const trimmedName = name.trim();
     const normalizedCode = code.trim().toUpperCase();
 
-    // Find the invite code: exists, not used, not expired
-    const [invite] = await db
-      .select()
-      .from(inviteCodes)
-      .where(
-        and(
-          eq(inviteCodes.code, normalizedCode),
-          isNull(inviteCodes.usedBy),
-          or(
-            isNull(inviteCodes.expiresAt),
-            gt(inviteCodes.expiresAt, new Date())
+    // Lock, consume and create the user in one transaction. Concurrent join
+    // requests must re-check the unused/expiry predicates after acquiring it.
+    const newUser = await db.transaction(async (tx) => {
+      const [invite] = await tx
+        .select()
+        .from(inviteCodes)
+        .where(
+          and(
+            eq(inviteCodes.code, normalizedCode),
+            isNull(inviteCodes.usedBy),
+            or(
+              isNull(inviteCodes.expiresAt),
+              gt(inviteCodes.expiresAt, new Date())
+            )
           )
         )
-      )
-      .limit(1);
+        .limit(1)
+        .for('update');
 
-    if (!invite) {
-      throw ApiError.badRequest('Invalid or expired invite code');
-    }
+      if (!invite) {
+        throw ApiError.badRequest('Invalid or expired invite code');
+      }
 
-    // Create user
-    const [newUser] = await db
-      .insert(users)
-      .values({
-        name: trimmedName,
-      })
-      .returning();
+      // Create user
+      const [newUser] = await tx
+        .insert(users)
+        .values({
+          name: trimmedName,
+        })
+        .returning();
 
-    // Mark invite code as used
-    await db
-      .update(inviteCodes)
-      .set({ usedBy: newUser.id })
-      .where(eq(inviteCodes.id, invite.id));
+      // Mark invite code as used
+      await tx
+        .update(inviteCodes)
+        .set({ usedBy: newUser.id })
+        .where(eq(inviteCodes.id, invite.id));
+
+      return newUser;
+    });
 
     // Sign JWT
     const token = await signToken({
