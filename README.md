@@ -95,7 +95,7 @@ The server never has access to plaintext location data — true end-to-end encry
 This project is a `pnpm` monorepo with packages for mobile and backend.
 
 ### Prerequisites
-- Node.js 20+ LTS
+- Node.js 24 LTS
 - pnpm (`npm install -g pnpm`)
 - Git
 - Docker (for local PostgreSQL)
@@ -111,7 +111,8 @@ pnpm install
 
 # Set up environment variables
 cp packages/backend/.env.example packages/backend/.env
-# Edit packages/backend/.env with your DATABASE_URL, JWT_SECRET, etc.
+# Edit packages/backend/.env with your DATABASE_URL and a random JWT_SECRET.
+# Generate a key with: openssl rand -base64 32
 
 # Run database migrations
 pnpm --filter backend db:push
@@ -119,6 +120,18 @@ pnpm --filter backend db:push
 # Start development servers (backend + mobile)
 pnpm dev
 ```
+
+The backend refuses to start if `JWT_SECRET` is missing, shorter than 32 bytes,
+or equal to the former development default. Configuration is loaded before the
+database and authentication modules. Keep the existing signing key when upgrading
+a correctly configured instance; rotate it if an instance used the old fallback
+(all existing tokens will then be invalidated).
+
+Backend checks: `pnpm --filter @draugar/shared build`, then
+`pnpm --filter @draugar/backend typecheck`, `build`, and `test`.
+The concurrent invite integration test requires a disposable local PostgreSQL
+database with a name ending in `_test`, supplied through `TEST_DATABASE_URL`.
+It creates and removes its own schema.
 
 ### Package Structure
 ```

@@ -1,8 +1,8 @@
 # Stage 1: Builder
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+RUN npm install --global pnpm@9.15.0
 
 WORKDIR /app
 
@@ -25,7 +25,7 @@ RUN pnpm --filter @draugar/shared build
 RUN pnpm --filter @draugar/backend build
 
 # Stage 2: Runtime
-FROM node:20-alpine
+FROM node:24-alpine
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
@@ -34,7 +34,7 @@ RUN addgroup -g 1001 -S nodejs && \
 WORKDIR /app
 
 # Install pnpm for production install
-RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+RUN npm install --global pnpm@9.15.0
 
 # Copy workspace configuration for production install
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
