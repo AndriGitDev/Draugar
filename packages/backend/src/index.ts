@@ -1,15 +1,12 @@
+import 'dotenv/config';
 import { createServer } from 'http';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import routes from './routes';
 import { requestLogger } from './middleware/requestLogger';
 import { errorHandler } from './middleware/errorHandler';
 import { createWebSocketServer } from './ws';
 import { initSodium } from './crypto';
-
-// Load environment variables
-dotenv.config();
 
 async function main() {
   // Initialize crypto library before anything else

@@ -1,4 +1,5 @@
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
+import { requireJwtSecret } from '../config';
 
 /**
  * JWT payload structure for authenticated users
@@ -8,9 +9,7 @@ export interface AuthTokenPayload extends JWTPayload {
   name: string;
 }
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'development-secret-change-in-production'
-);
+const JWT_SECRET = requireJwtSecret();
 
 const ALGORITHM = 'HS256';
 const TOKEN_EXPIRY = '30d'; // 30-day expiry for family app
