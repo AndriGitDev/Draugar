@@ -1,5 +1,5 @@
 # Stage 1: Builder
-FROM node:24-alpine AS builder
+FROM node:24.22.1-alpine AS builder
 
 # Install pnpm
 RUN npm install --global pnpm@9.15.0
@@ -25,7 +25,7 @@ RUN pnpm --filter @draugar/shared build
 RUN pnpm --filter @draugar/backend build
 
 # Stage 2: Runtime
-FROM node:24-alpine
+FROM node:24.22.1-alpine
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
