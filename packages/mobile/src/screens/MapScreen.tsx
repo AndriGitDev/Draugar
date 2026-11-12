@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { MapView, Camera, UserLocation, MarkerView, UserTrackingMode } from '@maplibre/maplibre-react-native';
+import { Map, Camera, UserLocation, Marker } from '@maplibre/maplibre-react-native';
 import { useLocation } from '../context/LocationContext';
 import { colors } from '../theme/colors';
 import { AnimatedButton } from '../components';
@@ -26,40 +26,38 @@ export function MapScreen(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <MapView
+      <Map
         style={styles.map}
         mapStyle={OPENFREEMAP_STYLE}
-        logoEnabled={true}
-        attributionEnabled={true}
+        logo={true}
+        attribution={true}
       >
         <Camera
-          zoomLevel={14}
-          followUserLocation={true}
-          followUserMode={UserTrackingMode.Follow}
-          animationMode="flyTo"
-          animationDuration={1000}
+          zoom={14}
+          trackUserLocation="default"
+          easing="fly"
+          duration={1000}
         />
 
         <UserLocation
-          visible={true}
           animated={true}
-          showsUserHeadingIndicator={true}
+          heading={true}
           minDisplacement={10}
         />
 
         {familyMembers.map((member) => (
-          <MarkerView
+          <Marker
             key={member.id}
-            coordinate={[member.longitude, member.latitude]}
+            lngLat={[member.longitude, member.latitude]}
           >
             <View style={styles.marker}>
               <Text style={styles.markerText}>
                 {member.name.charAt(0).toUpperCase()}
               </Text>
             </View>
-          </MarkerView>
+          </Marker>
         ))}
-      </MapView>
+      </Map>
 
       <View style={styles.controls}>
         {isTracking && (
