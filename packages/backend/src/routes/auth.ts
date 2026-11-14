@@ -6,6 +6,7 @@ import { signToken } from '../utils/jwt';
 import { authMiddleware } from '../middleware/auth';
 import { ApiError } from '../utils/ApiError';
 import { inviteRedemptionLimiter } from '../middleware/inviteRateLimit';
+import { authenticatedApiLimiter } from '../middleware/apiRateLimit';
 
 const router: RouterType = Router();
 
@@ -94,7 +95,7 @@ router.post('/join', inviteRedemptionLimiter, async (req, res, next) => {
  * Requires: Authorization: Bearer <token>
  * Response: { id: string, name: string }
  */
-router.get('/me', authMiddleware, async (req, res) => {
+router.get('/me', authenticatedApiLimiter, authMiddleware, async (req, res) => {
   // User is guaranteed to exist from authMiddleware
   res.json({
     id: req.user!.userId,
