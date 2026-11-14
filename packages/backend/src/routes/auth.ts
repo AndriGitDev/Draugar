@@ -5,6 +5,7 @@ import { db, inviteCodes, users } from '../db';
 import { signToken } from '../utils/jwt';
 import { authMiddleware } from '../middleware/auth';
 import { ApiError } from '../utils/ApiError';
+import { inviteRedemptionLimiter } from '../middleware/inviteRateLimit';
 
 const router: RouterType = Router();
 
@@ -13,7 +14,7 @@ const router: RouterType = Router();
  * Body: { code: string, name: string }
  * Response: AuthResponse { token, user: { id, name } }
  */
-router.post('/join', async (req, res, next) => {
+router.post('/join', inviteRedemptionLimiter, async (req, res, next) => {
   try {
     const { code, name } = req.body;
 
