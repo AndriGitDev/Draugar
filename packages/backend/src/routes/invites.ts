@@ -4,6 +4,7 @@ import { db, inviteCodes } from '../db';
 import { generateInviteCode } from '../utils/inviteCode';
 import { authMiddleware } from '../middleware/auth';
 import { ApiError } from '../utils/ApiError';
+import { inviteCreationLimiter, inviteRedemptionLimiter } from '../middleware/inviteRateLimit';
 
 const router: RouterType = Router();
 
@@ -13,7 +14,7 @@ const router: RouterType = Router();
  * Body: { expiresInHours?: number } (optional, null = never expires)
  * Response: { code: string, expiresAt: string | null }
  */
-router.post('/', authMiddleware, async (req, res, next) => {
+router.post('/', inviteCreationLimiter, authMiddleware, async (req, res, next) => {
   try {
     const { expiresInHours } = req.body;
 
@@ -47,7 +48,7 @@ router.post('/', authMiddleware, async (req, res, next) => {
  * Body: { code: string }
  * Response: { valid: boolean, code?: string }
  */
-router.post('/validate', async (req, res, next) => {
+router.post('/validate', inviteRedemptionLimiter, async (req, res, next) => {
   try {
     const { code } = req.body;
 

@@ -18,7 +18,8 @@
     "jose": "^6.2.14",
     "libsodium-wrappers": "^0.8.4",
     "pg": "^8.23.1",
-    "socket.io": "^4.8.4"
+    "socket.io": "^4.8.4",
+    "express-rate-limit": "8.7.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

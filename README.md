@@ -185,3 +185,13 @@ For detailed privacy principles and architecture, see [PRIVACY_PRINCIPLES.md](PR
 ---
 
 **Built with privacy, for family.**
+
+### Invite abuse limits
+
+Invite validation and account joins share a limit of 20 attempts per 15 minutes
+per server-observed client IP. Invite creation allows 30 requests per 15 minutes.
+Rejected requests return HTTP 429 and Retry-After. Forwarded headers are not
+trusted by default; deployments behind a proxy share that proxy's budget until
+an exact trusted-proxy topology is configured. These limits use a per-process
+memory store, reset on restart, and are not a fleet-wide distributed quota.
+Configure a shared store before scaling the backend across workers.
