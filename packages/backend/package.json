@@ -12,10 +12,10 @@
   "dependencies": {
     "@draugar/shared": "workspace:*",
     "cors": "^2.8.6",
-    "dotenv": "^18.0.9",
+    "dotenv": "^18.0.10",
     "drizzle-orm": "^0.45.4",
     "express": "^5.3.0",
-    "jose": "^6.2.14",
+    "jose": "^6.2.17",
     "libsodium-wrappers": "^0.8.4",
     "pg": "^8.23.1",
     "socket.io": "^4.8.4",
