@@ -17,6 +17,11 @@ function getStatusColor(statusCode: number): string {
   return colors.green;
 }
 
+// Keep request-controlled fields on one log line, including terminal controls.
+function safeLogField(value: string): string {
+  return JSON.stringify(value).replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+}
+
 export function requestLogger(
   req: Request,
   res: Response,
@@ -30,7 +35,7 @@ export function requestLogger(
     const statusColor = getStatusColor(res.statusCode);
 
     console.log(
-      `${colors.dim}[${timestamp}]${colors.reset} ${colors.cyan}${req.method}${colors.reset} ${req.originalUrl} - ${statusColor}${res.statusCode}${colors.reset} - ${duration}ms`
+      `${colors.dim}[${timestamp}]${colors.reset} ${colors.cyan}${safeLogField(req.method)}${colors.reset} ${safeLogField(req.originalUrl)} - ${statusColor}${res.statusCode}${colors.reset} - ${duration}ms`
     );
   });
 
